@@ -6,6 +6,7 @@ import Dyslexia from './modules/dyslexia/dyslexia.jsx'
 import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import Adhd from './modules/adhd/adhd.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
+import Dyspraxia from './modules/dyspraxia/dyspraxia.jsx'
 
 function App() {
   const [serverStatus, setServerStatus] = useState("...")
@@ -63,6 +64,7 @@ function App() {
           <Route path="/dyslexia" element={<Dyslexia />} />
           <Route path="/dyscalculia" element={<DyscalculiaModule />} />
           <Route path="/adhd" element={<Adhd />} />
+          <Route path="/dyspraxia" element={<Dyspraxia />} />
         </Routes>
       </div>
     </Router>
@@ -156,6 +158,24 @@ function App() {
               <h3 className="text-xl font-semibold text-text mb-2">ADHD Assessment</h3>
               <p className="text-subtext0 text-sm">Neuro-cognitive screening with AI-powered analysis</p>
               <div className="mt-4 text-mauve font-medium text-sm hover:text-lavender">
+                Get Started →
+              </div>
+            </div>
+          </Link>
+
+          <Link
+            to="/dyspraxia"
+            className="glass-card rounded-2xl p-6 w-80"
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 bg-pink/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-text mb-2">Dyspraxia & Motor</h3>
+              <p className="text-subtext0 text-sm">Air-Canvas assessment for fine motor skills and spatial coordination</p>
+              <div className="mt-4 text-pink font-medium text-sm hover:text-flamingo">
                 Get Started →
               </div>
             </div>
