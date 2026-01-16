@@ -3,10 +3,12 @@ AI Services Module - Handles all external API calls (Groq and Google AI Studio)
 All API calls are made from the backend, not frontend
 """
 
-import os
 import json
+import os
+from typing import Any, Dict, Optional
+
 import httpx
-from typing import Dict, Any, Optional
+from google import genai
 from pydantic import BaseModel
 
 
@@ -53,15 +55,8 @@ class AIServiceConfig:
         return os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
     @staticmethod
-    def get_google_endpoint():
-        return os.getenv(
-            "GOOGLE_ENDPOINT",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
-        )
-
-    @staticmethod
-    def get_google_api_key():
-        return os.getenv("GOOGLE_API_KEY")
+    def get_gemini_api_key():
+        return os.getenv("GEMINI_API_KEY")
 
     @staticmethod
     def get_api_timeout():
@@ -173,55 +168,31 @@ async def call_groq_api(prompt: str) -> Dict[str, Any]:
             raise Exception(f"Invalid JSON in Groq response: {str(e)}")
 
 
-async def call_google_ai_api(prompt: str) -> Dict[str, Any]:
-    """Call Google AI Studio API with timeout"""
-    api_key = AIServiceConfig.get_google_api_key()
-    if not api_key:
-        raise Exception("Google AI API key not configured")
+async def call_gemini_api(prompt: str) -> Dict[str, Any]:
+    """Call Gemini API with timeout"""
+    try:
+        client = genai.Client().aio
 
-    url = AIServiceConfig.get_google_endpoint()
+        response = await client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=[prompt],
+            config=genai.types.GenerateContentConfig(
+                temperature=0.3,
+            ),
+        )
 
-    async with httpx.AsyncClient(timeout=AIServiceConfig.get_api_timeout()) as client:
-        try:
-            response = await client.post(
-                url,
-                headers={
-                    "Content-Type": "application/json",
-                    "x-goog-api-key": api_key,
-                },
-                json={
-                    "contents": [{"parts": [{"text": prompt}]}],
-                    "generationConfig": {"temperature": 0.3, "maxOutputTokens": 1000},
-                },
-            )
-            response.raise_for_status()
-            result = response.json()
+        if not response or not response.text:
+            raise Exception("Failed to generate with Gemini")
 
-            content = (
-                result.get("candidates", [{}])[0]
-                .get("content", {})
-                .get("parts", [{}])[0]
-                .get("text")
-            )
-            if not content:
-                raise Exception("Invalid Google AI response structure")
-
-            return json.loads(content.strip())
-
-        except httpx.TimeoutException:
-            raise Exception("Google AI API timeout after 5 seconds")
-        except httpx.HTTPStatusError as e:
-            raise Exception(
-                f"Google AI API failed: {e.response.status_code} - {e.response.text}"
-            )
-        except json.JSONDecodeError as e:
-            raise Exception(f"Invalid JSON in Google AI response: {str(e)}")
+        return json.loads(response.text)
+    except json.JSONDecodeError as e:
+        raise Exception(f"Invalid JSON in Gemini response: {str(e)}")
 
 
 async def get_ai_analysis(session_data: Dict[str, Any]) -> AIAnalysisResponse:
     """
     Get AI analysis from session data
-    Tries Groq first, falls back to Google AI Studio
+    Tries Groq first, falls back to Gemini
     """
     prompt = format_analysis_prompt(session_data)
 
@@ -236,20 +207,20 @@ async def get_ai_analysis(session_data: Dict[str, Any]) -> AIAnalysisResponse:
         except Exception as e:
             print(f"Groq API failed: {str(e)}")
     else:
-        print("Groq not configured, skipping to Google AI")
+        print("Groq not configured, skipping to Gemini")
 
-    # Fallback to Google AI Studio
-    google_key = AIServiceConfig.get_google_api_key()
-    if google_key:
+    # Fallback to Gemini
+    gemini_key = AIServiceConfig.get_gemini_api_key()
+    if gemini_key:
         try:
-            print("Attempting Google AI API call...")
-            result = await call_google_ai_api(prompt)
-            print("Google AI API call successful")
+            print("Attempting Gemini API call...")
+            result = await call_gemini_api(prompt)
+            print("Gemini API call successful")
             return AIAnalysisResponse(**result)
         except Exception as e:
-            print(f"Google AI API failed: {str(e)}")
+            print(f"Gemini API failed: {str(e)}")
     else:
-        print("Google AI not configured")
+        print("Gemini not configured")
 
     # If both fail
     raise Exception("All AI API calls failed. Please check API key configuration.")
