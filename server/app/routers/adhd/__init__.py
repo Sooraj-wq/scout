@@ -180,7 +180,7 @@ Return ONLY the HTML content, no markdown code blocks."""
                 temperature=0.7,
                 top_p=0.95,
                 top_k=40,
-                max_output_tokens=1024,
+                max_output_tokens=2048,
             )
         )
         
@@ -195,7 +195,13 @@ Return ONLY the HTML content, no markdown code blocks."""
         if analysis.endswith("```"):
             analysis = analysis[:-3]
         
-        return analysis.strip()
+        cleaned = analysis.strip()
+
+        # Basic guard to ensure we return complete HTML content
+        if cleaned and not cleaned.endswith("</p>"):
+            cleaned = f"{cleaned}</p>"
+
+        return cleaned
     
     except Exception as e:
         print(f"Gemini API Error: {e}")

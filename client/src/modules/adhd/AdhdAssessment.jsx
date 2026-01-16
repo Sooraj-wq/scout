@@ -182,6 +182,8 @@ const AdhdAssessment = () => {
     );
   }
 
+  const displayPhase = Math.min(Math.max(currentPhase, 1), 3);
+
   return (
     <div className="min-h-screen bg-base">
       {/* Progress Bar */}
@@ -189,12 +191,12 @@ const AdhdAssessment = () => {
         <div className="max-w-6xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xl font-bold text-text">ADHD Assessment</h2>
-            <span className="text-subtext1 text-sm">Phase {currentPhase} of 3</span>
+            <span className="text-subtext1 text-sm">Phase {displayPhase} of 3</span>
           </div>
           <div className="w-full bg-surface0 rounded-full h-3">
             <div 
               className="bg-gradient-to-r from-mauve to-peach h-3 rounded-full transition-all duration-500"
-              style={{ width: `${(currentPhase / 3) * 100}%` }}
+              style={{ width: `${(displayPhase / 3) * 100}%` }}
             ></div>
           </div>
         </div>
