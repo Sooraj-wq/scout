@@ -83,10 +83,11 @@ body {
   justify-content: center;
 }
 
-.module-wrapper {
-  width: 100%;
-  max-width: 600px;
-  min-height: 700px;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
 }
 
 .logo:hover {
@@ -107,26 +108,6 @@ body {
   }
 }
 
-.module-wrapper.coming-soon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--catppuccin-surface0);
-  border-radius: 28px;
-  padding: 48px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-  min-height: 400px;
-}
-
-.module-wrapper.coming-soon h2 {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--catppuccin-text);
-  margin-bottom: 12px;
-}
-
-.module-wrapper.coming-soon p {
-  font-size: 16px;
-  color: var(--catppuccin-subtext0);
+.card {
+  padding: 2em;
 }
