@@ -3,6 +3,7 @@ import { useGameStore } from './state/gameState';
 import { logPhaseChange, logSessionEnd, checkAdaptiveTests } from './utils/eventLogger';
 import { analyzePatterns, calculateOverallScore } from './utils/patternDetector';
 import { generateExplanation } from './utils/explanationGenerator';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   WarmupFreePlay,
   WarmupComparison,
@@ -45,12 +46,13 @@ const getTaskDifficulty = (taskIndex, difficulty) => {
   return Math.min(difficulty, 8);
 };
 
-export const DyscalculiaModule = () => {
+export export const DyscalculiaModule = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [difficulty, setDifficulty] = useState(1);
   const [showResults, setShowResults] = useState(false);
   const [taskSequence, setTaskSequence] = useState(baseTaskSequence);
   const [maxTests, setMaxTests] = useState(11); // Start with base 11, can extend to 20
+  const { t } = useLanguage();
   
   const {
     phase,

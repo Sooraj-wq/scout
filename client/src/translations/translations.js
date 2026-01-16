@@ -1,0 +1,42 @@
+export const translations = {
+  en: {
+    appTitle: "SCOUT",
+    appSubtitle: "Learning Analysis Platform",
+    selectModule: "Select a module below to begin analysis",
+    server: "Server",
+    dysgraphiaTitle: "Dysgraphia Analysis",
+    dysgraphiaDesc: "Analyze handwriting and writing samples for dysgraphia indicators",
+    dyslexiaTitle: "Dyslexia Analysis",
+    dyslexiaDesc: "Upload handwriting samples to assess dyslexia-associated visual patterns",
+    dyscalculiaTitle: "Dyscalculia Analysis",
+    dyscalculiaDesc: "Interactive tasks to assess numerical processing and mathematical cognition",
+    adhdTitle: "ADHD Assessment",
+    adhdDesc: "Neuro-cognitive screening with AI-powered analysis",
+    dyspraxiaTitle: "Dyspraxia Assessment",
+    dyspraxiaDesc: "Motor coordination and movement pattern analysis",
+    getStarted: "Get Started →",
+    adhdHeading: "Neuro-Cognitive Suite",
+    adhdSub: "ADHD Screening Assessment",
+    adhdIntroText: "Welcome to the comprehensive ADHD screening tool. This assessment evaluates three key cognitive domains affected by attention disorders through scientifically-validated tasks."
+  },
+  ml: {
+    appTitle: "SCOUT",
+    appSubtitle: "പഠന വിശകലന പ്ലാറ്റ്ഫോം",
+    selectModule: "വിശകലനം ആരംഭിക്കാൻ താഴെ ഒരു മൊഡ്യൂൾ തിരഞ്ഞെടുക്കുക",
+    server: "സെർവർ",
+    dysgraphiaTitle: "ഡിസ്ഗ്രാഫിയ വിശകലനം",
+    dysgraphiaDesc: "ഡിസ്ഗ്രാഫിയ സൂചകങ്ങൾക്കായി കൈയെഴുത്ത് എഴുത്ത് സാമ്പിളുകൾ വിശകലനം ചെയ്യുക",
+    dyslexiaTitle: "ഡിസ്ലെക്സിയ വിശകലനം",
+    dyslexiaDesc: "ഡിസ്ലെക്സിയ-ബന്ധപ്പെട്ട ദൃശ്യ പാറ്റേണുകൾ വിലയിരുത്താൻ കൈയെഴുത്ത് സാമ്പിളുകൾ അപ്‌ലോഡ് ചെയ്യുക",
+    dyscalculiaTitle: "ഡിസ്കാൽക്കുലിയ വിശകലനം",
+    dyscalculiaDesc: "സംഖ്യാപരമായ പ്രോസസ്സിംഗും ഗണിതശാസ്ത്ര അറിവും വിലയിരുത്താൻ ഇന്ററാക്ടീവ് ടാസ്‌ക്കുകൾ",
+    adhdTitle: "ADHD വിലയിരുത്തൽ",
+    adhdDesc: "AI-പവർഡ് വിശകലനത്തോടുകൂടിയ ന്യൂറോ-കോഗ്നിറ്റീവ് സ്ക്രീനിംഗ്",
+    dyspraxiaTitle: "ഡിസ്പ്രാക്സിയ വിലയിരുത്തൽ",
+    dyspraxiaDesc: "മോട്ടോർ ഏകോപനവും മൂവ്മെന്റ് പാറ്റേൺ വിശകലനവും",
+    getStarted: "ആരംഭിക്കൂ →",
+    adhdHeading: "ന്യൂറോ-കോഗ്നിറ്റീവ് സ്യൂട്ട്",
+    adhdSub: "ADHD സ്ക്രീനിംഗ് വിലയിരുത്തൽ",
+    adhdIntroText: "സമഗ്രമായ ADHD സ്ക്രീനിംഗ് ടൂളിലേക്ക് സ്വാഗതം. ഈ വിലയിരുത്തൽ ശാസ്ത്രീയമായി സാധൂകരിക്കപ്പെട്ട ടാസ്‌ക്കുകൾ വഴി ശ്രദ്ധാ ഡിസോർഡറുകൾ ബാധിക്കുന്ന മൂന്ന് പ്രധാന കോഗ്നിറ്റീവ് ഡൊമെയ്‌നുകൾ വിലയിരുത്തുന്നു."
+  }
+};
