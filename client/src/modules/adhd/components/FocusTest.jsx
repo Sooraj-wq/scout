@@ -16,9 +16,20 @@ const FocusTest = ({ onComplete }) => {
   const completedRef = useRef(false);
   const hideTimeoutRef = useRef(null);
   const timeLeftRef = useRef(45);
+  const numberBagRef = useRef([]);
 
   const generateRandomNumber = useCallback(() => {
-    return Math.floor(Math.random() * 9) + 1; // 1-9
+    if (numberBagRef.current.length === 0) {
+      // Create a bag with numbers 1-9 to ensure 7 appears at least once per cycle
+      const newBag = Array.from({ length: 9 }, (_, i) => i + 1);
+      // Shuffle the bag
+      for (let i = newBag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newBag[i], newBag[j]] = [newBag[j], newBag[i]];
+      }
+      numberBagRef.current = newBag;
+    }
+    return numberBagRef.current.pop();
   }, []);
 
   const handleKeyPress = useCallback((e) => {
@@ -170,11 +181,7 @@ const FocusTest = ({ onComplete }) => {
       <div className="glass-panel rounded-3xl w-full max-w-md aspect-square flex items-center justify-center relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-mauve/5 to-blue/5 opacity-50"></div>
         {isVisible && currentNumber && (
-          <span className={`text-[10rem] font-bold transition-all duration-100 ${
-            currentNumber === 7 
-              ? 'text-transparent bg-clip-text bg-gradient-to-b from-peach to-red scale-110 drop-shadow-[0_0_30px_rgba(250,179,135,0.4)]' 
-              : 'text-mauve drop-shadow-[0_0_10px_rgba(203,166,247,0.3)]'
-          }`}>
+          <span className="text-[10rem] font-bold transition-all duration-100 text-mauve drop-shadow-[0_0_10px_rgba(203,166,247,0.3)]">
             {currentNumber}
           </span>
         )}
