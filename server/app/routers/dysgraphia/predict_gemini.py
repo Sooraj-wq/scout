@@ -63,7 +63,7 @@ class GeminiPredictor:
             image = Image.open(image_path)
 
             response = await self.client.models.generate_content(
-                model="gemini-2.0-flash",
+                model="gemini-2.5-flash",
                 contents=[image],
                 config=genai.types.GenerateContentConfig(
                     temperature=0.2,
