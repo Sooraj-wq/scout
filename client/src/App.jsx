@@ -8,9 +8,12 @@ import Adhd from './modules/adhd/adhd.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import ParentQuiz from './modules/parent-quiz/ParentQuiz.jsx'
 import Dyspraxia from './modules/dyspraxia/dyspraxia.jsx'
+import LanguageToggle from './components/LanguageToggle.jsx'
+import { useLanguage } from './context/LanguageContext.jsx'
 
 function App() {
   const [serverStatus, setServerStatus] = useState("...")
+  const { t } = useLanguage()
 
   useEffect(() => {
     let isMounted = true
@@ -51,8 +54,9 @@ function App() {
               <div className="flex items-center gap-3">
                 <div className="glass-card px-4 py-1.5 rounded-full text-xs font-medium text-subtext1 flex items-center gap-2">
                   <span className={`w-2 h-2 rounded-full ${serverStatus === 'healthy' ? 'bg-green shadow-[0_0_8px_rgba(166,227,161,0.6)]' : 'bg-red'}`}></span>
-                  Server: {serverStatus}
+                  {t('server')}: {serverStatus}
                 </div>
+                <LanguageToggle />
                 <ThemeToggle />
               </div>
             </div>
@@ -73,18 +77,20 @@ function App() {
   )
 
   function Home() {
+    const { t } = useLanguage()
+
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center mb-16 animate-fade-in-up">
           <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter">
-            SCOUT
+            {t('appTitle')}
           </h1>
           <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide">
-            (Student Cognitive Observation & Understanding Tool)
+            {t('appSubtitle')}
           </p>
           <div className="mt-8 glass inline-block px-6 py-2 rounded-full border border-black/5">
             <p className="text-lg text-subtext1">
-              Select a module below to begin analysis
+              {t('selectModule')}
             </p>
           </div>
         </div>
@@ -100,10 +106,10 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">Dysgraphia Analysis</h3>
-              <p className="text-subtext0 text-sm">Analyze handwriting and writing samples for dysgraphia indicators</p>
+              <h3 className="text-xl font-semibold text-text mb-2">{t('dysgraphiaTitle')}</h3>
+              <p className="text-subtext0 text-sm">{t('dysgraphiaDesc')}</p>
               <div className="mt-4 text-blue font-medium text-sm hover:text-sky">
-                Get Started →
+                {t('getStarted')}
               </div>
             </div>
           </Link>
@@ -119,12 +125,12 @@ function App() {
                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">Dyslexia Analysis</h3>
+              <h3 className="text-xl font-semibold text-text mb-2">{t('dyslexiaTitle')}</h3>
               <p className="text-subtext0 text-sm">
-                Upload handwriting samples to assess dyslexia-associated visual patterns
+                {t('dyslexiaDesc')}
               </p>
               <div className="mt-4 text-mauve font-medium text-sm hover:text-lavender">
-                Get Started →
+                {t('getStarted')}
               </div>
             </div>
           </Link>
@@ -139,10 +145,10 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">Dyscalculia Analysis</h3>
-              <p className="text-subtext0 text-sm">Interactive tasks to assess numerical processing and mathematical cognition</p>
+              <h3 className="text-xl font-semibold text-text mb-2">{t('dyscalculiaTitle')}</h3>
+              <p className="text-subtext0 text-sm">{t('dyscalculiaDesc')}</p>
               <div className="mt-4 text-green font-medium text-sm hover:text-teal">
-                Get Started →
+                {t('getStarted')}
               </div>
             </div>
           </Link>
@@ -156,10 +162,10 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">ADHD Assessment</h3>
-              <p className="text-subtext0 text-sm">Neuro-cognitive screening with AI-powered analysis</p>
+              <h3 className="text-xl font-semibold text-text mb-2">{t('adhdTitle')}</h3>
+              <p className="text-subtext0 text-sm">{t('adhdDesc')}</p>
               <div className="mt-4 text-mauve font-medium text-sm hover:text-lavender">
-                Get Started →
+                {t('getStarted')}
               </div>
             </div>
           </Link>
@@ -174,10 +180,10 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">Dyspraxia & Motor</h3>
-              <p className="text-subtext0 text-sm">Air-Canvas assessment for fine motor skills and spatial coordination</p>
+              <h3 className="text-xl font-semibold text-text mb-2">{t('dyspraxiaTitle')}</h3>
+              <p className="text-subtext0 text-sm">{t('dyspraxiaDesc')}</p>
               <div className="mt-4 text-pink font-medium text-sm hover:text-flamingo">
-                Get Started →
+                {t('getStarted')}
               </div>
             </div>
           </Link>

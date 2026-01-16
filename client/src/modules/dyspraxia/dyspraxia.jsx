@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AirCanvas from './components/AirCanvas';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Dyspraxia = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-transparent p-8 font-sans text-text">
@@ -14,10 +16,10 @@ const Dyspraxia = () => {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Back to Home
+                {t('backToHome')}
             </Link>
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-mauve to-blue">
-                Dyspraxia & Motor Coordination
+                {t('dyspraxiaHeading')}
             </h1>
             </div>
         </div>
@@ -33,24 +35,23 @@ const Dyspraxia = () => {
                         </svg>
                     </div>
 
-                    <h2 className="text-4xl font-bold text-text mb-6">Air Canvas Assessment</h2>
+                    <h2 className="text-4xl font-bold text-text mb-6">{t('airCanvasTitle')}</h2>
                     <p className="text-xl text-subtext0 mb-8 max-w-2xl mx-auto leading-relaxed">
-                        Assess fine motor skills and spatial coordination by drawing in the air. 
-                        We use AI to track your hand movements and analyze coordination patterns.
+                        {t('airCanvasDesc')}
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-left">
                         <div className="glass p-6 rounded-2xl border border-white/10">
-                            <div className="text-mauve mb-3 font-semibold text-lg">👉 Point to Draw</div>
-                            <p className="text-subtext1 text-sm">Raise your index finger to draw lines on the screen.</p>
+                            <div className="text-mauve mb-3 font-semibold text-lg">👉 {t('pointToDraw')}</div>
+                            <p className="text-subtext1 text-sm">{t('pointToDrawDesc')}</p>
                         </div>
                         <div className="glass p-6 rounded-2xl border border-white/10">
-                            <div className="text-blue mb-3 font-semibold text-lg">✋ Palm to Hover</div>
-                            <p className="text-subtext1 text-sm">Open your hand to move the cursor without drawing.</p>
+                            <div className="text-blue mb-3 font-semibold text-lg">✋ {t('palmToHover')}</div>
+                            <p className="text-subtext1 text-sm">{t('palmToHoverDesc')}</p>
                         </div>
                         <div className="glass p-6 rounded-2xl border border-white/10">
-                            <div className="text-pink mb-3 font-semibold text-lg">✊ Fist to Clear</div>
-                            <p className="text-subtext1 text-sm">Close your hand into a fist to clear the canvas.</p>
+                            <div className="text-pink mb-3 font-semibold text-lg">✊ {t('fistToClear')}</div>
+                            <p className="text-subtext1 text-sm">{t('fistToClearDesc')}</p>
                         </div>
                     </div>
 
@@ -58,7 +59,7 @@ const Dyspraxia = () => {
                         onClick={() => setIsPlaying(true)}
                         className="glass-button px-12 py-4 rounded-full text-xl font-bold group relative overflow-hidden"
                     >
-                        <span className="relative z-10">Start Assessment</span>
+                        <span className="relative z-10">{t('startAssessment')}</span>
                         <div className="absolute inset-0 bg-gradient-to-r from-mauve to-blue opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     </button>
                 </div>

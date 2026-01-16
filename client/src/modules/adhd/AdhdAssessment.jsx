@@ -3,6 +3,7 @@ import FocusTest from './components/FocusTest';
 import WorkingMemoryTest from './components/WorkingMemoryTest';
 import MotorStabilityTest from './components/MotorStabilityTest';
 import ResultsDisplay from './components/ResultsDisplay';
+import { useLanguage } from '../../context/LanguageContext';
 
 const AdhdAssessment = () => {
   const [currentPhase, setCurrentPhase] = useState(0); // 0: intro, 1-3: tests, 4: loading, 5: results
@@ -13,6 +14,7 @@ const AdhdAssessment = () => {
   });
   const [results, setResults] = useState(null);
   const [aiAnalysis, setAiAnalysis] = useState(null);
+  const { t } = useLanguage();
 
   const handleFocusComplete = (data) => {
     setTestData(prev => ({ ...prev, sart: data }));
@@ -94,16 +96,15 @@ const AdhdAssessment = () => {
         <div className="glass-panel rounded-3xl p-12 max-w-4xl">
           <div className="text-center mb-12 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-mauve opacity-20 blur-3xl rounded-full pointer-events-none"></div>
-            <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 tracking-tight drop-shadow-[0_2px_10px_rgba(236,72,153,0.3)]">Neuro-Cognitive Suite</h1>
+            <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 tracking-tight drop-shadow-[0_2px_10px_rgba(236,72,153,0.3)]">{t('adhdHeading')}</h1>
             <div className="inline-block glass px-6 py-2 rounded-full border border-peach/30">
-              <p className="text-xl text-peach font-bold tracking-wide uppercase">ADHD Screening Assessment</p>
+              <p className="text-xl text-peach font-bold tracking-wide uppercase">{t('adhdSub')}</p>
             </div>
           </div>
           
           <div className="text-text space-y-8 mb-12 relative z-10">
             <p className="text-xl leading-relaxed text-center max-w-2xl mx-auto text-subtext0">
-              Welcome to the comprehensive ADHD screening tool. This assessment evaluates three key 
-              cognitive domains affected by attention disorders through scientifically-validated tasks.
+              {t('adhdIntroText')}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -151,7 +152,7 @@ const AdhdAssessment = () => {
             onClick={startAssessment}
             className="w-full bg-gradient-to-r from-mauve to-blue hover:from-mauve/90 hover:to-blue/90 text-base font-bold py-5 px-8 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(203,166,247,0.3)] hover:shadow-[0_0_30px_rgba(203,166,247,0.5)] transform hover:-translate-y-1 text-crust tracking-wide text-lg"
           >
-            Begin Assessment
+            {t('beginAssessment')}
           </button>
         </div>
       </div>

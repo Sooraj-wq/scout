@@ -3,6 +3,7 @@ import Webcam from 'react-webcam';
 import { Hands, HAND_CONNECTIONS, RESULTS } from '@mediapipe/hands';
 import { Camera } from '@mediapipe/camera_utils';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const AirCanvas = () => {
     const webcamRef = useRef(null);
@@ -11,6 +12,7 @@ const AirCanvas = () => {
     const [mode, setMode] = useState("Loading..."); 
     const pointsRef = useRef([[]]); 
     const [colorIndex, setColorIndex] = useState(0);
+    const { t } = useLanguage();
 
     // TEST STATE
     const [testActive, setTestActive] = useState(false);
@@ -258,7 +260,7 @@ const AirCanvas = () => {
             {/* Status Bar */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 glass px-6 py-2 rounded-full flex items-center gap-4 border border-white/20 whitespace-nowrap">
                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-subtext0">Mode:</span>
+                    <span className="text-sm font-bold text-subtext0">{t('mode')}:</span>
                     <span className="text-base font-bold text-blue animate-pulse">{mode}</span>
                  </div>
                  
@@ -266,9 +268,9 @@ const AirCanvas = () => {
                      <>
                         <div className="w-px h-4 bg-surface2"></div>
                         <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-subtext0">Color:</span>
+                            <span className="text-sm font-bold text-subtext0">{t('color')}:</span>
                             <div className="w-6 h-6 rounded-full border border-white/20 shadow-inner" style={{backgroundColor: color}}></div>
-                            <button onClick={cycleColor} className="text-xs text-subtext1 hover:text-text underline">Cycle</button>
+                            <button onClick={cycleColor} className="text-xs text-subtext1 hover:text-text underline">{t('cycle')}</button>
                         </div>
                     </>
                  )}
@@ -297,11 +299,11 @@ const AirCanvas = () => {
             <div className="mt-6 flex justify-center gap-8 text-subtext0 text-sm">
                  <div className="flex items-center gap-2">
                      <span className="text-2xl">☝️</span>
-                     <span><strong>Index:</strong> Draw</span>
+                     <span>{t('indexDraw')}</span>
                  </div>
                  <div className="flex items-center gap-2">
                      <span className="text-2xl">✊</span>
-                     <span><strong>Fist:</strong> Clear</span>
+                     <span>{t('fistClear')}</span>
                  </div>
             </div>
         </div>
@@ -309,9 +311,9 @@ const AirCanvas = () => {
         {/* Test Controls / Sidebar */}
         <div className="glass-card p-6 rounded-[2rem] flex flex-col gap-6 w-full xl:w-[320px] h-fit sticky top-8">
              <div>
-                <h3 className="font-bold text-2xl text-text border-b border-surface2 pb-4 mb-2">Dyspraxia Trace Test</h3>
+                <h3 className="font-bold text-2xl text-text border-b border-surface2 pb-4 mb-2">{t('traceTestTitle')}</h3>
                 <p className="text-subtext0 text-sm leading-relaxed">
-                    Trace the dashed circle as accurately as possible to measure your fine motor coordination.
+                    {t('traceTestDesc')}
                 </p>
              </div>
              
@@ -319,10 +321,10 @@ const AirCanvas = () => {
                  <div className="bg-surface0/50 rounded-xl p-4 border border-surface2">
                     <div className="flex items-center gap-3 text-subtext1 mb-4">
                         <span className="text-2xl">⏱️</span>
-                        <span className="text-sm">We'll measure your speed and accuracy.</span>
+                        <span className="text-sm">{t('measureSpeed')}</span>
                     </div>
                     <button onClick={startTest} className="glass-button w-full py-4 rounded-xl text-lg font-bold bg-green/10 text-green border-green/30 hover:bg-green/20 hover:scale-105 transition-all">
-                        Start Test
+                        {t('startTest')}
                     </button>
                  </div>
              )}
@@ -330,19 +332,19 @@ const AirCanvas = () => {
              {testActive && (
                  <div className="bg-surface0/50 rounded-xl p-6 border border-surface2 flex flex-col items-center gap-6">
                     <div className="text-center">
-                        <div className="text-xs uppercase text-subtext0 font-bold tracking-wider mb-1">Elapsed Time</div>
+                        <div className="text-xs uppercase text-subtext0 font-bold tracking-wider mb-1">{t('elapsedTime')}</div>
                         <div className="text-5xl font-mono text-blue font-light">{testTime}s</div>
                     </div>
                     <div className="w-full h-px bg-surface2"></div>
                     <button onClick={stopTest} className="glass-button w-full py-4 rounded-xl text-lg font-bold bg-red/10 text-red border-red/30 hover:bg-red/20 animate-pulse">
-                        Finish & Score
+                        {t('finishScore')}
                     </button>
                 </div>
              )}
 
              {score && (
                  <div className="bg-surface0/50 rounded-xl p-6 border border-surface2 text-center animate-fade-in-up">
-                    <div className="text-xs uppercase text-subtext0 font-bold mb-2 tracking-wider">Accuracy Score</div>
+                    <div className="text-xs uppercase text-subtext0 font-bold mb-2 tracking-wider">{t('accuracyScore')}</div>
                     <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve to-blue mb-4">
                         {score.value}%
                     </div>
@@ -350,7 +352,7 @@ const AirCanvas = () => {
                         <span className="text-text font-medium">{score.text}</span>
                     </div>
                     <button onClick={startTest} className="text-sm font-semibold text-blue hover:text-sky underline underline-offset-4">
-                        Retake Test
+                        {t('retakeTest')}
                     </button>
                  </div>
              )}
