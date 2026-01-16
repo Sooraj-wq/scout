@@ -4,6 +4,14 @@ from .models import TaskAttempt, SessionData, AnalysisResult, ExplanationResult
 from .storage import get_session, get_or_create_session
 from .analysis import analyze_patterns, calculate_overall_score
 from .explanation import generate_explanation_text
+from .ai_services import (
+    get_ai_analysis,
+    calculate_flash_duration,
+    AIAnalysisRequest,
+    FlashDurationRequest,
+    FlashDurationResponse,
+    AIAnalysisResponse,
+)
 
 router = APIRouter(prefix="/api/dyscalculia", tags=["dyscalculia"])
 
@@ -82,3 +90,56 @@ async def get_session_score(session_id: str) -> Dict[str, Any]:
         "confidence": analysis.confidence,
         "sub_scores": analysis.sub_scores,
     }
+
+
+@router.post("/ai-analysis", response_model=AIAnalysisResponse)
+async def get_ai_analysis_endpoint(request: AIAnalysisRequest):
+    """
+    Get AI-powered analysis for a session using Groq or Google AI Studio
+    All API calls are made from backend, not frontend
+    """
+    session = get_session(request.session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    # Convert SessionData to dict for analysis
+    session_dict = {
+        "session_id": session.session_id,
+        "attempts": [
+            attempt.dict() if hasattr(attempt, "dict") else attempt
+            for attempt in session.attempts
+        ],
+        "exposures": session.exposures,
+        "stress_indicators": session.stress_indicators,
+    }
+
+    try:
+        analysis = await get_ai_analysis(session_dict)
+        return analysis
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/flash-duration", response_model=FlashDurationResponse)
+async def get_flash_duration_endpoint(request: FlashDurationRequest):
+    """
+    Calculate adaptive flash duration based on session performance
+    Decreases duration for exemplary performance (>70%), increases for struggling (<70%)
+    """
+    session = get_session(request.session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    # Convert SessionData to dict for analysis
+    session_dict = {
+        "session_id": session.session_id,
+        "attempts": [
+            attempt.dict() if hasattr(attempt, "dict") else attempt
+            for attempt in session.attempts
+        ],
+        "exposures": session.exposures,
+        "stress_indicators": session.stress_indicators,
+    }
+
+    duration_info = calculate_flash_duration(session_dict, request.difficulty)
+    return duration_info

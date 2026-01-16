@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
-import { logTaskStart, logTaskAnswer } from '../utils/eventLogger';
+import { logTaskStart, logTaskAnswer, getFlashDuration } from '../utils/eventLogger';
 
 const FlashingDot = ({ x, y, size, isFlashing, delay }) => {
   const [visible, setVisible] = useState(false);
@@ -36,49 +36,38 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
   const [attempts, setAttempts] = useState(0);
   const [flashDuration, setFlashDuration] = useState(3000);
   const startTimeRef = useRef(null);
-  const { addTaskAttempt, addStressIndicator, getFlashCountingPerformance } = useGameStore();
+  const { addTaskAttempt, addStressIndicator, sessionId } = useGameStore();
   
   // Use useRef to store random state to avoid impure calls
   const randomRef = useRef(Math.random());
 
-  const generateTask = (diff) => {
-    let maxCount, minCount, baseDuration;
+  const generateTask = async (diff) => {
+    let maxCount, minCount;
     
     if (diff <= 2) {
       maxCount = 4;
       minCount = 1;
-      baseDuration = 3000;
     } else if (diff <= 4) {
       maxCount = 6;
       minCount = 2;
-      baseDuration = 2500;
     } else if (diff <= 6) {
       maxCount = 8;
       minCount = 3;
-      baseDuration = 2000;
     } else {
       maxCount = 12;
       minCount = 5;
-      baseDuration = 1500;
     }
 
-    // Calculate adaptive duration based on performance
-    const performance = getFlashCountingPerformance();
-    let duration = baseDuration;
-    
-    if (performance !== null) {
-      // Decrease by 0.2s per 10% above 70%
-      // Increase by 0.2s per 10% below 70%
-      if (performance > 70) {
-        const increment = Math.floor((performance - 70) / 10);
-        duration = baseDuration - (increment * 200); // Decrease by 0.2s = 200ms
-      } else if (performance < 70) {
-        const decrement = Math.floor((70 - performance) / 10);
-        duration = baseDuration + (decrement * 200); // Increase by 0.2s = 200ms
+    // Get adaptive flash duration from backend
+    let duration = 3000; // fallback default
+    if (sessionId) {
+      try {
+        const durationInfo = await getFlashDuration(sessionId, diff);
+        duration = durationInfo.duration_ms;
+        console.log('Flash duration from backend:', duration, 'ms -', durationInfo.adjustment_reason);
+      } catch (error) {
+        console.error('Failed to get flash duration from backend, using default:', error);
       }
-      
-      // Ensure duration stays within reasonable bounds
-      duration = Math.max(1000, Math.min(5000, duration));
     }
 
     const target = Math.floor(randomRef.current * (maxCount - minCount + 1)) + minCount;
@@ -88,21 +77,25 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
   };
 
   useEffect(() => {
-    const { target, duration } = generateTask(difficulty);
-    setTargetCount(target);
-    setInputValue('');
-    setShowFeedback(false);
-    setAttempts(0);
-    // Note: Date.now() is allowed here as it's in event handler, not render
-    startTimeRef.current = Date.now();
+    const initializeTask = async () => {
+      const { target, duration } = await generateTask(difficulty);
+      setTargetCount(target);
+      setInputValue('');
+      setShowFeedback(false);
+      setAttempts(0);
+      // Note: Date.now() is allowed here as it's in event handler, not render
+      startTimeRef.current = Date.now();
+      
+      logTaskStart({
+        taskType: 'flash_counting',
+        difficulty,
+        targetCount: target,
+        flashDuration: duration
+      });
+    };
     
-    logTaskStart({
-      taskType: 'flash_counting',
-      difficulty,
-      targetCount: target,
-      flashDuration: duration
-    });
-  }, [difficulty]);
+    initializeTask();
+  }, [difficulty, sessionId]);
 
   const startFlashing = () => {
     setIsFlashing(true);

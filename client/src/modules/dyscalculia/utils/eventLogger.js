@@ -118,3 +118,47 @@ export const getSessionScore = async (sessionId) => {
   }
   return null;
 };
+
+/**
+ * Get AI-powered analysis from backend
+ * Backend handles all Groq and Google AI Studio API calls
+ */
+export const getAIAnalysis = async (sessionId) => {
+  try {
+    const response = await fetch(`${API_BASE}/ai-analysis`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId })
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+    const error = await response.json();
+    throw new Error(error.detail || 'Failed to get AI analysis');
+  } catch (error) {
+    console.error('Failed to get AI analysis from backend:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get adaptive flash duration from backend
+ * Backend calculates duration based on performance (70% threshold)
+ */
+export const getFlashDuration = async (sessionId, difficulty) => {
+  try {
+    const response = await fetch(`${API_BASE}/flash-duration`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId, difficulty })
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+    const error = await response.json();
+    throw new Error(error.detail || 'Failed to get flash duration');
+  } catch (error) {
+    console.error('Failed to get flash duration from backend:', error);
+    throw error;
+  }
+};

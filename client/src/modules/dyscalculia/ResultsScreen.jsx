@@ -1,9 +1,8 @@
+// ResultsScreen component - AI analysis display
 import { useGameStore } from './state/gameState';
 import { useState, useEffect } from 'react';
-import { getAnalysisData } from './utils/apiConnector';
+import { getAIAnalysis } from './utils/eventLogger';
 import './ResultsScreen.css';
- // Import test functions for debugging
- import './utils/apiTest';
 
 export const ResultsScreen = ({ onReset }) => {
   const { reset, sessionId, observationAttempts } = useGameStore();
@@ -19,24 +18,14 @@ export const ResultsScreen = ({ onReset }) => {
       return;
     }
 
-    // Use local session data for analysis
-    const sessionData = {
-      sessionId,
-      attempts: observationAttempts,
-      exposures: [],
-      stress_indicators: []
-    };
-
-    setJsonData(sessionData);
-
-    // Get analysis from external AI APIs
-    const getAIAnalysis = async () => {
+    // Get analysis from backend AI API
+    const fetchAIAnalysis = async () => {
       setIsLoadingAnalysis(true);
       setAnalysisError(null);
       setAnalysisData(null);
       
       try {
-        const analysis = await getAnalysisData(sessionData);
+        const analysis = await getAIAnalysis(sessionId);
         setAnalysisData({ api_analysis: analysis });
         setAnalysisError(null);
       } catch (error) {
@@ -48,7 +37,7 @@ export const ResultsScreen = ({ onReset }) => {
       }
     };
 
-    getAIAnalysis();
+    fetchAIAnalysis();
   }, [sessionId, observationAttempts]);
 
   const handleReset = () => {

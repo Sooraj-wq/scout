@@ -1,6 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+from pathlib import Path
+import os
 from app.routers.dyscalculia import router as dyscalculia_router
+
+# Load environment variables from .env file
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(env_path, override=True)
 
 app = FastAPI(title="AI-Samasya Learning Screening Tools")
 

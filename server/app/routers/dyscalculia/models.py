@@ -30,3 +30,28 @@ class AnalysisResult(BaseModel):
 
 class ExplanationResult(BaseModel):
     explanation: str
+
+
+class AIAnalysisRequest(BaseModel):
+    session_id: str
+
+
+class AIAnalysisResponse(BaseModel):
+    pattern: str
+    confidence: float
+    score: int
+    sub_scores: Dict[str, float]
+    reasoning: str
+    interpretation: str
+
+
+class FlashDurationRequest(BaseModel):
+    session_id: str
+    difficulty: int
+
+
+class FlashDurationResponse(BaseModel):
+    duration_ms: int
+    base_duration_ms: int
+    performance_percentage: Optional[float]
+    adjustment_reason: str
