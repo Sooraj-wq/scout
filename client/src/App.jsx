@@ -5,6 +5,7 @@ import Dysgraphia from './modules/dysgraphia/dysgraphia.jsx'
 import Dyslexia from './modules/dyslexia/dyslexia.jsx'
 import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import Adhd from './modules/adhd/adhd.jsx'
+import ThemeToggle from './components/ThemeToggle.jsx'
 
 function App() {
   const [serverStatus, setServerStatus] = useState("...")
@@ -45,9 +46,12 @@ function App() {
                   SCOUT
                 </h1>
               </div>
-              <div className="glass-card px-4 py-1.5 rounded-full text-xs font-medium text-subtext1 flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${serverStatus === 'healthy' ? 'bg-green shadow-[0_0_8px_rgba(166,227,161,0.6)]' : 'bg-red'}`}></span>
-                Server: {serverStatus}
+              <div className="flex items-center gap-3">
+                <div className="glass-card px-4 py-1.5 rounded-full text-xs font-medium text-subtext1 flex items-center gap-2">
+                  <span className={`w-2 h-2 rounded-full ${serverStatus === 'healthy' ? 'bg-green shadow-[0_0_8px_rgba(166,227,161,0.6)]' : 'bg-red'}`}></span>
+                  Server: {serverStatus}
+                </div>
+                <ThemeToggle />
               </div>
             </div>
           </div>
