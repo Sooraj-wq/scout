@@ -4,7 +4,7 @@ import uuid
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
 
-from .predict_gemini import GeminiPredictor
+from .predict_gemini import GeminiPredictor, PredictionResult
 
 router = APIRouter()
 
@@ -31,14 +31,15 @@ async def analyze_dysgraphia(file: UploadFile = File(...)):
 
         result = await process_file(file_path)
 
-        return {
-            "file_id": file_id,
-            "filename": filename,
-            "analysis": result,
-            "status": "completed",
-        }
-
+        if result:
+            return {
+                "status": "success",
+                "result": result,
+            }
+        else:
+            return {"status": "failure", "result": None}
     except Exception as e:
+        print(e)
         return JSONResponse(
             status_code=500, content={"error": f"Failed to process file: {str(e)}"}
         )
@@ -47,7 +48,7 @@ async def analyze_dysgraphia(file: UploadFile = File(...)):
 predictor = None
 
 
-async def process_file(file_path: str) -> dict:
+async def process_file(file_path: str) -> PredictionResult | None:
     global predictor
     if not predictor:
         predictor = GeminiPredictor()
