@@ -3,6 +3,6 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/health")
 async def get_adhd():
-    return {"message": "ADHD endpoint"}
+    return {"status": "healthy"}
