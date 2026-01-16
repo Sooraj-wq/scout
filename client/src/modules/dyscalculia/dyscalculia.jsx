@@ -50,8 +50,6 @@ export const DyscalculiaModule = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [difficulty, setDifficulty] = useState(1);
   const [showResults, setShowResults] = useState(false);
-  const [taskSequence, setTaskSequence] = useState(baseTaskSequence);
-  const [maxTests, setMaxTests] = useState(11); // Start with base 11, can extend to 20
   const { t } = useLanguage();
   
   const {
@@ -148,10 +146,10 @@ export const DyscalculiaModule = () => {
 
   if (showResults || isComplete) {
     return (
-      <div className="min-h-screen bg-base">
-        <div className="bg-mantle border-b border-surface0">
+      <div className="min-h-screen bg-transparent">
+        <div className="glass border-b border-black/5">
           <div className="max-w-6xl mx-auto px-8 py-6">
-            <h2 className="text-xl font-bold text-text">Dyscalculia Assessment - Results</h2>
+            <h2 className="text-xl font-bold text-text">{t('dyscalculiaResults')}</h2>
           </div>
         </div>
         <div className="max-w-6xl mx-auto">
@@ -162,12 +160,12 @@ export const DyscalculiaModule = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base">
-      <div className="bg-mantle border-b border-surface0">
+    <div className="min-h-screen bg-transparent">
+      <div className="glass border-b border-black/5">
         <div className="max-w-6xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xl font-bold text-text">Dyscalculia Assessment</h2>
-            <span className="text-subtext1 text-sm">Task {currentTaskIndex + 1} of {taskSequence.length}</span>
+            <h2 className="text-xl font-bold text-text">{t('dyscalculiaHeading')}</h2>
+            <span className="text-subtext1 text-sm">{t('taskProgress').replace('{current}', currentTaskIndex + 1).replace('{total}', taskSequence.length)}</span>
           </div>
           <div className="w-full bg-surface0 rounded-full h-3">
             <div 

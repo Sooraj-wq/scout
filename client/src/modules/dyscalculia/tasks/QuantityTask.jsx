@@ -56,7 +56,7 @@ const DotsGroup = ({ count, size = 35, highlight = false }) => {
         width="270"
         height="190"
         fill="none"
-        stroke="#45475a"
+        stroke="var(--color-overlay1)"
         strokeWidth="1"
         opacity="0.05"
         rx="8"
@@ -68,7 +68,7 @@ const DotsGroup = ({ count, size = 35, highlight = false }) => {
           cx={pos.x}
           cy={pos.y}
           r={pos.size / 2}
-          fill={highlight ? '#cba6f7' : '#89b4fa'}
+          fill={highlight ? 'var(--color-mauve)' : 'var(--color-blue)'}
           className="transition-all duration-300"
           style={{
             filter: highlight ? 'drop-shadow(0 0 8px rgba(127, 103, 190, 0.5))' : 'none'
@@ -177,7 +177,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
           Find the same amount
@@ -187,7 +187,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
         </p>
       </div>
 
-      <div className="bg-surface0 rounded-3xl p-8 mb-8 shadow-material-lg">
+      <div className="glass-card rounded-3xl p-8 mb-8 shadow-material-lg">
         <DotsGroup count={targetCount} size={45} />
       </div>
 
@@ -204,7 +204,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
                 ? (count === targetCount 
                   ? 'border-[3px] border-green bg-green/20' 
                   : 'border-[3px] border-red bg-red/20')
-                : 'border-[3px] border-transparent bg-surface0'
+                : 'border-[3px] border-transparent glass-card'
             } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
           >
             <DotsGroup count={count} size={30} />

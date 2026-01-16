@@ -20,7 +20,7 @@ const FlashingDot = ({ x, y, size, isFlashing, delay }) => {
       cx={x}
       cy={y}
       r={size / 2}
-      fill={visible ? '#89b4fa' : '#313244'}
+      fill={visible ? 'var(--color-blue)' : 'transparent'}
       className="transition-all duration-100"
     />
   );
@@ -197,7 +197,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
           {isFlashing ? 'Count the flashes...' : 'How many flashes?'}
@@ -210,7 +210,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
         </p>
       </div>
 
-      <div className="bg-surface0 rounded-3xl p-8 mb-6 shadow-material-lg w-[280px] h-[200px] relative overflow-hidden">
+      <div className="glass-card rounded-3xl p-8 mb-6 shadow-material-lg w-[280px] h-[200px] relative overflow-hidden">
         <svg width="280" height="200" viewBox="0 0 280 200">
           {/* Optional: subtle boundary lines */}
           <rect
@@ -219,7 +219,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
             width="210"
             height="130"
             fill="none"
-            stroke="#45475a"
+            stroke="var(--color-overlay1)"
             strokeWidth="1"
             opacity="0.05"
             rx="8"
@@ -232,7 +232,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
               y={pos.y}
               size={pos.size}
               isFlashing={isFlashing}
-              delay={i * 400} // Flash every 0.4s (400ms)
+              delay={0} // Flash all together
             />
           ))}
 
@@ -259,7 +259,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter number"
               disabled={showFeedback}
-              className="px-5 py-3 rounded-2xl border-2 border-surface1 bg-surface0 text-text text-base w-[150px] text-center"
+              className="px-5 py-3 rounded-2xl border-2 border-surface1 glass-card text-text text-base w-[150px] text-center"
             />
             <button
               type="submit"
