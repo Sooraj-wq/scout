@@ -1,13 +1,92 @@
+/* Catppuccin Mocha Theme */
+:root {
+  --catppuccin-base: #1e1e2e;
+  --catppuccin-mantle: #181825;
+  --catppuccin-crust: #11111b;
+  --catppuccin-surface: #313244;
+  --catppuccin-surface0: #45475a;
+  --catppuccin-surface1: #585b70;
+  --catppuccin-surface2: #6c7086;
+  --catppuccin-text: #cdd6f4;
+  --catppuccin-subtext: #a6adc8;
+  --catppuccin-subtext0: #9399b2;
+  --catppuccin-subtext1: #7f849c;
+  --catppuccin-red: #f38ba8;
+  --catppuccin-green: #a6e3a1;
+  --catppuccin-yellow: #f9e2af;
+  --catppuccin-blue: #89b4fa;
+  --catppuccin-magenta: #cba6f7;
+  --catppuccin-cyan: #89dceb;
+  --catppuccin-orange: #fab387;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--catppuccin-base);
+  color: var(--catppuccin-text);
+  min-height: 100vh;
+}
+
 #root {
   margin: 0 auto;
   text-align: center;
+  padding: 24px;
+  background: var(--catppuccin-surface0);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.app-header h1 {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--catppuccin-text);
+  margin-bottom: 16px;
+}
+
+.app-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.app-nav button {
+  padding: 12px 24px;
+  border-radius: 24px;
+  border: 2px solid transparent;
+  background: var(--catppuccin-surface1);
+  color: var(--catppuccin-subtext0);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.app-nav button:hover {
+  background: var(--catppuccin-surface2);
+  color: var(--catppuccin-text);
+}
+
+.app-nav button.active {
+  background: var(--catppuccin-blue);
+  color: var(--catppuccin-base);
+}
+
+.app-main {
+  display: flex;
+  justify-content: center;
+}
+
+.module-wrapper {
+  width: 100%;
+  max-width: 600px;
+  min-height: 700px;
 }
 
 .logo:hover {
@@ -28,16 +107,26 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.module-wrapper.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--catppuccin-surface0);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  min-height: 400px;
 }
 
-.card {
-  padding: 2em;
+.module-wrapper.coming-soon h2 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--catppuccin-text);
+  margin-bottom: 12px;
 }
 
-.read-the-docs {
-  color: #888;
+.module-wrapper.coming-soon p {
+  font-size: 16px;
+  color: var(--catppuccin-subtext0);
 }
