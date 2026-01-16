@@ -1,6 +1,5 @@
 import dotenv
 from fastapi import FastAPI
-from dotenv import load_dotenv
 from .routers.adhd import router as adhd_router
 from .routers.dyscalculia import router as dyscalculia_router
 from .routers.dysgraphia import router as dysgraphia_router
