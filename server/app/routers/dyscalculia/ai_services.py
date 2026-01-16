@@ -179,13 +179,16 @@ async def call_google_ai_api(prompt: str) -> Dict[str, Any]:
     if not api_key:
         raise Exception("Google AI API key not configured")
 
-    url = f"{AIServiceConfig.get_google_endpoint()}?key={api_key}"
+    url = AIServiceConfig.get_google_endpoint()
 
     async with httpx.AsyncClient(timeout=AIServiceConfig.get_api_timeout()) as client:
         try:
             response = await client.post(
                 url,
-                headers={"Content-Type": "application/json"},
+                headers={
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": api_key,
+                },
                 json={
                     "contents": [{"parts": [{"text": prompt}]}],
                     "generationConfig": {"temperature": 0.3, "maxOutputTokens": 1000},
