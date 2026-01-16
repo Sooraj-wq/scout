@@ -1,8 +1,12 @@
+import dotenv
 from fastapi import FastAPI
+
 from .routers.adhd import router as adhd_router
+from .routers.discalculia import router as discalculia_router
 from .routers.dysgraphia import router as dysgraphia_router
 from .routers.dyslexia import router as dyslexia_router
-from .routers.discalculia import router as discalculia_router
+
+dotenv.load_dotenv()
 
 app = FastAPI()
 
