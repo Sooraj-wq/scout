@@ -38,7 +38,7 @@ const AdhdAssessment = () => {
 
   const submitAssessment = async (data) => {
     try {
-      const response = await fetch('http://localhost:8000/api/adhd/finalize-assessment', {
+      const response = await fetch('/api/adhd/finalize-assessment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
