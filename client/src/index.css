@@ -37,3 +37,7 @@
   --shadow-material: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-material-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
+
+body {
+  background-color: var(--color-base);
+}

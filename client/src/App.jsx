@@ -59,7 +59,7 @@ function App() {
     </Router>
   )
 
-  function Home({ count, setCount }) {
+  function Home() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
