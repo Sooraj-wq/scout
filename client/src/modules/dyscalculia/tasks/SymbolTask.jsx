@@ -137,7 +137,7 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
     <div className={`flex flex-col items-center justify-center min-h-full p-6 rounded-[28px] transition-all duration-500 ${
       stressDetected 
         ? 'bg-gradient-to-br from-yellow/20 to-yellow/40' 
-        : 'bg-gradient-to-br from-mantle to-base'
+        : 'glass'
     }`}>
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
@@ -148,7 +148,7 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
         </p>
       </div>
 
-      <div className="bg-surface0 rounded-3xl p-8 mb-8 shadow-material-lg">
+      <div className="glass-card rounded-3xl p-8 mb-8 shadow-material-lg">
         <DotsGroup count={targetCount} size={40} />
       </div>
 
@@ -165,7 +165,7 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
                 ? (num === targetCount 
                   ? 'border-[3px] border-green bg-green/20' 
                   : 'border-[3px] border-yellow bg-yellow/20')
-                : 'border-[3px] border-transparent bg-surface0'
+                : 'border-[3px] border-transparent glass-card'
             } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
           >
             {num}

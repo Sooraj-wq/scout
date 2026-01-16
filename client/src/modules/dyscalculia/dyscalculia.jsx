@@ -108,8 +108,8 @@ export const DyscalculiaModule = () => {
 
   if (showResults || isComplete) {
     return (
-      <div className="min-h-screen bg-base">
-        <div className="bg-mantle border-b border-surface0">
+      <div className="min-h-screen bg-transparent">
+        <div className="glass border-b border-black/5">
           <div className="max-w-6xl mx-auto px-8 py-6">
             <h2 className="text-xl font-bold text-text">Dyscalculia Assessment - Results</h2>
           </div>
@@ -122,8 +122,8 @@ export const DyscalculiaModule = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base">
-      <div className="bg-mantle border-b border-surface0">
+    <div className="min-h-screen bg-transparent">
+      <div className="glass border-b border-black/5">
         <div className="max-w-6xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xl font-bold text-text">Dyscalculia Assessment</h2>

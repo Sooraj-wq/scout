@@ -150,7 +150,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
         </p>
       </div>
 
-      <div className="bg-surface0 rounded-3xl p-8 mb-8 shadow-material-lg min-h-[240px] flex items-center justify-center border border-surface1">
+      <div className="glass-card rounded-3xl p-8 mb-8 shadow-material-lg min-h-[240px] flex items-center justify-center border border-surface1">
         {representation === 'dots' ? (
           <Dots count={currentCount} />
         ) : (
@@ -165,7 +165,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
           className={`w-14 h-14 rounded-full border-none text-2xl transition-all duration-200 ${
             currentCount > 1 
               ? 'bg-surface1 text-text cursor-pointer hover:bg-surface2' 
-              : 'bg-surface0 text-subtext1 cursor-default'
+              : 'glass-card text-subtext1 cursor-default'
           }`}
         >
           -
@@ -181,7 +181,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
           className={`w-14 h-14 rounded-full border-none text-2xl transition-all duration-200 ${
             currentCount < 3 
               ? 'bg-surface1 text-text cursor-pointer hover:bg-surface2' 
-              : 'bg-surface0 text-subtext1 cursor-default'
+              : 'glass-card text-subtext1 cursor-default'
           }`}
         >
           +
@@ -194,7 +194,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
           className={`px-6 py-3 rounded-3xl text-base transition-all duration-200 ${
             representation === 'dots'
               ? 'bg-surface1 text-text border-2 border-green'
-              : 'bg-surface0 text-text border-2 border-transparent hover:border-surface2'
+              : 'glass-card text-text border-2 border-transparent hover:border-surface2'
           }`}
         >
           Dots
@@ -204,7 +204,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
           className={`px-6 py-3 rounded-3xl text-base transition-all duration-200 ${
             representation === 'stars'
               ? 'bg-surface1 text-text border-2 border-green'
-              : 'bg-surface0 text-text border-2 border-transparent hover:border-surface2'
+              : 'glass-card text-text border-2 border-transparent hover:border-surface2'
           }`}
         >
           Stars

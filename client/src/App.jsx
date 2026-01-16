@@ -123,7 +123,7 @@ function App() {
 
           <Link
             to="/dyscalculia"
-            className="bg-surface0 rounded-lg shadow-material p-6 hover:shadow-material-lg transition-shadow border border-surface1 w-80"
+            className="glass-card rounded-2xl p-6 w-80"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-green/20 rounded-full flex items-center justify-center mx-auto mb-4">

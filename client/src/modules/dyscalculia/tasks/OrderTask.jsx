@@ -48,7 +48,7 @@ const DropZone = ({ position, number, onDrop }) => {
           ? 'border-[3px] border-dashed border-mauve bg-surface1' 
           : number 
             ? 'border-[3px] border-solid border-mauve bg-surface1'
-            : 'border-[3px] border-dashed border-subtext1 bg-surface0'
+            : 'border-[3px] border-dashed border-subtext1 glass-card'
       } ${number ? 'text-text' : 'text-subtext1'}`}
     >
       {number || ''}
@@ -160,7 +160,7 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
           Put them in order

@@ -89,7 +89,7 @@ export const WarmupComparison = ({ onComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-8 text-center">
         <h2 className="text-[28px] font-normal text-text mb-2">
           Which has more?
@@ -102,7 +102,7 @@ export const WarmupComparison = ({ onComplete }) => {
       <div className="flex gap-8 mb-12">
         <button
           onClick={() => handleSelect('left')}
-          className={`p-6 rounded-3xl transition-all duration-300 shadow-material-lg cursor-pointer bg-surface0 ${
+          className={`p-6 rounded-3xl transition-all duration-300 shadow-material-lg cursor-pointer glass-card ${
             selected === 'left' 
               ? 'border-[4px] border-mauve' 
               : showSuccess && leftCount > rightCount
@@ -119,7 +119,7 @@ export const WarmupComparison = ({ onComplete }) => {
 
         <button
           onClick={() => handleSelect('right')}
-          className={`p-6 rounded-3xl transition-all duration-300 shadow-material-lg cursor-pointer bg-surface0 ${
+          className={`p-6 rounded-3xl transition-all duration-300 shadow-material-lg cursor-pointer glass-card ${
             selected === 'right' 
               ? 'border-[4px] border-mauve' 
               : showSuccess && rightCount > leftCount

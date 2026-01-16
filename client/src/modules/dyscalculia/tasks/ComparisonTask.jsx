@@ -130,7 +130,7 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
   const isRightCorrect = rightCount > leftCount;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-8 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
           Which has more?
@@ -151,7 +151,7 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
               ? (isRightCorrect && selected === 'left' 
                 ? 'border-[3px] border-yellow bg-yellow/20' 
                 : 'border-[3px] border-mauve bg-surface1')
-              : 'border-[3px] border-transparent bg-surface0'
+              : 'border-[3px] border-transparent glass-card'
           } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
         >
           <DotsGroup count={leftCount} />
@@ -171,7 +171,7 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
               ? (!isRightCorrect && selected === 'right' 
                 ? 'border-[3px] border-yellow bg-yellow/20' 
                 : 'border-[3px] border-mauve bg-surface1')
-              : 'border-[3px] border-transparent bg-surface0'
+              : 'border-[3px] border-transparent glass-card'
           } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
         >
           <DotsGroup count={rightCount} />
