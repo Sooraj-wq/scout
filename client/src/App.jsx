@@ -7,6 +7,7 @@ import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import Adhd from './modules/adhd/adhd.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import ParentQuiz from './modules/parent-quiz/ParentQuiz.jsx'
+import Dyspraxia from './modules/dyspraxia/dyspraxia.jsx'
 
 function App() {
   const [serverStatus, setServerStatus] = useState("...")
@@ -65,6 +66,7 @@ function App() {
           <Route path="/dyscalculia" element={<DyscalculiaModule />} />
           <Route path="/adhd" element={<Adhd />} />
           <Route path="/parent-quiz" element={<ParentQuiz />} />
+          <Route path="/dyspraxia" element={<Dyspraxia />} />
         </Routes>
       </div>
     </Router>
@@ -87,7 +89,7 @@ function App() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+        <div className="flex flex-wrap justify-center gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <Link
             to="/dysgraphia"
             className="glass-card rounded-2xl p-6 w-80"
@@ -161,29 +163,48 @@ function App() {
               </div>
             </div>
           </Link>
+
           <Link
-          to="/parent-quiz"
-          className="glass-card rounded-2xl p-6 w-80"
-        >
-          <div className="text-center">
-            <div className="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+            to="/dyspraxia"
+            className="glass-card rounded-2xl p-6 w-80"
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 bg-pink/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-text mb-2">Dyspraxia & Motor</h3>
+              <p className="text-subtext0 text-sm">Air-Canvas assessment for fine motor skills and spatial coordination</p>
+              <div className="mt-4 text-pink font-medium text-sm hover:text-flamingo">
+                Get Started →
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-text mb-2">
-              Parent Screening Quiz
-            </h3>
-            <p className="text-subtext0 text-sm">
-              Guided questionnaire to identify early learning challenges
-            </p>
-            <div className="mt-4 text-yellow font-medium text-sm">
-              Start Quiz →
+          </Link>
+
+          <Link
+            to="/parent-quiz"
+            className="glass-card rounded-2xl p-6 w-80"
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-text mb-2">
+                Parent Screening Quiz
+              </h3>
+              <p className="text-subtext0 text-sm">
+                Guided questionnaire to identify early learning challenges
+              </p>
+              <div className="mt-4 text-yellow font-medium text-sm">
+                Start Quiz →
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
         </div>
       </div>
     )
