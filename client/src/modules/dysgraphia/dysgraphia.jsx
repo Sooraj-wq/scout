@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useRef } from 'react'
 
 export default function Dysgraphia() {
@@ -56,7 +55,7 @@ export default function Dysgraphia() {
   const handleDrop = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    
+
     const droppedFile = e.dataTransfer.files[0]
     if (droppedFile) {
       setFile(droppedFile)
@@ -77,7 +76,7 @@ export default function Dysgraphia() {
   return (
     <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Dysgraphia Analysis</h1>
-      
+
       <div className="bg-white rounded-lg shadow-md p-6">
         <div
           className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors"
@@ -97,7 +96,7 @@ export default function Dysgraphia() {
               strokeLinejoin="round"
             />
           </svg>
-          
+
           <input
             ref={fileInputRef}
             type="file"
@@ -106,14 +105,14 @@ export default function Dysgraphia() {
             accept="image/*,.pdf"
             id="file-upload"
           />
-          
+
           <label
             htmlFor="file-upload"
             className="cursor-pointer text-blue-600 hover:text-blue-500 font-medium"
           >
             Click to upload or drag and drop
           </label>
-          
+
           <p className="text-gray-500 text-sm mt-2">
             PNG, JPG, PDF up to 10MB
           </p>
@@ -149,7 +148,7 @@ export default function Dysgraphia() {
           >
             {uploading ? 'Analyzing...' : 'Analyze for Dysgraphia'}
           </button>
-          
+
           {file && (
             <button
               onClick={resetForm}
@@ -190,17 +189,3 @@ export default function Dysgraphia() {
     </div>
   )
 }
-=======
-export default function Dysgraphia() {
-	return (
-		<div className="min-h-screen bg-base flex items-center justify-center px-8 py-12">
-			<div className="bg-mantle rounded-3xl p-8 max-w-2xl w-full shadow-material-lg border border-surface0">
-				<h1 className="text-4xl font-bold text-mauve mb-4">Dysgraphia Analysis</h1>
-				<p className="text-text">
-					This module is under development. Please check back soon.
-				</p>
-			</div>
-		</div>
-	);
-}
->>>>>>> cf5ecb5 (Added ADHD Module)
