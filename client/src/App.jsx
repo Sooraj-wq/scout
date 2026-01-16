@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import viteLogo from '/vite.svg'
-import './App.css'
 import Dysgraphia from './modules/dysgraphia/dysgraphia.jsx'
 import Dyslexia from './modules/dyslexia/dyslexia.jsx'
+import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import Adhd from './modules/adhd/adhd.jsx'
 
 function App() {
@@ -51,6 +51,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dysgraphia" element={<Dysgraphia />} />
           <Route path="/dyslexia" element={<Dyslexia />} />
+          <Route path="/dyscalculia" element={<DyscalculiaModule />} />
           <Route path="/adhd" element={<Adhd />} />
         </Routes>
       </div>
@@ -105,21 +106,23 @@ function App() {
             </div>
           </Link>
 
-
-          <div className="bg-surface0 rounded-lg shadow-material p-6 border border-surface1 opacity-60 w-80">
+          <Link
+            to="/dyscalculia"
+            className="bg-surface0 rounded-lg shadow-material p-6 hover:shadow-material-lg transition-shadow border border-surface1 w-80"
+          >
             <div className="text-center">
-              <div className="w-16 h-16 bg-surface2 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-overlay1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-text mb-2">Dyscalculia Analysis</h3>
-              <p className="text-subtext0 text-sm">Coming soon - Analyze mathematical thinking and problem-solving</p>
-              <div className="mt-4 text-overlay2 font-medium text-sm">
-                Coming Soon
+              <p className="text-subtext0 text-sm">Interactive tasks to assess numerical processing and mathematical cognition</p>
+              <div className="mt-4 text-green font-medium text-sm hover:text-teal">
+                Get Started →
               </div>
             </div>
-          </div>
+          </Link>
 
           <Link
             to="/adhd"
