@@ -32,15 +32,21 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-base">
-        <nav className="bg-mantle shadow-material border-b border-surface0">
-          <div className="mx-auto px-4 py-4">
+      <div className="min-h-screen bg-transparent font-sans">
+        <nav className="glass sticky top-0 z-50 border-b border-white/10">
+          <div className="mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <img src={viteLogo} className="h-8 w-8" alt="Vite logo" />
-                <h1 className="text-xl font-bold text-text">Learning Analysis Platform</h1>
+              <div className="flex items-center space-x-3">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-mauve to-blue rounded-full opacity-60 group-hover:opacity-100 blur transition duration-200"></div>
+                  <img src={viteLogo} className="relative h-9 w-9" alt="Vite logo" />
+                </div>
+                <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue tracking-tight drop-shadow-sm">
+                  SCOUT
+                </h1>
               </div>
-              <div className="text-sm text-subtext1">
+              <div className="glass-card px-4 py-1.5 rounded-full text-xs font-medium text-subtext1 flex items-center gap-2">
+                <span className={`w-2 h-2 rounded-full ${serverStatus === 'healthy' ? 'bg-green shadow-[0_0_8px_rgba(166,227,161,0.6)]' : 'bg-red'}`}></span>
                 Server: {serverStatus}
               </div>
             </div>
@@ -60,13 +66,22 @@ function App() {
 
   function Home() {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-text mb-4">Welcome to the Learning Analysis Platform</h2>
-          <p className="text-lg text-subtext1 mb-8">Select a module below to begin analysis</p>
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="text-center mb-16 animate-fade-in-up">
+          <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter">
+            SCOUT
+          </h1>
+          <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide">
+            (Student Cognitive Observation & Understanding Tool)
+          </p>
+          <div className="mt-8 glass inline-block px-6 py-2 rounded-full border border-white/5">
+            <p className="text-lg text-subtext1">
+              Select a module below to begin analysis
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap justify-center gap-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
           <Link
             to="/dysgraphia"
             className="bg-surface0 rounded-lg shadow-material p-6 hover:shadow-material-lg transition-shadow border border-surface1 w-80"
