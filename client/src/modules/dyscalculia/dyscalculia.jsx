@@ -3,6 +3,7 @@ import { useGameStore } from './state/gameState';
 import { logPhaseChange, logSessionEnd } from './utils/eventLogger';
 import { analyzePatterns, calculateOverallScore } from './utils/patternDetector';
 import { generateExplanation } from './utils/explanationGenerator';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   WarmupFreePlay,
   WarmupComparison,
@@ -40,6 +41,7 @@ export const DyscalculiaModule = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [difficulty, setDifficulty] = useState(1);
   const [showResults, setShowResults] = useState(false);
+  const { t } = useLanguage();
   
   const {
     phase,
@@ -111,7 +113,7 @@ export const DyscalculiaModule = () => {
       <div className="min-h-screen bg-transparent">
         <div className="glass border-b border-black/5">
           <div className="max-w-6xl mx-auto px-8 py-6">
-            <h2 className="text-xl font-bold text-text">Dyscalculia Assessment - Results</h2>
+            <h2 className="text-xl font-bold text-text">{t('dyscalculiaResults')}</h2>
           </div>
         </div>
         <div className="max-w-6xl mx-auto">
@@ -126,8 +128,8 @@ export const DyscalculiaModule = () => {
       <div className="glass border-b border-black/5">
         <div className="max-w-6xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xl font-bold text-text">Dyscalculia Assessment</h2>
-            <span className="text-subtext1 text-sm">Task {currentTaskIndex + 1} of {taskSequence.length}</span>
+            <h2 className="text-xl font-bold text-text">{t('dyscalculiaHeading')}</h2>
+            <span className="text-subtext1 text-sm">{t('taskProgress').replace('{current}', currentTaskIndex + 1).replace('{total}', taskSequence.length)}</span>
           </div>
           <div className="w-full bg-surface0 rounded-full h-3">
             <div 

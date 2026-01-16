@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import FileUploader from '../../components/FileUploader'
+import { useLanguage } from '../../context/LanguageContext'
 
 
 export default function Dysgraphia() {
@@ -8,6 +9,7 @@ export default function Dysgraphia() {
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
   const fileInputRef = useRef(null)
+  const { t } = useLanguage()
 
   const handleFileSelect = (e) => {
     const selectedFile = e.target.files[0]
@@ -86,11 +88,11 @@ export default function Dysgraphia() {
           
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 drop-shadow-[0_2px_10px_rgba(45,212,191,0.3)]">
-              Dysgraphia Analysis
+              {t('dysgraphiaHeading')}
             </span>
           </h1>
           <p className="text-lg text-subtext1 max-w-2xl mx-auto">
-            Upload handwriting samples for immediate analysis using our advanced AI-driven handwriting recognition system.
+            {t('dysgraphiaSub')}
           </p>
         </div>
 

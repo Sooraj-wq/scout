@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import FileUploader from '../../components/FileUploader'
+import { useLanguage } from '../../context/LanguageContext'
 
 
 export default function Dyslexia() {
@@ -8,6 +9,7 @@ export default function Dyslexia() {
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
   const fileInputRef = useRef(null)
+  const { t } = useLanguage()
 
   const handleFileSelect = (e) => {
     const selectedFile = e.target.files[0]
@@ -115,12 +117,12 @@ export default function Dyslexia() {
       <div className="mb-10 text-center">
         <h1 className="text-5xl font-extrabold tracking-tight mb-4">
            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink via-mauve to-blue drop-shadow-[0_2px_10px_rgba(236,72,153,0.3)]">
-             Dyslexia Analysis
+             {t('dyslexiaHeading')}
            </span>
         </h1>
         <div className="glass inline-block px-6 py-2 rounded-full border border-black/5">
           <p className="text-subtext1">
-             Upload a handwriting sample for AI-assisted analysis
+             {t('dyslexiaSub')}
           </p>
         </div>
       </div>
