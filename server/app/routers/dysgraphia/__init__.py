@@ -1,4 +1,5 @@
 import os
+import tempfile
 import uuid
 
 from fastapi import APIRouter, File, UploadFile
@@ -8,7 +9,8 @@ from .predict_gemini import GeminiPredictor, PredictionResult
 
 router = APIRouter()
 
-UPLOAD_DIR = "uploads/dysgraphia"
+tmpdir = tempfile.TemporaryDirectory()
+UPLOAD_DIR = os.path.join(tmpdir.name, "uploads/dysgraphia")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
