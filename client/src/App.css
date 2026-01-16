@@ -34,18 +34,7 @@ body {
 }
 
 #root {
-  max-width: 900px;
   margin: 0 auto;
-  padding: 24px;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.app-header {
   text-align: center;
   padding: 24px;
   background: var(--catppuccin-surface0);
@@ -98,6 +87,24 @@ body {
   width: 100%;
   max-width: 600px;
   min-height: 700px;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .module-wrapper.coming-soon {
