@@ -7,7 +7,6 @@ import Dyslexia from './modules/dyslexia/dyslexia.jsx'
 import Adhd from './modules/adhd/adhd.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [serverStatus, setServerStatus] = useState("...")
 
   useEffect(() => {
@@ -49,7 +48,7 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<Home count={count} setCount={setCount} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/dysgraphia" element={<Dysgraphia />} />
           <Route path="/dyslexia" element={<Dyslexia />} />
           <Route path="/adhd" element={<Adhd />} />
@@ -58,7 +57,7 @@ function App() {
     </Router>
   )
 
-  function Home({ count, setCount }) {
+  function Home() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
