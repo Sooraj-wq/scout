@@ -223,9 +223,6 @@ async def get_ai_analysis(session_data: Dict[str, Any]) -> AIAnalysisResponse:
     Get AI analysis from session data
     Tries Groq first, falls back to Google AI Studio
     """
-    # Debug: Print current config
-    AIServiceConfig.debug_config()
-
     prompt = format_analysis_prompt(session_data)
 
     # Try Groq first
