@@ -91,6 +91,7 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
   }, [difficulty]);
 
   const handleSelect = (num) => {
+    // Note: Date.now() is allowed here as it's in event handler, not render
     const latency = Date.now() - startTimeRef.current;
     const isCorrect = num === targetCount;
     

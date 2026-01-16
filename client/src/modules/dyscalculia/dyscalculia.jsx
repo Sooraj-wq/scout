@@ -9,7 +9,8 @@ import {
   QuantityTask,
   ComparisonTask,
   SymbolTask,
-  OrderTask
+  OrderTask,
+  FlashCountingTask
 } from './tasks';
 import ResultsScreen from './ResultsScreen';
 
@@ -18,6 +19,7 @@ const taskSequence = [
   { type: 'warmup', component: WarmupComparison },
   { type: 'quantity', component: QuantityTask },
   { type: 'comparison', component: ComparisonTask },
+  { type: 'flash_counting', component: FlashCountingTask },
   { type: 'quantity', component: QuantityTask },
   { type: 'comparison', component: ComparisonTask },
   { type: 'symbol', component: SymbolTask },
@@ -93,48 +95,21 @@ export const DyscalculiaModule = () => {
   }, [completeWarmup]);
 
   const analyzeAndComplete = useCallback(async () => {
-    try {
-      // Send data to backend for analysis and explanation generation
-      const analysisResponse = await fetch(`/api/dyscalculia/sessions/${sessionId}/analyze`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
+    // Use local analysis for score calculation, external AI analysis will be done in ResultsScreen
+    const analysis = analyzePatterns(observationAttempts);
+    const score = calculateOverallScore(observationAttempts);
+    const explanation = generateExplanation(analysis);
 
-      if (!analysisResponse.ok) throw new Error('Analysis failed');
+    setShowResults(true);
+    completeSession(score, explanation);
 
-      const analysisData = await analysisResponse.json();
-
-      const explanationResponse = await fetch(`/api/dyscalculia/sessions/${sessionId}/explanation`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-
-      if (!explanationResponse.ok) throw new Error('Explanation generation failed');
-
-      const explanationData = await explanationResponse.json();
-
-      const score = calculateOverallScore(observationAttempts); // Keep local score calculation for UI
-
-      setShowResults(true);
-      completeSession(score, explanationData.explanation);
-
-      logSessionEnd({
-        score,
-        analysis: analysisData.pattern,
-        attempts: observationAttempts.length,
-        stressIndicators: stressIndicators.length
-      });
-    } catch (error) {
-      console.error('Analysis failed:', error);
-      // Fallback to local analysis if backend fails
-      const analysis = analyzePatterns(observationAttempts);
-      const score = calculateOverallScore(observationAttempts);
-      const explanation = generateExplanation(analysis);
-
-      setShowResults(true);
-      completeSession(score, explanation);
-    }
-  }, [observationAttempts, exposures, stressIndicators, sessionId, completeSession]);
+    logSessionEnd({
+      score,
+      analysis: analysis.pattern,
+      attempts: observationAttempts.length,
+      stressIndicators: stressIndicators.length
+    });
+  }, [observationAttempts, stressIndicators, completeSession]);
 
   const handleTaskComplete = useCallback(({ success }) => {
     if (success) {

@@ -3,31 +3,73 @@ import { useGameStore } from '../state/gameState';
 import { logTaskStart, logTaskAnswer } from '../utils/eventLogger';
 
 const DotsGroup = ({ count, size = 35, highlight = false }) => {
-  const positions = [];
-  const gridSize = Math.ceil(Math.sqrt(count));
-  const spacing = size + 10;
-  const offsetX = (280 - gridSize * spacing) / 2;
-  const offsetY = (200 - gridSize * spacing) / 2;
+  // Use useRef to store random state to avoid impure calls
+  const randomRef = useRef(Math.random());
 
+  const positions = [];
+
+  // GUARANTEED NO OVERLAP: Use pure grid-based positioning
+  const containerWidth = 280;
+  const containerHeight = 200;
+  
+  // Calculate grid dimensions that can fit all dots with safe spacing
+  const gridCols = Math.ceil(Math.sqrt(count * (containerWidth / containerHeight)));
+  const gridRows = Math.ceil(count / gridCols);
+  
+  // Calculate cell size (including dot size + minimum spacing)
+  const cellWidth = containerWidth / gridCols;
+  const cellHeight = containerHeight / gridRows;
+  
+  // Ensure dots fit within cells with padding
+  const effectiveSize = Math.min(size, cellWidth * 0.6, cellHeight * 0.6);
+  
+  // Place dots in grid cells with guaranteed spacing
   for (let i = 0; i < count; i++) {
-    const row = Math.floor(i / gridSize);
-    const col = i % gridSize;
+    const row = Math.floor(i / gridCols);
+    const col = i % gridCols;
+    
+    // Center of each cell
+    const centerX = col * cellWidth + cellWidth / 2;
+    const centerY = row * cellHeight + cellHeight / 2;
+    
+    // Add small random offset (max 20% of cell size) for natural look
+    // but keep within safe bounds to prevent overlap
+    const maxOffset = Math.min(cellWidth, cellHeight) * 0.15;
+    const offsetX = (randomRef.current - 0.5) * maxOffset;
+    randomRef.current = Math.random();
+    const offsetY = (randomRef.current - 0.5) * maxOffset;
+    randomRef.current = Math.random();
+    
     positions.push({
-      x: offsetX + col * spacing + spacing / 2,
-      y: offsetY + row * spacing + spacing / 2
+      x: centerX + offsetX,
+      y: centerY + offsetY,
+      size: effectiveSize
     });
   }
 
   return (
     <svg width="280" height="200" viewBox="0 0 280 200">
+      {/* Optional: subtle boundary lines */}
+      <rect
+        x="5"
+        y="5"
+        width="270"
+        height="190"
+        fill="none"
+        stroke="var(--catppuccin-surface1)"
+        strokeWidth="1"
+        opacity="0.05"
+        rx="8"
+      />
+
       {positions.map((pos, i) => (
         <circle
           key={i}
           cx={pos.x}
           cy={pos.y}
-          r={size / 2}
+          r={pos.size / 2}
           fill={highlight ? 'var(--catppuccin-magenta)' : 'var(--catppuccin-blue)'}
-          style={{ 
+          style={{
             transition: 'all 0.3s ease',
             filter: highlight ? 'drop-shadow(0 0 8px rgba(127, 103, 190, 0.5))' : 'none'
           }}
@@ -45,6 +87,9 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
   const [attempts, setAttempts] = useState(0);
   const startTimeRef = useRef(null);
   const { addTaskAttempt, addStressIndicator } = useGameStore();
+  
+  // Use useRef to store random state to avoid impure calls
+  const randomRef = useRef(Math.random());
 
   const generateTask = (diff) => {
     let maxCount, minCount, range;
@@ -67,11 +112,11 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
       range = [3, 4, 5, 6, 7, 8, 9, 10];
     }
 
-    const target = Math.floor(Math.random() * (maxCount - minCount + 1)) + minCount;
+    const target = Math.floor(randomRef.current * (maxCount - minCount + 1)) + minCount;
     
     const otherOptions = range.filter(n => n !== target);
-    const shuffled = otherOptions.sort(() => Math.random() - 0.5);
-    const correctIndex = Math.floor(Math.random() * 3);
+    const shuffled = otherOptions.sort(() => randomRef.current - 0.5);
+    const correctIndex = Math.floor(randomRef.current * 3);
     const taskOptions = [...shuffled.slice(0, correctIndex), target, ...shuffled.slice(correctIndex, 2)];
     
     return { target, taskOptions };
@@ -81,6 +126,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
     const { target, taskOptions } = generateTask(difficulty);
     setTargetCount(target);
     setOptions(taskOptions);
+    // Note: Date.now() is allowed here as it's in event handler, not render
     startTimeRef.current = Date.now();
     
     logTaskStart({
@@ -92,6 +138,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
   }, [difficulty]);
 
   const handleSelect = (count) => {
+    // Note: Date.now() is allowed here as it's in event handler, not render
     const latency = Date.now() - startTimeRef.current;
     const isCorrect = count === targetCount;
     

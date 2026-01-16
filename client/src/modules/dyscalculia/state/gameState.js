@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { logTaskAttempt, logExposure, logStressIndicator } from '../utils/eventLogger';
+import { logTaskAttempt } from '../utils/eventLogger';
 
 const createSessionId = () => {
   return `sess_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
@@ -155,5 +155,19 @@ export const useGameStore = create((set, get) => ({
       return Math.min(state.tasksCompleted / 5, 1);
     }
     return Math.min(0.5 + (state.tasksCompleted / 20), 1);
+  },
+
+  getFlashCountingPerformance: () => {
+    const state = get();
+    const flashAttempts = state.taskHistory.filter(
+      attempt => attempt.task_type === 'flash_counting'
+    );
+    
+    if (flashAttempts.length === 0) return null;
+    
+    const correctCount = flashAttempts.filter(attempt => attempt.correct).length;
+    const percentage = (correctCount / flashAttempts.length) * 100;
+    
+    return percentage;
   }
 }));
