@@ -13,7 +13,7 @@ from .ai_services import (
     AIAnalysisResponse,
 )
 
-router = APIRouter(prefix="/api/dyscalculia", tags=["dyscalculia"])
+router = APIRouter()
 
 
 @router.post("/sessions/{session_id}/attempts")
