@@ -118,7 +118,7 @@ export default function Dyslexia() {
              Dyslexia Analysis
            </span>
         </h1>
-        <div className="glass inline-block px-6 py-2 rounded-full border border-white/5">
+        <div className="glass inline-block px-6 py-2 rounded-full border border-black/5">
           <p className="text-subtext1">
              Upload a handwriting sample for AI-assisted analysis
           </p>
@@ -157,11 +157,11 @@ export default function Dyslexia() {
 
       {result?.analysis && (
         <div className="space-y-8 animate-fade-in-up">
-            <div className="flex justify-between items-center bg-surface0/30 p-4 rounded-xl border border-white/5">
+            <div className="flex justify-between items-center bg-surface0/30 p-4 rounded-xl border border-black/5">
                 <h2 className="text-xl font-bold text-text">Analysis Complete</h2>
                 <button
                   onClick={resetForm}
-                  className="px-4 py-2 rounded-lg bg-surface0 hover:bg-surface1 text-subtext0 text-sm font-medium transition-colors border border-white/10"
+                  className="px-4 py-2 rounded-lg bg-surface0 hover:bg-surface1 text-subtext0 text-sm font-medium transition-colors border border-black/5"
                 >
                   Analyze Another
                 </button>
@@ -187,7 +187,7 @@ export default function Dyslexia() {
               </div>
             </div>
 
-            <div className="bg-white/5 bg-opacity-60 p-6 rounded-2xl border border-white/5 relative z-10">
+            <div className="bg-white/40 bg-opacity-60 p-6 rounded-2xl border border-black/5 relative z-10">
               <p className="text-base text-text leading-relaxed">
                 {result.analysis.explanation}
               </p>
@@ -206,7 +206,7 @@ export default function Dyslexia() {
             <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-mauve to-blue mb-8">Detailed Analysis</h3>
             <div className="space-y-6">
               {Object.entries(result.analysis.factor_scores).map(([key, score]) => (
-                <div key={key} className="glass p-4 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+                <div key={key} className="glass p-4 rounded-xl border border-black/5 hover:border-black/5 transition-colors">
                   <div className="flex justify-between mb-3 items-end">
                     <span className="text-base font-bold text-lavender">
                       {getFactorLabel(key)}
@@ -230,26 +230,26 @@ export default function Dyslexia() {
           </div>
 
           {/* Weights Reference */}
-          <div className="glass rounded-2xl p-8 border border-white/5">
+          <div className="glass rounded-2xl p-8 border border-black/5">
             <h3 className="text-xl font-bold text-subtext0 mb-4 uppercase tracking-wider text-sm">Analysis Weights Reference</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex justify-between p-3 glass rounded-lg border border-white/5 hover:bg-white/5 transition-colors">
+              <div className="flex justify-between p-3 glass rounded-lg border border-black/5 hover:bg-white/40 transition-colors">
                 <span className="text-subtext1">Letter Reversals:</span>
                 <span className="font-bold text-blue">30%</span>
               </div>
-              <div className="flex justify-between p-3 glass rounded-lg border border-white/5 hover:bg-white/5 transition-colors">
+              <div className="flex justify-between p-3 glass rounded-lg border border-black/5 hover:bg-white/40 transition-colors">
                 <span className="text-subtext1">Stroke Corrections:</span>
                 <span className="font-bold text-blue">20%</span>
               </div>
-              <div className="flex justify-between p-3 glass rounded-lg border border-white/5 hover:bg-white/5 transition-colors">
+              <div className="flex justify-between p-3 glass rounded-lg border border-black/5 hover:bg-white/40 transition-colors">
                 <span className="text-subtext1">Spacing Inconsistency:</span>
                 <span className="font-bold text-blue">20%</span>
               </div>
-              <div className="flex justify-between p-3 glass rounded-lg border border-white/5 hover:bg-white/5 transition-colors">
+              <div className="flex justify-between p-3 glass rounded-lg border border-black/5 hover:bg-white/40 transition-colors">
                 <span className="text-subtext1">Baseline Instability:</span>
                 <span className="font-bold text-blue">15%</span>
               </div>
-              <div className="flex justify-between p-3 glass rounded-lg border border-white/5 hover:bg-white/5 transition-colors">
+              <div className="flex justify-between p-3 glass rounded-lg border border-black/5 hover:bg-white/40 transition-colors">
                 <span className="text-subtext1">Letter Inconsistency:</span>
                 <span className="font-bold text-blue">15%</span>
               </div>

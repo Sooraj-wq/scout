@@ -203,11 +203,11 @@ const AdhdAssessment = () => {
   return (
     <div className="min-h-screen bg-transparent">
       {/* Progress Bar */}
-      <div className="glass border-b border-white/5 sticky top-20 z-40 backdrop-blur-xl">
+      <div className="glass border-b border-black/5 sticky top-20 z-40 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-text to-subtext0">ADHD Assessment</h2>
-            <div className="glass px-4 py-1 rounded-full border border-white/10">
+            <div className="glass px-4 py-1 rounded-full border border-black/5">
                <span className="text-subtext0 font-medium tracking-wide text-sm">PHASE <span className="text-mauve font-bold">{displayPhase}</span> / 3</span>
             </div>
           </div>

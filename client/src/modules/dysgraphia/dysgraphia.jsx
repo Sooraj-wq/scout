@@ -109,13 +109,13 @@ export default function Dysgraphia() {
             themeColor="teal"
           />
         ) : (
-          <div className="glass shadow-2xl rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+          <div className="glass shadow-2xl rounded-2xl p-8 border border-black/5 relative overflow-hidden">
             {/* Decorative elements for results */}
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
             
             <div className="space-y-8 relative z-10 animate-fade-in-up">
-              <div className="flex items-center justify-between border-b border-white/10 pb-6">
+              <div className="flex items-center justify-between border-b border-black/5 pb-6">
                 <h2 className="text-2xl font-bold text-text">Analysis Results</h2>
                 <button
                   onClick={resetForm}

@@ -57,7 +57,7 @@ export default function FileUploader({
   const t = themes[themeColor] || themes.teal
 
   return (
-    <div className="glass shadow-2xl rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+    <div className="glass shadow-2xl rounded-2xl p-8 border border-black/5 relative overflow-hidden">
       {/* Decorative elements */}
       <div className={`absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 ${themeColor === 'mauve' ? 'bg-mauve/10' : 'bg-teal-500/10'} rounded-full blur-3xl`}></div>
       <div className={`absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 ${themeColor === 'mauve' ? 'bg-pink-500/10' : 'bg-blue-500/10'} rounded-full blur-3xl`}></div>
@@ -68,7 +68,7 @@ export default function FileUploader({
             border-2 border-dashed rounded-xl p-10 text-center transition-all duration-300
             ${file 
               ? `${t.border} ${t.bgAlert}` 
-              : `border-white/20 ${t.hover} hover:bg-white/5`
+              : `border-black/10 ${t.hover} hover:bg-white/40`
             }
           `}
           onDragOver={handleDragOver}
@@ -100,7 +100,7 @@ export default function FileUploader({
                       onReset()
                       if (fileInputRef.current) fileInputRef.current.value = ''
                     }}
-                    className="px-4 py-2 rounded-lg bg-surface0 border border-white/10 hover:bg-surface1 transition-colors text-subtext0 font-medium"
+                    className="px-4 py-2 rounded-lg bg-surface0 border border-black/5 hover:bg-surface1 transition-colors text-subtext0 font-medium"
                   >
                     Change File
                   </button>
@@ -123,7 +123,7 @@ export default function FileUploader({
               </>
             ) : (
               <>
-                <div className="w-20 h-20 rounded-2xl bg-surface0 border border-white/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-20 h-20 rounded-2xl bg-surface0 border border-black/5 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
                   {Icon ? (
                     <Icon className={`w-10 h-10 ${t.iconColor}`} />
                   ) : (

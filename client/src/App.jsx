@@ -33,7 +33,7 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-transparent font-sans">
-        <nav className="glass sticky top-0 z-50 border-b border-white/10">
+        <nav className="glass sticky top-0 z-50 border-b border-black/5">
           <div className="mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -74,7 +74,7 @@ function App() {
           <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide">
             (Student Cognitive Observation & Understanding Tool)
           </p>
-          <div className="mt-8 glass inline-block px-6 py-2 rounded-full border border-white/5">
+          <div className="mt-8 glass inline-block px-6 py-2 rounded-full border border-black/5">
             <p className="text-lg text-subtext1">
               Select a module below to begin analysis
             </p>
@@ -84,7 +84,7 @@ function App() {
         <div className="flex flex-wrap justify-center gap-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
           <Link
             to="/dysgraphia"
-            className="bg-surface0 rounded-lg shadow-material p-6 hover:shadow-material-lg transition-shadow border border-surface1 w-80"
+            className="glass-card rounded-2xl p-6 w-80"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-blue/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -102,7 +102,7 @@ function App() {
 
           <Link
             to="/dyslexia"
-            className="bg-surface0 rounded-lg shadow-material p-6 hover:shadow-material-lg transition-shadow border border-surface1 w-80"
+            className="glass-card rounded-2xl p-6 w-80"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-mauve/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -141,7 +141,7 @@ function App() {
 
           <Link
             to="/adhd"
-            className="bg-surface0 rounded-lg shadow-material p-6 hover:shadow-material-lg transition-shadow border border-surface1 w-80"
+            className="glass-card rounded-2xl p-6 w-80"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-mauve/20 rounded-full flex items-center justify-center mx-auto mb-4">
