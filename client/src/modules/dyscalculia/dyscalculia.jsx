@@ -46,7 +46,7 @@ const getTaskDifficulty = (taskIndex, difficulty) => {
   return Math.min(difficulty, 8);
 };
 
-export export const DyscalculiaModule = () => {
+export const DyscalculiaModule = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [difficulty, setDifficulty] = useState(1);
   const [showResults, setShowResults] = useState(false);

@@ -17,7 +17,8 @@ export const translations = {
     getStarted: "Get Started →",
     adhdHeading: "Neuro-Cognitive Suite",
     adhdSub: "ADHD Screening Assessment",
-    adhdIntroText: "Welcome to the comprehensive ADHD screening tool. This assessment evaluates three key cognitive domains affected by attention disorders through scientifically-validated tasks."
+    adhdIntroText: "Welcome to the comprehensive ADHD screening tool. This assessment evaluates three key cognitive domains affected by attention disorders through scientifically-validated tasks.",
+    beginAssessment: "Begin Assessment"
   },
   ml: {
     appTitle: "SCOUT",
@@ -37,6 +38,7 @@ export const translations = {
     getStarted: "ആരംഭിക്കൂ →",
     adhdHeading: "ന്യൂറോ-കോഗ്നിറ്റീവ് സ്യൂട്ട്",
     adhdSub: "ADHD സ്ക്രീനിംഗ് വിലയിരുത്തൽ",
-    adhdIntroText: "സമഗ്രമായ ADHD സ്ക്രീനിംഗ് ടൂളിലേക്ക് സ്വാഗതം. ഈ വിലയിരുത്തൽ ശാസ്ത്രീയമായി സാധൂകരിക്കപ്പെട്ട ടാസ്‌ക്കുകൾ വഴി ശ്രദ്ധാ ഡിസോർഡറുകൾ ബാധിക്കുന്ന മൂന്ന് പ്രധാന കോഗ്നിറ്റീവ് ഡൊമെയ്‌നുകൾ വിലയിരുത്തുന്നു."
+    adhdIntroText: "സമഗ്രമായ ADHD സ്ക്രീനിംഗ് ടൂളിലേക്ക് സ്വാഗതം. ഈ വിലയിരുത്തൽ ശാസ്ത്രീയമായി സാധൂകരിക്കപ്പെട്ട ടാസ്‌ക്കുകൾ വഴി ശ്രദ്ധാ ഡിസോർഡറുകൾ ബാധിക്കുന്ന മൂന്ന് പ്രധാന കോഗ്നിറ്റീവ് ഡൊമെയ്‌നുകൾ വിലയിരുത്തുന്നു.",
+    beginAssessment: "വിലയിരുത്തൽ ആരംഭിക്കൂ"
   }
 };
