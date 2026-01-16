@@ -56,7 +56,7 @@ const DotsGroup = ({ count, size = 35, highlight = false }) => {
         width="270"
         height="190"
         fill="none"
-        stroke="var(--catppuccin-surface1)"
+        stroke="#45475a"
         strokeWidth="1"
         opacity="0.05"
         rx="8"
@@ -68,9 +68,9 @@ const DotsGroup = ({ count, size = 35, highlight = false }) => {
           cx={pos.x}
           cy={pos.y}
           r={pos.size / 2}
-          fill={highlight ? 'var(--catppuccin-magenta)' : 'var(--catppuccin-blue)'}
+          fill={highlight ? '#cba6f7' : '#89b4fa'}
+          className="transition-all duration-300"
           style={{
-            transition: 'all 0.3s ease',
             filter: highlight ? 'drop-shadow(0 0 8px rgba(127, 103, 190, 0.5))' : 'none'
           }}
         />
@@ -177,72 +177,35 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100%',
-      padding: '24px',
-      background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-      borderRadius: '28px'
-    }}>
-      <div style={{ marginBottom: '24px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '24px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-normal text-text mb-2">
           Find the same amount
         </h2>
-        <p style={{
-          fontSize: '16px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-base text-subtext0">
           Tap the group that matches
         </p>
       </div>
 
-      <div style={{
-        background: 'var(--catppuccin-surface0)',
-        borderRadius: '24px',
-        padding: '32px',
-        marginBottom: '32px',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.25)'
-      }}>
+      <div className="bg-surface0 rounded-3xl p-8 mb-8 shadow-material-lg">
         <DotsGroup count={targetCount} size={45} />
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        maxWidth: '400px'
-      }}>
+      <div className="flex gap-4 flex-wrap justify-center max-w-[400px]">
         {options.map((count, index) => (
           <button
             key={index}
             onClick={() => handleSelect(count)}
             disabled={showFeedback}
-            style={{
-              padding: '16px 24px',
-              borderRadius: '20px',
-              border: selected === count 
-                ? (count === targetCount ? '3px solid var(--catppuccin-green)' : '3px solid var(--catppuccin-red)')
-                : '3px solid transparent',
-              background: selected === count 
-                ? (count === targetCount ? 'rgba(166, 227, 161, 0.2)' : 'rgba(243, 139, 168, 0.2)')
-                : 'var(--catppuccin-surface0)',
-              cursor: showFeedback ? 'default' : 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-              opacity: showFeedback ? 0.7 : 1,
-              transform: showFeedback ? 'scale(0.95)' : 'scale(1)'
-            }}
+            className={`p-4 rounded-[20px] transition-all duration-300 shadow-material ${
+              showFeedback ? 'opacity-70 scale-95' : 'opacity-100 scale-100'
+            } ${
+              selected === count 
+                ? (count === targetCount 
+                  ? 'border-[3px] border-green bg-green/20' 
+                  : 'border-[3px] border-red bg-red/20')
+                : 'border-[3px] border-transparent bg-surface0'
+            } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
           >
             <DotsGroup count={count} size={30} />
           </button>
@@ -250,39 +213,13 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
       </div>
 
       {showFeedback && selected === targetCount && (
-        <div style={{
-          marginTop: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(166, 227, 161, 0.2)',
-          border: '2px solid var(--catppuccin-green)',
-          color: 'var(--catppuccin-green)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 border-2 border-green text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
           <span>✓</span> Perfect match!
         </div>
       )}
 
       {showFeedback && selected !== targetCount && (
-        <div style={{
-          marginTop: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(249, 226, 175, 0.2)',
-          border: '2px solid var(--catppuccin-yellow)',
-          color: 'var(--catppuccin-yellow)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-yellow/20 border-2 border-yellow text-yellow text-xl font-medium animate-[fadeIn_0.3s_ease]">
           <span>↺</span> Try again!
         </div>
       )}

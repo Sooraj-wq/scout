@@ -20,10 +20,8 @@ const FlashingDot = ({ x, y, size, isFlashing, delay }) => {
       cx={x}
       cy={y}
       r={size / 2}
-      fill={visible ? 'var(--catppuccin-blue)' : 'var(--catppuccin-surface0)'}
-      style={{ 
-        transition: 'all 0.1s ease'
-      }}
+      fill={visible ? '#89b4fa' : '#313244'}
+      className="transition-all duration-100"
     />
   );
 };
@@ -199,31 +197,12 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100%',
-      padding: '24px',
-      background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-      borderRadius: '28px'
-    }}>
-      <div style={{ marginBottom: '24px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '24px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-normal text-text mb-2">
           {isFlashing ? 'Count the flashes...' : 'How many flashes?'}
         </h2>
-        <p style={{
-          fontSize: '16px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-base text-subtext0">
           {isFlashing 
             ? `Pay attention! (${(flashDuration / 1000).toFixed(1)} seconds)`
             : 'Type the number you saw'
@@ -231,17 +210,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
         </p>
       </div>
 
-      <div style={{
-        background: 'var(--catppuccin-surface0)',
-        borderRadius: '24px',
-        padding: '32px',
-        marginBottom: '24px',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
-        width: '280px',
-        height: '200px',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
+      <div className="bg-surface0 rounded-3xl p-8 mb-6 shadow-material-lg w-[280px] h-[200px] relative overflow-hidden">
         <svg width="280" height="200" viewBox="0 0 280 200">
           {/* Optional: subtle boundary lines */}
           <rect
@@ -250,7 +219,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
             width="210"
             height="130"
             fill="none"
-            stroke="var(--catppuccin-surface1)"
+            stroke="#45475a"
             strokeWidth="1"
             opacity="0.05"
             rx="8"
@@ -273,11 +242,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
               y="100"
               textAnchor="middle"
               dominantBaseline="middle"
-              style={{
-                fontSize: '14px',
-                color: 'var(--catppuccin-subtext0)',
-                fontFamily: 'system-ui, -apple-system, sans-serif'
-              }}
+              className="text-sm text-subtext0"
             >
               {!showFeedback && 'Waiting for you to start...'}
             </text>
@@ -286,45 +251,24 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
       </div>
 
       {!isFlashing && (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '16px'
-        }}>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '12px' }}>
+        <div className="flex flex-col items-center gap-4">
+          <form onSubmit={handleSubmit} className="flex gap-3">
             <input
               type="number"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter number"
               disabled={showFeedback}
-              style={{
-                padding: '12px 20px',
-                borderRadius: '16px',
-                border: '2px solid var(--catppuccin-surface1)',
-                background: 'var(--catppuccin-surface0)',
-                color: 'var(--catppuccin-text)',
-                fontSize: '16px',
-                fontFamily: 'system-ui, -apple-system, sans-serif',
-                width: '150px',
-                textAlign: 'center'
-              }}
+              className="px-5 py-3 rounded-2xl border-2 border-surface1 bg-surface0 text-text text-base w-[150px] text-center"
             />
             <button
               type="submit"
               disabled={!inputValue.trim() || showFeedback}
-              style={{
-                padding: '12px 24px',
-                borderRadius: '16px',
-                border: '2px solid var(--catppuccin-blue)',
-                background: inputValue.trim() && !showFeedback ? 'var(--catppuccin-blue)' : 'transparent',
-                color: inputValue.trim() && !showFeedback ? 'var(--catppuccin-base)' : 'var(--catppuccin-blue)',
-                fontSize: '16px',
-                fontWeight: '500',
-                cursor: inputValue.trim() && !showFeedback ? 'pointer' : 'default',
-                transition: 'all 0.3s ease'
-              }}
+              className={`px-6 py-3 rounded-2xl border-2 text-base font-medium transition-all duration-300 ${
+                inputValue.trim() && !showFeedback
+                  ? 'border-blue bg-blue text-base cursor-pointer'
+                  : 'border-blue bg-transparent text-blue cursor-default'
+              }`}
             >
               Submit
             </button>
@@ -333,17 +277,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
           {!isFlashing && !showFeedback && (
             <button
               onClick={startFlashing}
-              style={{
-                padding: '12px 24px',
-                borderRadius: '16px',
-                border: '2px solid var(--catppuccin-green)',
-                background: 'transparent',
-                color: 'var(--catppuccin-green)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
+              className="px-6 py-3 rounded-2xl border-2 border-green bg-transparent text-green text-sm font-medium cursor-pointer transition-all duration-300 hover:bg-green/10"
             >
               Start Flashing
             </button>
@@ -352,22 +286,11 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
       )}
 
       {showFeedback && (
-        <div style={{
-          marginTop: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: parseInt(inputValue, 10) === targetCount 
-            ? 'rgba(166, 227, 161, 0.2)' 
-            : 'rgba(249, 226, 175, 0.2)',
-          border: `2px solid ${parseInt(inputValue, 10) === targetCount ? 'var(--catppuccin-green)' : 'var(--catppuccin-yellow)'}`,
-          color: parseInt(inputValue, 10) === targetCount ? 'var(--catppuccin-green)' : 'var(--catppuccin-yellow)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className={`mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] border-2 text-xl font-medium animate-[fadeIn_0.3s_ease] ${
+          parseInt(inputValue, 10) === targetCount 
+            ? 'bg-green/20 border-green text-green' 
+            : 'bg-yellow/20 border-yellow text-yellow'
+        }`}>
           <span>{parseInt(inputValue, 10) === targetCount ? '✓' : '✗'}</span>
           {parseInt(inputValue, 10) === targetCount 
             ? (

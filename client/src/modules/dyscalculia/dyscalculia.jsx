@@ -36,40 +36,6 @@ const getTaskDifficulty = (taskIndex, difficulty) => {
   return Math.min(difficulty, 8);
 };
 
-const CalmLayout = ({ children }) => (
-  <div style={{
-    width: '100%',
-    height: '100%',
-    minHeight: '600px',
-    display: 'flex',
-    flexDirection: 'column',
-    background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-    borderRadius: '28px',
-    overflow: 'hidden',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.25)'
-  }}>
-    {children}
-  </div>
-);
-
-const ProgressBar = ({ progress }) => (
-  <div style={{
-    width: '100%',
-    height: '6px',
-    background: 'var(--catppuccin-surface1)',
-    borderRadius: '3px',
-    overflow: 'hidden'
-  }}>
-    <div style={{
-      width: `${progress * 100}%`,
-      height: '100%',
-      background: 'var(--catppuccin-blue)',
-      borderRadius: '3px',
-      transition: 'width 0.5s ease'
-    }} />
-  </div>
-);
-
 export const DyscalculiaModule = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [difficulty, setDifficulty] = useState(1);
@@ -95,7 +61,6 @@ export const DyscalculiaModule = () => {
   }, [completeWarmup]);
 
   const analyzeAndComplete = useCallback(async () => {
-    // Use local analysis for score calculation, external AI analysis will be done in ResultsScreen
     const analysis = analyzePatterns(observationAttempts);
     const score = calculateOverallScore(observationAttempts);
     const explanation = generateExplanation(analysis);
@@ -143,23 +108,37 @@ export const DyscalculiaModule = () => {
 
   if (showResults || isComplete) {
     return (
-      <CalmLayout>
-        <ResultsScreen onReset={resetModule} />
-      </CalmLayout>
+      <div className="min-h-screen bg-base">
+        <div className="bg-mantle border-b border-surface0">
+          <div className="max-w-6xl mx-auto px-8 py-6">
+            <h2 className="text-xl font-bold text-text">Dyscalculia Assessment - Results</h2>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto">
+          <ResultsScreen onReset={resetModule} />
+        </div>
+      </div>
     );
   }
 
   return (
-    <CalmLayout>
-      <ProgressBar progress={Math.min(progress, 1)} />
-      
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '16px',
-        overflow: 'auto'
-      }}>
+    <div className="min-h-screen bg-base">
+      <div className="bg-mantle border-b border-surface0">
+        <div className="max-w-6xl mx-auto px-8 py-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-bold text-text">Dyscalculia Assessment</h2>
+            <span className="text-subtext1 text-sm">Task {currentTaskIndex + 1} of {taskSequence.length}</span>
+          </div>
+          <div className="w-full bg-surface0 rounded-full h-3">
+            <div 
+              className="bg-gradient-to-r from-green to-teal h-3 rounded-full transition-all duration-500"
+              style={{ width: `${Math.min(progress, 1) * 100}%` }}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto">
         {phase === 'warmup' && currentTaskIndex < 2 && TaskComponent && (
           <TaskComponent 
             key={`warmup-${currentTaskIndex}`}
@@ -183,7 +162,7 @@ export const DyscalculiaModule = () => {
           />
         )}
       </div>
-    </CalmLayout>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
 import { logEvent } from '../utils/eventLogger';
 
-const Dots = ({ count, size = 40, color = 'var(--catppuccin-blue)' }) => {
+const Dots = ({ count, size = 40, color = '#a6e3a1' }) => {
   const positions = [];
   const centerX = 100;
   const centerY = 100;
@@ -56,7 +56,7 @@ const ObjectsDisplay = ({ count, objectType = 'star' }) => {
               fontSize="40"
               textAnchor="middle"
               dominantBaseline="middle"
-              fill="var(--catppuccin-blue)"
+              fill="#a6e3a1"
             >
               ⭐
             </text>
@@ -68,7 +68,7 @@ const ObjectsDisplay = ({ count, objectType = 'star' }) => {
             cx={pos.x}
             cy={pos.y}
             r="20"
-            fill="var(--catppuccin-blue)"
+            fill="#a6e3a1"
           />
         );
       })}
@@ -138,50 +138,19 @@ export const WarmupFreePlay = ({ onComplete }) => {
 
   return (
     <div 
-      className="warmup-freeplay"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100%',
-        padding: '24px',
-        background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-        borderRadius: '28px',
-        cursor: representation === 'dots' ? 'default' : 'pointer'
-      }}
+      className="flex flex-col items-center justify-center min-h-[500px] px-8 py-12 cursor-pointer"
       onClick={handleTap}
     >
-      <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '28px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-green mb-3">
           Let's play with numbers!
         </h2>
-        <p style={{
-          fontSize: '18px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-lg text-subtext0">
           Tap to see more, or choose below
         </p>
       </div>
 
-      <div style={{
-        background: 'var(--catppuccin-surface0)',
-        borderRadius: '24px',
-        padding: '32px',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
-        marginBottom: '32px',
-        minHeight: '240px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+      <div className="bg-surface0 rounded-3xl p-8 mb-8 shadow-material-lg min-h-[240px] flex items-center justify-center border border-surface1">
         {representation === 'dots' ? (
           <Dots count={currentCount} />
         ) : (
@@ -189,95 +158,54 @@ export const WarmupFreePlay = ({ onComplete }) => {
         )}
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '12px',
-        marginBottom: '24px'
-      }}>
+      <div className="flex gap-3 mb-6">
         <button
           onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-          style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '28px',
-            border: 'none',
-            background: currentCount > 1 ? 'var(--catppuccin-surface1)' : 'var(--catppuccin-surface0)',
-            color: currentCount > 1 ? 'var(--catppuccin-text)' : 'var(--catppuccin-subtext1)',
-            fontSize: '24px',
-            cursor: currentCount > 1 ? 'pointer' : 'default',
-            transition: 'all 0.2s ease'
-          }}
+          disabled={currentCount <= 1}
+          className={`w-14 h-14 rounded-full border-none text-2xl transition-all duration-200 ${
+            currentCount > 1 
+              ? 'bg-surface1 text-text cursor-pointer hover:bg-surface2' 
+              : 'bg-surface0 text-subtext1 cursor-default'
+          }`}
         >
           -
         </button>
         
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '56px',
-          height: '56px',
-          borderRadius: '28px',
-          background: 'var(--catppuccin-magenta)',
-          color: 'var(--catppuccin-text)',
-          fontSize: '24px',
-          fontWeight: '500'
-        }}>
+        <div className="flex items-center justify-center w-14 h-14 rounded-full bg-green text-base text-2xl font-semibold">
           {currentCount}
         </div>
 
         <button
           onClick={(e) => { e.stopPropagation(); handleNext(); }}
-          style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '28px',
-            border: 'none',
-            background: currentCount < 3 ? 'var(--catppuccin-surface1)' : 'var(--catppuccin-surface0)',
-            color: currentCount < 3 ? 'var(--catppuccin-text)' : 'var(--catppuccin-subtext1)',
-            fontSize: '24px',
-            cursor: currentCount < 3 ? 'pointer' : 'default',
-            transition: 'all 0.2s ease'
-          }}
+          disabled={currentCount >= 3}
+          className={`w-14 h-14 rounded-full border-none text-2xl transition-all duration-200 ${
+            currentCount < 3 
+              ? 'bg-surface1 text-text cursor-pointer hover:bg-surface2' 
+              : 'bg-surface0 text-subtext1 cursor-default'
+          }`}
         >
           +
         </button>
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '12px',
-        marginBottom: '32px'
-      }}>
+      <div className="flex gap-3 mb-8">
         <button
           onClick={(e) => { e.stopPropagation(); handleRepresentationChange('dots'); }}
-          style={{
-            padding: '12px 24px',
-            borderRadius: '24px',
-            border: representation === 'dots' ? '2px solid var(--catppuccin-blue)' : '2px solid transparent',
-            background: representation === 'dots' ? 'var(--catppuccin-surface1)' : 'var(--catppuccin-surface0)',
-            color: 'var(--catppuccin-text)',
-            fontSize: '16px',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
-          }}
+          className={`px-6 py-3 rounded-3xl text-base transition-all duration-200 ${
+            representation === 'dots'
+              ? 'bg-surface1 text-text border-2 border-green'
+              : 'bg-surface0 text-text border-2 border-transparent hover:border-surface2'
+          }`}
         >
           Dots
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); handleRepresentationChange('stars'); }}
-          style={{
-            padding: '12px 24px',
-            borderRadius: '24px',
-            border: representation === 'stars' ? '2px solid var(--catppuccin-blue)' : '2px solid transparent',
-            background: representation === 'stars' ? 'var(--catppuccin-surface1)' : 'var(--catppuccin-surface0)',
-            color: 'var(--catppuccin-text)',
-            fontSize: '16px',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
-          }}
+          className={`px-6 py-3 rounded-3xl text-base transition-all duration-200 ${
+            representation === 'stars'
+              ? 'bg-surface1 text-text border-2 border-green'
+              : 'bg-surface0 text-text border-2 border-transparent hover:border-surface2'
+          }`}
         >
           Stars
         </button>
@@ -285,19 +213,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
 
       <button
         onClick={(e) => { e.stopPropagation(); handleContinue(); }}
-        style={{
-          padding: '16px 48px',
-          borderRadius: '28px',
-          border: 'none',
-          background: 'var(--catppuccin-magenta)',
-          color: 'var(--catppuccin-text)',
-          fontSize: '18px',
-          fontWeight: '500',
-          cursor: 'pointer',
-          transition: 'all 0.2s ease',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}
+        className="px-12 py-4 rounded-full border-none bg-green hover:bg-teal text-base text-lg font-bold cursor-pointer transition-all duration-200 shadow-material hover:shadow-material-lg transform hover:scale-105"
       >
         Ready to play! →
       </button>

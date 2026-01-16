@@ -26,8 +26,8 @@ const DotsGroup = ({ count, size = 30 }) => {
           cx={pos.x}
           cy={pos.y}
           r={size / 2}
-          fill="var(--catppuccin-blue)"
-          style={{ transition: 'all 0.3s ease' }}
+          fill="#89b4fa"
+          className="transition-all duration-300"
         />
       ))}
     </svg>
@@ -89,117 +89,56 @@ export const WarmupComparison = ({ onComplete }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100%',
-      padding: '24px',
-      background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-      borderRadius: '28px'
-    }}>
-      <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '28px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+      <div className="mb-8 text-center">
+        <h2 className="text-[28px] font-normal text-text mb-2">
           Which has more?
         </h2>
-        <p style={{
-          fontSize: '18px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-lg text-subtext0">
           Tap the group with more dots
         </p>
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '32px',
-        marginBottom: '48px'
-      }}>
+      <div className="flex gap-8 mb-12">
         <button
           onClick={() => handleSelect('left')}
-          style={{
-            padding: '24px',
-            borderRadius: '24px',
-            border: selected === 'left' 
-              ? '4px solid var(--catppuccin-magenta)' 
+          className={`p-6 rounded-3xl transition-all duration-300 shadow-material-lg cursor-pointer bg-surface0 ${
+            selected === 'left' 
+              ? 'border-[4px] border-mauve' 
               : showSuccess && leftCount > rightCount
-                ? '4px solid var(--catppuccin-green)'
-                : '4px solid transparent',
-            background: 'var(--catppuccin-surface0)',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)'
-          }}
+                ? 'border-[4px] border-green'
+                : 'border-[4px] border-transparent'
+          }`}
         >
           <DotsGroup count={leftCount} />
         </button>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          color: 'var(--catppuccin-subtext1)',
-          fontSize: '24px'
-        }}>
+        <div className="flex items-center text-subtext1 text-2xl">
           or
         </div>
 
         <button
           onClick={() => handleSelect('right')}
-          style={{
-            padding: '24px',
-            borderRadius: '24px',
-            border: selected === 'right' 
-              ? '4px solid var(--catppuccin-magenta)' 
+          className={`p-6 rounded-3xl transition-all duration-300 shadow-material-lg cursor-pointer bg-surface0 ${
+            selected === 'right' 
+              ? 'border-[4px] border-mauve' 
               : showSuccess && rightCount > leftCount
-                ? '4px solid var(--catppuccin-green)'
-                : '4px solid transparent',
-            background: 'var(--catppuccin-surface0)',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)'
-          }}
+                ? 'border-[4px] border-green'
+                : 'border-[4px] border-transparent'
+          }`}
         >
           <DotsGroup count={rightCount} />
         </button>
       </div>
 
       {showSuccess && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(166, 227, 161, 0.2)',
-          color: 'var(--catppuccin-green)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className="flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
           <span>✓</span> Great job!
         </div>
       )}
 
       {!showSuccess && selected !== null && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(249, 226, 175, 0.2)',
-          color: 'var(--catppuccin-yellow)',
-          fontSize: '20px',
-          fontWeight: '500'
-        }}>
+        <div className="flex items-center gap-3 px-8 py-4 rounded-[28px] bg-yellow/20 text-yellow text-xl font-medium">
           <span>Try again!</span>
         </div>
       )}

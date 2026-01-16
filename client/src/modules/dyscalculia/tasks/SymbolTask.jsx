@@ -26,8 +26,8 @@ const DotsGroup = ({ count, size = 30 }) => {
           cx={pos.x}
           cy={pos.y}
           r={size / 2}
-          fill="var(--catppuccin-blue)"
-          style={{ transition: 'all 0.3s ease' }}
+          fill="#89b4fa"
+          className="transition-all duration-300"
         />
       ))}
     </svg>
@@ -134,79 +134,39 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100%',
-      padding: '24px',
-      background: stressDetected 
-        ? 'linear-gradient(135deg, rgba(249, 226, 175, 0.2) 0%, rgba(249, 226, 175, 0.4) 100%)'
-        : 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-      borderRadius: '28px',
-      transition: 'background 0.5s ease'
-    }}>
-      <div style={{ marginBottom: '24px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '24px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+    <div className={`flex flex-col items-center justify-center min-h-full p-6 rounded-[28px] transition-all duration-500 ${
+      stressDetected 
+        ? 'bg-gradient-to-br from-yellow/20 to-yellow/40' 
+        : 'bg-gradient-to-br from-mantle to-base'
+    }`}>
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-normal text-text mb-2">
           Which number matches?
         </h2>
-        <p style={{
-          fontSize: '16px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-base text-subtext0">
           Tap the number for these dots
         </p>
       </div>
 
-      <div style={{
-        background: 'var(--catppuccin-surface0)',
-        borderRadius: '24px',
-        padding: '32px',
-        marginBottom: '32px',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.25)'
-      }}>
+      <div className="bg-surface0 rounded-3xl p-8 mb-8 shadow-material-lg">
         <DotsGroup count={targetCount} size={40} />
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        maxWidth: '400px'
-      }}>
+      <div className="flex gap-4 flex-wrap justify-center max-w-[400px]">
         {options.map((num, index) => (
           <button
             key={index}
             onClick={() => handleSelect(num)}
             disabled={showFeedback}
-            style={{
-            width: '72px',
-            height: '72px',
-            borderRadius: '20px',
-            border: selected === num 
-              ? (num === targetCount ? '3px solid var(--catppuccin-green)' : '3px solid var(--catppuccin-yellow)')
-              : '3px solid transparent',
-            background: selected === num 
-              ? (num === targetCount ? 'rgba(166, 227, 161, 0.2)' : 'rgba(249, 226, 175, 0.2)')
-              : 'var(--catppuccin-surface0)',
-            color: 'var(--catppuccin-text)',
-            fontSize: '32px',
-            fontWeight: '500',
-            cursor: showFeedback ? 'default' : 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-            opacity: showFeedback ? 0.7 : 1,
-            fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}
+            className={`w-[72px] h-[72px] rounded-[20px] text-text text-[32px] font-medium shadow-material transition-all duration-300 ${
+              showFeedback ? 'opacity-70' : 'opacity-100'
+            } ${
+              selected === num 
+                ? (num === targetCount 
+                  ? 'border-[3px] border-green bg-green/20' 
+                  : 'border-[3px] border-yellow bg-yellow/20')
+                : 'border-[3px] border-transparent bg-surface0'
+            } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
           >
             {num}
           </button>
@@ -214,51 +174,19 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
       </div>
 
       {stressDetected && (
-        <div style={{
-          marginTop: '24px',
-          padding: '12px 24px',
-          borderRadius: '20px',
-          background: 'rgba(249, 226, 175, 0.2)',
-          color: 'var(--catppuccin-yellow)',
-          fontSize: '14px',
-          textAlign: 'center'
-        }}>
+        <div className="mt-6 px-6 py-3 rounded-[20px] bg-yellow/20 text-yellow text-sm text-center">
           No worries! Take your time
         </div>
       )}
 
       {showFeedback && selected === targetCount && (
-        <div style={{
-          marginTop: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(166, 227, 161, 0.2)',
-          color: 'var(--catppuccin-green)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
           <span>✓</span> Perfect!
         </div>
       )}
 
       {showFeedback && selected !== targetCount && (
-        <div style={{
-          marginTop: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(249, 226, 175, 0.2)',
-          color: 'var(--catppuccin-yellow)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-yellow/20 text-yellow text-xl font-medium animate-[fadeIn_0.3s_ease]">
           <span>↺</span> Try again!
         </div>
       )}

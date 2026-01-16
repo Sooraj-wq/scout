@@ -14,31 +14,13 @@ const DraggableNumber = ({ number, isPlaced, onDragStart }) => {
         setIsDragging(true);
       }}
       onDragEnd={() => setIsDragging(false)}
-      style={{
-        width: '64px',
-        height: '64px',
-        borderRadius: '16px',
-        background: isPlaced 
-          ? 'var(--catppuccin-surface1)' 
+      className={`w-16 h-16 rounded-2xl flex items-center justify-center text-[28px] font-medium shadow-material transition-all duration-200 select-none ${
+        isPlaced 
+          ? 'bg-surface1 cursor-default opacity-50' 
           : isDragging 
-            ? 'var(--catppuccin-blue)' 
-            : 'var(--catppuccin-magenta)',
-        color: 'var(--catppuccin-text)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '28px',
-        fontWeight: '500',
-        cursor: isPlaced ? 'default' : 'grab',
-        opacity: isPlaced ? 0.5 : 1,
-        transform: isDragging ? 'scale(1.1)' : 'scale(1)',
-        transition: 'all 0.2s ease',
-        boxShadow: isDragging 
-          ? '0 8px 24px rgba(0,0,0,0.25)' 
-          : '0 4px 12px rgba(0,0,0,0.25)',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        userSelect: 'none'
-      }}
+            ? 'bg-blue scale-110 shadow-material-lg' 
+            : 'bg-mauve scale-100'
+      } ${!isPlaced ? 'cursor-grab' : ''} text-text`}
     >
       {number}
     </div>
@@ -61,29 +43,13 @@ const DropZone = ({ position, number, onDrop }) => {
         const droppedNumber = parseInt(e.dataTransfer.getData('text/plain'));
         onDrop(droppedNumber, position);
       }}
-      style={{
-        width: '64px',
-        height: '64px',
-        borderRadius: '16px',
-        border: isOver 
-          ? '3px dashed var(--catppuccin-magenta)' 
+      className={`w-16 h-16 rounded-2xl flex items-center justify-center text-[28px] font-medium transition-all duration-200 ${
+        isOver 
+          ? 'border-[3px] border-dashed border-mauve bg-surface1' 
           : number 
-            ? '3px solid var(--catppuccin-magenta)'
-            : '3px dashed var(--catppuccin-subtext1)',
-        background: isOver 
-          ? 'var(--catppuccin-surface1)' 
-          : number 
-            ? 'var(--catppuccin-surface1)'
-            : 'var(--catppuccin-surface0)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '28px',
-        fontWeight: '500',
-        color: number ? 'var(--catppuccin-text)' : 'var(--catppuccin-subtext1)',
-        transition: 'all 0.2s ease',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
-      }}
+            ? 'border-[3px] border-solid border-mauve bg-surface1'
+            : 'border-[3px] border-dashed border-subtext1 bg-surface0'
+      } ${number ? 'text-text' : 'text-subtext1'}`}
     >
       {number || ''}
     </div>
@@ -194,43 +160,17 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100%',
-      padding: '24px',
-      background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-      borderRadius: '28px'
-    }}>
-      <div style={{ marginBottom: '24px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '24px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-normal text-text mb-2">
           Put them in order
         </h2>
-        <p style={{
-          fontSize: '16px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-base text-subtext0">
           Drag the numbers from smallest to largest
         </p>
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '12px',
-        marginBottom: '48px',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        maxWidth: '400px'
-      }}>
+      <div className="flex gap-3 mb-12 flex-wrap justify-center max-w-[400px]">
         {sequence.map((item, index) => (
           <DropZone
             key={index}
@@ -241,13 +181,7 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
         ))}
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        maxWidth: '400px'
-      }}>
+      <div className="flex gap-4 flex-wrap justify-center max-w-[400px]">
         {availableNumbers.map((num, index) => !num.placed && (
           <DraggableNumber
             key={index}
@@ -259,19 +193,7 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
       </div>
 
       {showSuccess && (
-        <div style={{
-          marginTop: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: 'rgba(166, 227, 161, 0.2)',
-          color: 'var(--catppuccin-green)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className="mt-8 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
           <span>✓</span> All in order!
         </div>
       )}

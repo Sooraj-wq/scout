@@ -26,8 +26,8 @@ const DotsGroup = ({ count, size = 35 }) => {
           cx={pos.x}
           cy={pos.y}
           r={size / 2}
-          fill="var(--catppuccin-blue)"
-          style={{ transition: 'all 0.3s ease' }}
+          fill="#89b4fa"
+          className="transition-all duration-300"
         />
       ))}
     </svg>
@@ -130,112 +130,60 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
   const isRightCorrect = rightCount > leftCount;
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100%',
-      padding: '24px',
-      background: 'linear-gradient(135deg, var(--catppuccin-mantle) 0%, var(--catppuccin-base) 100%)',
-      borderRadius: '28px'
-    }}>
-      <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-        <h2 style={{
-          fontSize: '24px',
-          fontWeight: '400',
-          color: 'var(--catppuccin-text)',
-          marginBottom: '8px',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+    <div className="flex flex-col items-center justify-center min-h-full p-6 bg-gradient-to-br from-mantle to-base rounded-[28px]">
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl font-normal text-text mb-2">
           Which has more?
         </h2>
-        <p style={{
-          fontSize: '16px',
-          color: 'var(--catppuccin-subtext0)',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
+        <p className="text-base text-subtext0">
           Tap the group with more dots
         </p>
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '24px',
-        marginBottom: '48px',
-        alignItems: 'center'
-      }}>
+      <div className="flex gap-6 mb-12 items-center">
         <button
           onClick={() => handleSelect('left')}
           disabled={showFeedback}
-          style={{
-            padding: '20px',
-            borderRadius: '24px',
-            border: selected === 'left' 
-              ? (isRightCorrect && selected === 'left' ? '3px solid var(--catppuccin-yellow)' : '3px solid var(--catppuccin-magenta)')
-              : '3px solid transparent',
-            background: selected === 'left' 
-              ? (isRightCorrect && selected === 'left' ? 'rgba(249, 226, 175, 0.2)' : 'var(--catppuccin-surface1)')
-              : 'var(--catppuccin-surface0)',
-            cursor: showFeedback ? 'default' : 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
-            opacity: showFeedback ? 0.7 : 1
-          }}
+          className={`p-5 rounded-3xl transition-all duration-300 shadow-material-lg ${
+            showFeedback ? 'opacity-70' : 'opacity-100'
+          } ${
+            selected === 'left' 
+              ? (isRightCorrect && selected === 'left' 
+                ? 'border-[3px] border-yellow bg-yellow/20' 
+                : 'border-[3px] border-mauve bg-surface1')
+              : 'border-[3px] border-transparent bg-surface0'
+          } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
         >
           <DotsGroup count={leftCount} />
         </button>
 
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-          color: 'var(--catppuccin-subtext1)',
-          fontSize: '14px'
-        }}>
+        <div className="flex flex-col items-center gap-2 text-subtext1 text-sm">
           <span>or</span>
         </div>
 
         <button
           onClick={() => handleSelect('right')}
           disabled={showFeedback}
-          style={{
-            padding: '20px',
-            borderRadius: '24px',
-            border: selected === 'right' 
-              ? (!isRightCorrect && selected === 'right' ? '3px solid var(--catppuccin-yellow)' : '3px solid var(--catppuccin-magenta)')
-              : '3px solid transparent',
-            background: selected === 'right' 
-              ? (!isRightCorrect && selected === 'right' ? 'rgba(249, 226, 175, 0.2)' : 'var(--catppuccin-surface1)')
-              : 'var(--catppuccin-surface0)',
-            cursor: showFeedback ? 'default' : 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
-            opacity: showFeedback ? 0.7 : 1
-          }}
+          className={`p-5 rounded-3xl transition-all duration-300 shadow-material-lg ${
+            showFeedback ? 'opacity-70' : 'opacity-100'
+          } ${
+            selected === 'right' 
+              ? (!isRightCorrect && selected === 'right' 
+                ? 'border-[3px] border-yellow bg-yellow/20' 
+                : 'border-[3px] border-mauve bg-surface1')
+              : 'border-[3px] border-transparent bg-surface0'
+          } ${showFeedback ? 'cursor-default' : 'cursor-pointer'}`}
         >
           <DotsGroup count={rightCount} />
         </button>
       </div>
 
       {showFeedback && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '16px 32px',
-          borderRadius: '28px',
-          background: (selected === 'right' && isRightCorrect) || (selected === 'left' && !isRightCorrect)
-            ? 'rgba(166, 227, 161, 0.2)'
-            : 'rgba(249, 226, 175, 0.2)',
-          color: (selected === 'right' && isRightCorrect) || (selected === 'left' && !isRightCorrect)
-            ? 'var(--catppuccin-green)'
-            : 'var(--catppuccin-yellow)',
-          fontSize: '20px',
-          fontWeight: '500',
-          animation: 'fadeIn 0.3s ease'
-        }}>
+        <div className={`flex items-center gap-3 px-8 py-4 rounded-[28px] text-xl font-medium animate-[fadeIn_0.3s_ease] ${
+          (selected === 'right' && isRightCorrect) || (selected === 'left' && !isRightCorrect)
+            ? 'bg-green/20 text-green'
+            : 'bg-yellow/20 text-yellow'
+        }`}>
           {(selected === 'right' && isRightCorrect) || (selected === 'left' && !isRightCorrect) ? (
             <>
               <span>✓</span> Great job!
