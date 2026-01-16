@@ -1,47 +1,68 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
+import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [serverStatus, setServerStatus] = useState("...")
-
-  useEffect(() => {
-    fetch("/api/health")
-      .then((res) => {
-        return res.json()
-      }).then((json) => {
-        setServerStatus(json.status)
-      })
-  })
+  const [activeModule, setActiveModule] = useState('dyscalculia')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p className="read-the-docs">
-        Server status {serverStatus}
-      </p>
-    </>
+    <div className="app-container">
+      <header className="app-header">
+        <h1>Learning Screening Tools</h1>
+        <nav className="app-nav">
+          <button 
+            className={activeModule === 'dyscalculia' ? 'active' : ''}
+            onClick={() => setActiveModule('dyscalculia')}
+          >
+            Dyscalculia
+          </button>
+          <button 
+            className={activeModule === 'dyslexia' ? 'active' : ''}
+            onClick={() => setActiveModule('dyslexia')}
+          >
+            Dyslexia
+          </button>
+          <button 
+            className={activeModule === 'dysgraphia' ? 'active' : ''}
+            onClick={() => setActiveModule('dysgraphia')}
+          >
+            Dysgraphia
+          </button>
+          <button 
+            className={activeModule === 'adhd' ? 'active' : ''}
+            onClick={() => setActiveModule('adhd')}
+          >
+            ADHD
+          </button>
+        </nav>
+      </header>
+      
+      <main className="app-main">
+        {activeModule === 'dyscalculia' && (
+          <div className="module-wrapper">
+            <DyscalculiaModule />
+          </div>
+        )}
+        {activeModule === 'dyslexia' && (
+          <div className="module-wrapper coming-soon">
+            <h2>Dyslexia Screening</h2>
+            <p>Coming soon</p>
+          </div>
+        )}
+        {activeModule === 'dysgraphia' && (
+          <div className="module-wrapper coming-soon">
+            <h2>Dysgraphia Screening</h2>
+            <p>Coming soon</p>
+          </div>
+        )}
+        {activeModule === 'adhd' && (
+          <div className="module-wrapper coming-soon">
+            <h2>ADHD Screening</h2>
+            <p>Coming soon</p>
+          </div>
+        )}
+      </main>
+    </div>
   )
 }
 
