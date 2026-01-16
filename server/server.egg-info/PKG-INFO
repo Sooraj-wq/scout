@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: server
+Version: 0.1.0
+Summary: SamasyaAI Scout - Neuro-Cognitive Assessment Platform
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: uvicorn[standard]
+Requires-Dist: fastapi[standard]
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: google-genai>=0.3.0
+Requires-Dist: markdown>=3.5.0

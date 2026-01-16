@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState, useRef } from 'react'
 
 export default function Dysgraphia() {
@@ -189,3 +190,17 @@ export default function Dysgraphia() {
     </div>
   )
 }
+=======
+export default function Dysgraphia() {
+	return (
+		<div className="min-h-screen bg-base flex items-center justify-center px-8 py-12">
+			<div className="bg-mantle rounded-3xl p-8 max-w-2xl w-full shadow-material-lg border border-surface0">
+				<h1 className="text-4xl font-bold text-mauve mb-4">Dysgraphia Analysis</h1>
+				<p className="text-text">
+					This module is under development. Please check back soon.
+				</p>
+			</div>
+		</div>
+	);
+}
+>>>>>>> cf5ecb5 (Added ADHD Module)

@@ -3,19 +3,32 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Dysgraphia from './modules/dysgraphia/dysgraphia.jsx'
+import Adhd from './modules/adhd/adhd.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
   const [serverStatus, setServerStatus] = useState("...")
 
   useEffect(() => {
+    let isMounted = true
+
     fetch("/api/health")
-      .then((res) => {
-        return res.json()
-      }).then((json) => {
-        setServerStatus(json.status)
+      .then((res) => res.ok ? res.json() : Promise.reject(new Error("Health check failed")))
+      .then((json) => {
+        if (isMounted) {
+          setServerStatus(json.status)
+        }
       })
-  })
+      .catch(() => {
+        if (isMounted) {
+          setServerStatus("offline")
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   return (
     <Router>
@@ -37,6 +50,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home count={count} setCount={setCount} />} />
           <Route path="/dysgraphia" element={<Dysgraphia />} />
+          <Route path="/adhd" element={<Adhd />} />
         </Routes>
       </div>
     </Router>
@@ -99,20 +113,23 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 opacity-60 w-80">
+          <Link
+            to="/adhd"
+            className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-200 w-80"
+          >
             <div className="text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">ADHD Analysis</h3>
-              <p className="text-gray-600 text-sm">Coming soon - Analyze attention patterns and focus metrics</p>
-              <div className="mt-4 text-gray-400 font-medium text-sm">
-                Coming Soon
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">ADHD Assessment</h3>
+              <p className="text-gray-600 text-sm">Neuro-cognitive screening with AI-powered analysis</p>
+              <div className="mt-4 text-purple-600 font-medium text-sm hover:text-purple-700">
+                Get Started →
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     )
