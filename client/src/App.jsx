@@ -53,6 +53,7 @@ function App() {
           <Route path="/dyslexia" element={<Dyslexia />} />
           <Route path="/dyscalculia" element={<DyscalculiaModule />} />
           <Route path="/adhd" element={<Adhd />} />
+          {/* <Route path="/quiz" element={<Quiz />} /> */}
         </Routes>
       </div>
     </Router>

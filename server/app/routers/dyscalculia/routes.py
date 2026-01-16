@@ -143,3 +143,25 @@ async def get_flash_duration_endpoint(request: FlashDurationRequest):
 
     duration_info = calculate_flash_duration(session_dict, request.difficulty)
     return duration_info
+
+
+@router.get("/sessions/{session_id}/adaptive-check")
+async def check_adaptive_tests(session_id: str) -> Dict[str, Any]:
+    """
+    Check if additional tests are needed based on DBN analysis.
+    Called after each task to determine if test sequence should be extended.
+    """
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    analysis = analyze_patterns(session.attempts)
+
+    return {
+        "session_id": session_id,
+        "additional_tests_needed": analysis.additional_tests_needed or 0,
+        "dbn_probability": analysis.dbn_probability,
+        "dbn_confidence": analysis.dbn_confidence,
+        "current_test_count": len(session.attempts),
+        "pattern": analysis.pattern,
+    }

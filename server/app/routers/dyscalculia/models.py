@@ -26,6 +26,10 @@ class AnalysisResult(BaseModel):
     confidence: float
     reasoning: str
     sub_scores: Dict[str, float]
+    dbn_probability: Optional[float] = None
+    dbn_confidence: Optional[float] = None
+    dbn_features: Optional[Dict[str, float]] = None
+    additional_tests_needed: Optional[int] = None
 
 
 class ExplanationResult(BaseModel):

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useGameStore } from './state/gameState';
-import { logPhaseChange, logSessionEnd } from './utils/eventLogger';
+import { logPhaseChange, logSessionEnd, checkAdaptiveTests } from './utils/eventLogger';
 import { analyzePatterns, calculateOverallScore } from './utils/patternDetector';
 import { generateExplanation } from './utils/explanationGenerator';
 import {
@@ -14,7 +14,7 @@ import {
 } from './tasks';
 import ResultsScreen from './ResultsScreen';
 
-const taskSequence = [
+const baseTaskSequence = [
   { type: 'warmup', component: WarmupFreePlay },
   { type: 'warmup', component: WarmupComparison },
   { type: 'quantity', component: QuantityTask },
@@ -26,6 +26,15 @@ const taskSequence = [
   { type: 'order', component: OrderTask },
   { type: 'quantity', component: QuantityTask },
   { type: 'comparison', component: ComparisonTask },
+];
+
+// Additional tasks for adaptive extension (can repeat)
+const additionalTasks = [
+  { type: 'symbol', component: SymbolTask },
+  { type: 'quantity', component: QuantityTask },
+  { type: 'comparison', component: ComparisonTask },
+  { type: 'order', component: OrderTask },
+  { type: 'flash_counting', component: FlashCountingTask },
 ];
 
 const getTaskDifficulty = (taskIndex, difficulty) => {
@@ -40,6 +49,8 @@ export const DyscalculiaModule = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [difficulty, setDifficulty] = useState(1);
   const [showResults, setShowResults] = useState(false);
+  const [taskSequence, setTaskSequence] = useState(baseTaskSequence);
+  const [maxTests, setMaxTests] = useState(11); // Start with base 11, can extend to 20
   
   const {
     phase,
@@ -76,7 +87,7 @@ export const DyscalculiaModule = () => {
     });
   }, [observationAttempts, stressIndicators, completeSession]);
 
-  const handleTaskComplete = useCallback(({ success }) => {
+  const handleTaskComplete = useCallback(async ({ success }) => {
     if (success) {
       if (difficulty < 8) {
         setDifficulty(prev => Math.min(prev + 0.5, 8));
@@ -87,18 +98,45 @@ export const DyscalculiaModule = () => {
 
     const nextIndex = currentTaskIndex + 1;
     
+    // Check if we're in observation phase and past warmup tasks
+    if (phase === 'observation' && currentTaskIndex >= 2) {
+      // Check if additional tests are needed via DBN analysis
+      const adaptiveCheck = await checkAdaptiveTests(sessionId);
+      
+      if (adaptiveCheck.additional_tests_needed > 0 && taskSequence.length < 20) {
+        // Extend task sequence adaptively
+        const testsToAdd = Math.min(
+          adaptiveCheck.additional_tests_needed,
+          20 - taskSequence.length
+        );
+        
+        const newTasks = [];
+        for (let i = 0; i < testsToAdd; i++) {
+          // Cycle through additional tasks
+          newTasks.push(additionalTasks[i % additionalTasks.length]);
+        }
+        
+        setTaskSequence(prev => [...prev, ...newTasks]);
+        setMaxTests(taskSequence.length + testsToAdd);
+        
+        console.log(`DBN Analysis: Extended test sequence by ${testsToAdd} tasks (probability: ${adaptiveCheck.dbn_probability?.toFixed(2)}, confidence: ${adaptiveCheck.dbn_confidence?.toFixed(2)})`);
+      }
+    }
+    
     if (nextIndex >= taskSequence.length) {
       analyzeAndComplete();
     } else {
       setCurrentTaskIndex(nextIndex);
     }
-  }, [currentTaskIndex, difficulty, analyzeAndComplete]);
+  }, [currentTaskIndex, difficulty, analyzeAndComplete, sessionId, phase, taskSequence.length]);
 
   const resetModule = useCallback(() => {
     reset();
     setCurrentTaskIndex(0);
     setDifficulty(1);
     setShowResults(false);
+    setTaskSequence(baseTaskSequence);
+    setMaxTests(11);
   }, [reset]);
 
   const currentTask = taskSequence[currentTaskIndex];

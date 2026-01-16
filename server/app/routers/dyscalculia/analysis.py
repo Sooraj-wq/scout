@@ -1,5 +1,9 @@
 from typing import List, Dict, Any
 from .models import TaskAttempt, AnalysisResult
+from .dbn_classifier import DBNClassifier
+
+# Initialize DBN classifier (singleton)
+dbn_classifier = DBNClassifier()
 
 
 def analyze_patterns(attempts: List[TaskAttempt]) -> AnalysisResult:
@@ -10,6 +14,10 @@ def analyze_patterns(attempts: List[TaskAttempt]) -> AnalysisResult:
             confidence=0,
             reasoning="Not enough attempts to identify patterns yet.",
             sub_scores={},
+            dbn_probability=0.0,
+            dbn_confidence=0.0,
+            dbn_features={},
+            additional_tests_needed=0,
         )
 
     quantity_attempts = [a for a in attempts if a.task_type == "quantity"]
@@ -41,6 +49,21 @@ def analyze_patterns(attempts: List[TaskAttempt]) -> AnalysisResult:
         quantity_analysis, comparison_analysis, symbol_analysis, avg_improvement
     )
 
+    # DBN Analysis Integration
+    dbn_probability, dbn_confidence, dbn_features = (
+        dbn_classifier.predict_dyscalculia_probability(attempts)
+    )
+
+    # Determine if additional tests are needed
+    current_test_count = len(attempts)
+    should_increase, additional_tests = dbn_classifier.should_increase_tests(
+        dbn_probability, dbn_confidence, current_test_count
+    )
+
+    # Enhance pattern determination with DBN insights
+    if dbn_probability >= 0.6 and pattern != "possible_dyscalculia_signal":
+        pattern = "possible_dyscalculia_signal"
+
     return AnalysisResult(
         pattern=pattern,
         confidence=min(len(attempts) / 10 + (1 if improvement_rates else 0), 0.95),
@@ -53,6 +76,10 @@ def analyze_patterns(attempts: List[TaskAttempt]) -> AnalysisResult:
             "symbol": symbol_analysis.get("score", 0),
             "improvement": avg_improvement,
         },
+        dbn_probability=dbn_probability,
+        dbn_confidence=dbn_confidence,
+        dbn_features=dbn_features,
+        additional_tests_needed=additional_tests if should_increase else 0,
     )
 
 

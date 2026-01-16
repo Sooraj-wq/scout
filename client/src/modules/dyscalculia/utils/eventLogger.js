@@ -162,3 +162,28 @@ export const getFlashDuration = async (sessionId, difficulty) => {
     throw error;
   }
 };
+
+/**
+ * Check if additional tests are needed based on DBN analysis
+ * Returns recommendation for extending test sequence
+ */
+export const checkAdaptiveTests = async (sessionId) => {
+  try {
+    const response = await fetch(`${API_BASE}/sessions/${sessionId}/adaptive-check`);
+    if (response.ok) {
+      return await response.json();
+    }
+    const error = await response.json();
+    throw new Error(error.detail || 'Failed to check adaptive tests');
+  } catch (error) {
+    console.error('Failed to check adaptive tests:', error);
+    // Return default response on error
+    return {
+      additional_tests_needed: 0,
+      dbn_probability: 0,
+      dbn_confidence: 0,
+      current_test_count: 0,
+      pattern: 'unknown'
+    };
+  }
+};
