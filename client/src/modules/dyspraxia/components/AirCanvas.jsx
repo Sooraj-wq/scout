@@ -82,10 +82,14 @@ const AirCanvas = () => {
 
         let totalDeviation = 0;
         let pointsCount = 0;
-
+        let distances = [];
+        
+        // 1. Calculate Deviation and Collect Distances
         allPoints.forEach(p => {
              // Distance from center
              const dist = Math.sqrt(Math.pow(p.x - TARGET_CENTER.x, 2) + Math.pow(p.y - TARGET_CENTER.y, 2));
+             distances.push(dist);
+             
              // Deviation from target radius
              const deviation = Math.abs(dist - TARGET_RADIUS);
              totalDeviation += deviation;
@@ -93,18 +97,55 @@ const AirCanvas = () => {
         });
 
         const avgDeviation = totalDeviation / pointsCount;
+
+        // 2. Calculate Standard Deviation (Roundness Inconsistency)
+        // A square will have high variance in radius (corners vs sides).
+        const meanDist = distances.reduce((a, b) => a + b, 0) / pointsCount;
+        const squareDiffs = distances.map(value => Math.pow(value - meanDist, 2));
+        const avgSquareDiff = squareDiffs.reduce((a, b) => a + b, 0) / pointsCount;
+        const stdDev = Math.sqrt(avgSquareDiff);
+
+        // Scoring Formula
+        // Penalty 1: Deviation from Target Radius (Targeting Error)
+        // Multiplier: 2.5 (avg error of 20px -> 50 score reduction)
+        const deviationPenalty = avgDeviation * 2.5;
+
+        // Penalty 2: Standard Deviation (Shape Consitency Error)
+        // Multiplier: 3.0 (stdDev of 15px [square-like] -> 45 score reduction)
+        const shapePenalty = stdDev * 3.0;
+
+        let baseScore = 100;
+        let accuracyScore = Math.max(0, baseScore - deviationPenalty - shapePenalty);
+
+        // 3. Calculate Angular Coverage (Completeness)
+        const sectors = 36;
+        const sectorHits = new Array(sectors).fill(false);
         
-        // Scoring logic (Arbitrary scaling)
-        // 0 deviation = 100 score
-        // 50 deviation = 0 score
-        let calculatedScore = Math.max(0, 100 - (avgDeviation * 2)); // Strictness factor
+        allPoints.forEach(p => {
+            let angle = Math.atan2(p.y - TARGET_CENTER.y, p.x - TARGET_CENTER.x);
+            if (angle < 0) angle += 2 * Math.PI;
+            
+            const sectorIdx = Math.floor((angle / (2 * Math.PI)) * sectors);
+            if (sectorIdx >= 0 && sectorIdx < sectors) {
+                sectorHits[sectorIdx] = true;
+            }
+        });
+
+        const filledSectors = sectorHits.filter(Boolean).length;
+        const coverageRatio = filledSectors / sectors;
         
+        // 4. Combine scores
+        let finalScore = accuracyScore * coverageRatio;
+
         let feedback = "";
-        if (calculatedScore > 85) feedback = "Excellent coordination!";
-        else if (calculatedScore > 65) feedback = "Good motor control.";
+        if (coverageRatio < 0.6) feedback = "Incomplete. Trace the FULL circle.";
+        else if (coverageRatio < 0.85) feedback = "Close the gap.";
+        else if (stdDev > 12) feedback = "Maintain a steady curve."; // New feedback for square-like shapes
+        else if (finalScore > 85) feedback = "Excellent coordination!";
+        else if (finalScore > 65) feedback = "Good motor control.";
         else feedback = "Some deviation detected.";
 
-        setScore({ value: Math.round(calculatedScore), text: feedback });
+        setScore({ value: Math.round(finalScore), text: feedback });
     };
 
     const onResults = useCallback((results) => {
