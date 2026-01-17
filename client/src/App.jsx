@@ -55,12 +55,13 @@ function App() {
                   <span className={`w-2 h-2 rounded-full ${serverStatus === 'healthy' ? 'bg-green shadow-[0_0_8px_rgba(166,227,161,0.6)]' : 'bg-red'}`}></span>
                   {t('server')}: {serverStatus}
                 </div>
-                <LanguageToggle />
                 <ThemeToggle />
               </div>
             </div>
           </div>
         </nav>
+
+        <LanguageToggle />
 
         <Routes>
           <Route path="/" element={<Home />} />
