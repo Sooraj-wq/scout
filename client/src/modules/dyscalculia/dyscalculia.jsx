@@ -106,7 +106,7 @@ export const DyscalculiaModule = () => {
   const currentTask = taskSequence[currentTaskIndex];
   const TaskComponent = currentTask?.component;
   const taskDifficulty = getTaskDifficulty(currentTaskIndex, difficulty);
-  const progress = (currentTaskIndex + 1) / taskSequence.length;
+  const progress = Math.max((currentTaskIndex + 1) / taskSequence.length, 1 / taskSequence.length);
 
   if (showResults || isComplete) {
     return (

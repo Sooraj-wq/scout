@@ -177,7 +177,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
+    <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px] mt-8">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
           Find the same amount
@@ -187,11 +187,11 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
         </p>
       </div>
 
-      <div className="glass-card rounded-3xl p-8 mb-8 shadow-material-lg">
+      <div className="glass-card rounded-3xl p-8 mb-12 shadow-material-lg">
         <DotsGroup count={targetCount} size={45} />
       </div>
 
-      <div className="flex gap-4 flex-wrap justify-center max-w-[400px]">
+      <div className="flex gap-6 flex-row justify-center items-center">
         {options.map((count, index) => (
           <button
             key={index}
