@@ -10,7 +10,6 @@ dotenv.load_dotenv()
 
 app = FastAPI()
 
-
 # Include routers
 app.include_router(adhd_router, prefix="/api/adhd", tags=["adhd"])
 app.include_router(dysgraphia_router, prefix="/api/dysgraphia", tags=["dysgraphia"])
