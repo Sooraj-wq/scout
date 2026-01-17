@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import viteLogo from '/vite.svg'
+import viteLogo from './assets/vite.svg'
 import Dysgraphia from './modules/dysgraphia/dysgraphia.jsx'
 import Dyslexia from './modules/dyslexia/dyslexia.jsx'
 import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
