@@ -84,8 +84,11 @@ function App() {
           <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter">
             {t('appTitle')}
           </h1>
-          <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide">
+          <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide mb-4">
             {t('appSubtitle')}
+          </p>
+          <p className="text-lg text-subtext1 max-w-3xl mx-auto leading-relaxed">
+            {t('appDescription')}
           </p>
           <div className="mt-8 glass inline-block px-6 py-2 rounded-full border border-black/5">
             <p className="text-lg text-subtext1">

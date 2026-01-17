@@ -131,3 +131,82 @@ Be cautious, conservative, and explainable.
             import traceback
             traceback.print_exc()
             return None
+
+
+class ReadingAnalysisResult(BaseModel):
+    fluency_score: float  # 0-1
+    accuracy_score: float # 0-1
+    risk_level: str       # Low, Moderate, High
+    detected_issues: list[str]
+    recommendations: list[str]
+    summary: str
+
+
+class GeminiReadingPredictor:
+    def __init__(self):
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        if not self.api_key:
+            raise ValueError("GEMINI_API_KEY not found")
+        self.client = genai.Client(api_key=self.api_key).aio
+
+        self.system_instruction = """
+You are an expert Speech-Language Pathologist (SLP) AI assistant.
+Your task is to analyze aggregated reading metrics from a web-based fluency test.
+The user (a potential student) just read a known text snippet.
+You are given:
+- WPM (Words Per Minute)
+- Accuracy %
+- List of missed/mispronounced words
+- Language (English or Malayalam)
+
+Your Goal:
+Generate a structured JSON assessment of their reading fluency.
+
+Rubric:
+- WPM < 60 (for simple text) is concerning.
+- Accuracy < 90% is concerning.
+- Look for patterns in missed words (e.g., are they complex words, phonetically similar, etc.?)
+
+Output valid JSON only matching the schema.
+Do NOT diagnose. Use terms like "potential indicators", "areas for improvement".
+For Malayalam, ensure recommendations are culturally relevant if needed (e.g. "Practice Aksharamala").
+"""
+
+    async def predict(self, data: dict) -> ReadingAnalysisResult | None:
+        try:
+            start_time = time.time()
+            prompt = f"""
+            Analyze this reading session:
+            Language: {data.get('language')}
+            Text Snippet Read: "{data.get('target_text_snippet')}"
+            
+            Metrics:
+            - WPM: {data.get('wpm')}
+            - Accuracy: {data.get('accuracy')}%
+            - Missed Words: {json.dumps(data.get('missed_words'))}
+            
+            Provide a compassionate but analytical summary suitable for a parent or teacher.
+            """
+
+            response = await self.client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=[prompt],
+                config=genai.types.GenerateContentConfig(
+                    temperature=0.3, # Low temp for consistent analysis
+                    response_mime_type="application/json",
+                    response_schema=ReadingAnalysisResult,
+                    system_instruction=self.system_instruction,
+                ),
+            )
+            
+            print(f"Reading Analysis took {time.time() - start_time:.2f}s")
+            
+            if response.text:
+                return ReadingAnalysisResult.model_validate_json(response.text)
+            return None
+
+        except Exception as e:
+            print(f"Gemini Reading Error: {e}")
+            import traceback
+            traceback.print_exc()
+            return None

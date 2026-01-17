@@ -6,7 +6,7 @@ export default function LanguageToggle() {
   return (
     <button
       onClick={toggleLanguage}
-      className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-surface0 hover:bg-surface1 transition-all duration-300 border border-surface2 shadow-xl group hover:scale-110"
+      className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-white hover:bg-surface1 transition-all duration-300 border border-surface2 shadow-xl group hover:scale-110"
       aria-label="Toggle Language"
     >
       <div className="w-4 h-4 flex items-center justify-center font-bold text-lg text-text">
