@@ -6,8 +6,9 @@ import Dyslexia from './modules/dyslexia/dyslexia.jsx'
 import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import Adhd from './modules/adhd/adhd.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
-import ParentQuiz from './modules/parent-quiz/ParentQuiz.jsx'
+
 import Dyspraxia from './modules/dyspraxia/dyspraxia.jsx'
+import Quiz from './modules/quiz/Quiz.jsx'
 import LanguageToggle from './components/LanguageToggle.jsx'
 import { useLanguage } from './context/LanguageContext.jsx'
 
@@ -70,8 +71,8 @@ function App() {
           <Route path="/dyslexia" element={<Dyslexia />} />
           <Route path="/dyscalculia" element={<DyscalculiaModule />} />
           <Route path="/adhd" element={<Adhd />} />
-          <Route path="/parent-quiz" element={<ParentQuiz />} />
           <Route path="/dyspraxia" element={<Dyspraxia />} />
+          <Route path="/quiz" element={<Quiz />} />
         </Routes>
       </div>
     </Router>
@@ -189,25 +190,25 @@ function App() {
             </div>
           </Link>
 
+
+
           <Link
-            to="/parent-quiz"
+            to="/quiz"
             className="glass-card rounded-2xl p-6 w-80"
           >
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
+              <div className="w-16 h-16 bg-red/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-text mb-2">
-                Parent Screening Quiz
+                Disability Knowledge Quiz
               </h3>
               <p className="text-subtext0 text-sm">
-                Guided questionnaire to identify early learning challenges
+                Test your knowledge about different types of disabilities
               </p>
-              <div className="mt-4 text-yellow font-medium text-sm">
+              <div className="mt-4 text-red font-medium text-sm">
                 Start Quiz →
               </div>
             </div>
