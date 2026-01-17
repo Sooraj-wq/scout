@@ -161,9 +161,10 @@ export const ResultsScreen = ({ onReset }) => {
             {aiAnalysis.interpretation}
           </div>
 
+          {/*
           <div className="text-sm text-subtext0 italic text-center">
             Pattern: {aiAnalysis.pattern} (Confidence: {Math.round(aiAnalysis.confidence * 100)}%)
-          </div>
+          </div> */}
         </div>
 
         {/* Action Buttons */}
@@ -173,12 +174,6 @@ export const ResultsScreen = ({ onReset }) => {
             className="bg-green hover:bg-teal text-base font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-material hover:shadow-material-lg transform hover:scale-105"
           >
             Play Again
-          </button>
-          <button
-            onClick={() => setShowJson(!showJson)}
-            className="bg-mauve hover:bg-lavender text-base font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-material hover:shadow-material-lg transform hover:scale-105"
-          >
-            {showJson ? 'Hide' : 'View'} AI Analysis
           </button>
         </div>
 
