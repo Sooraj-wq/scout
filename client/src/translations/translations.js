@@ -2,6 +2,7 @@ export const translations = {
   en: {
     appTitle: "SCOUT",
     appSubtitle: "(Student Cognitive Observation & Understanding Tool)",
+    appDescription: "A comprehensive AI-powered suite designed for the early detection and assessment of learning disabilities including Dysgraphia, Dyslexia, Dyscalculia, ADHD, and Dyspraxia.",
     selectModule: "Select a module below to begin analysis",
     server: "Server",
     dysgraphiaTitle: "Dysgraphia Analysis",
@@ -30,6 +31,25 @@ export const translations = {
     dyslexiaSub: "Upload handwriting samples or text images to detect visual indicators associated with dyslexia.",
     confidence: "Confidence",
     detectedFactors: "Detected Factors",
+    // Dyslexia Reading
+    readingTestTitle: "Reading Fluency Test",
+    readingTestDesc: "Read the displayed text aloud to assess reading speed, accuracy, and fluency. We use speech recognition to analyze your reading.",
+    startReading: "Start Reading",
+    stopReading: "Stop & Analyze",
+    listening: "Listening...",
+    wpm: "Words Per Minute (WPM)",
+    accuracy: "Accuracy",
+    dyslexiaModeHandwriting: "Handwriting Analysis",
+    dyslexiaModeReading: "Reading Assessment",
+    sampleText: [
+      "The mysterious old automated book reader sat silently in the dusty corner of the library. Children would often whisper about the strange mechanical noises it made when nobody was looking.",
+      "The sun was setting behind the mountains, casting a golden glow over the sleepy village. Birds were returning to their nests, chirping their final goodnights to the world.",
+      "Astronauts looked down at the blue planet from their spaceship window. It looked peaceful and small, a floating marble in the vast darkness of space.",
+      "The playful dolphins jumped high out of the sparkling blue water. They chirped and whistled to each other, swimming alongside the boat with joyful energy.",
+      "Deep within the enchanted forest, glowing mushrooms lit up the winding path. A tiny fairy with shimmering wings flew past, leaving a trail of glitter behind."
+    ],
+    analysisResult: "Analysis Result",
+    missedWords: "Missed/Mispronounced Words:",
     // Dyscalculia
     dyscalculiaHeading: "Dyscalculia Assessment",
     dyscalculiaResults: "Dyscalculia Assessment - Results",
@@ -69,6 +89,7 @@ export const translations = {
   ml: {
     appTitle: "SCOUT",
     appSubtitle: "(വിദ്യാർത്ഥി വിജ്ഞാന നിരീക്ഷണവും മനസ്സിലാക്കൽ ഉപകരണവും)",
+    appDescription: "ഡിസ്ഗ്രാഫിയ, ഡിസ്ലെക്സിയ, ഡിസ്കാൽക്കുലിയ, എഡിഎച്ച്ഡി, ഡിസ്പ്രാക്സിയ എന്നിവയുൾപ്പെടെയുള്ള പഠനവൈകല്യങ്ങൾ നേരത്തെ കണ്ടെത്തുന്നതിനും വിലയിരുത്തുന്നതിനുമായി രൂപകൽപ്പന ചെയ്ത ഒരു സമഗ്ര എഐ അധിഷ്ഠിത സ്യൂട്ട്.",
     selectModule: "വിശകലനം ആരംഭിക്കുന്നതിന് താഴെയുള്ള ഒരു മൊഡ്യൂൾ തിരഞ്ഞെടുക്കുക",
     server: "സെർവർ",
     dysgraphiaTitle: "ഡിസ്ഗ്രാഫിയ വിശകലനം",
@@ -97,6 +118,25 @@ export const translations = {
     dyslexiaSub: "ഡിസ്ലെക്സിയയുമായി ബന്ധപ്പെട്ട ദൃശ്യ സൂചകങ്ങൾ കണ്ടെത്തുന്നതിന് കയ്യെഴുത്ത് സാമ്പിളുകളോ ടെക്സ്റ്റ് ചിത്രങ്ങളോ അപ്‌ലോഡ് ചെയ്യുക.",
     confidence: "വിശ്വാസ്യത",
     detectedFactors: "കണ്ടെത്തിയ ഘടകങ്ങൾ",
+    // Dyslexia Reading
+    readingTestTitle: "വായന പരിശോധന",
+    readingTestDesc: "വായനാ വേഗത, കൃത്യത, ഒഴുക്ക് എന്നിവ വിലയിരുത്തുന്നതിന് പ്രദർശിപ്പിച്ചിരിക്കുന്ന വാചകം ഉറക്കെ വായിക്കുക. നിങ്ങളുടെ വായന വിശകലനം ചെയ്യാൻ ഞങ്ങൾ സ്പീച്ച് റെക്കഗ്നിഷൻ ഉപയോഗിക്കുന്നു.",
+    startReading: "വായന ആരംഭിക്കുക",
+    stopReading: "നിർത്തി വിശകലനം ചെയ്യുക",
+    listening: "ശ്രദ്ധിക്കുന്നു...",
+    wpm: "മിനിറ്റിലെ വാക്കുകൾ (WPM)",
+    accuracy: "കൃത്യത",
+    dyslexiaModeHandwriting: "കയ്യെഴുത്ത് വിശകലനം",
+    dyslexiaModeReading: "വായന വിലയിരുത്തൽ",
+    sampleText: [
+      "നൂറ്റാണ്ടുകൾ പഴക്കമുള്ള ആ വായനശാലയുടെ മൂലയിൽ പൊടിപിടിച്ച ആ പഴയ പുസ്തകം ഇരുന്നു. ആരും കാണാത്തപ്പോൾ അതിൽ നിന്ന് കേൾക്കുന്ന വിചിത്രമായ ശബ്ദങ്ങളെക്കുറിച്ച് കുട്ടികൾ രഹസ്യമായി സംസാരിക്കാറുണ്ടായിരുന്നു.",
+      "സൂര്യൻ മലനിരകൾക്ക് പിന്നിൽ മറയാൻ തുടങ്ങി. ഗ്രാമത്തിൽ മെല്ലെ ഇരുട്ടു പരന്നു. പക്ഷികൾ തങ്ങളുടെ കൂടുകളിലേക്ക് മടങ്ങിയെത്തി.",
+      "ബഹിരാകാശ സഞ്ചാരികൾ പേടകത്തിന്റെ ജനലിലൂടെ താഴേക്ക് നോക്കി. നീല നിറത്തിലുള്ള നമ്മുടെ ഭൂമി, ഇരുണ്ട ആകാശത്തിൽ ഒഴുകി നടക്കുന്ന ഒരു ചെറിയ പന്ത് പോലെ തോന്നി.",
+      "അരുവിയിലെ തെളിഞ്ഞ വെള്ളത്തിൽ മീനുകൾ നീന്തിത്തുടിക്കുന്നുണ്ടായിരുന്നു. കരയിലെ മരങ്ങളിൽ കിളികൾ മധുരമായ പാട്ടുകൾ പാടി.",
+      "ഓണത്തിന് മുറ്റത്ത് പൂക്കളം ഒരുക്കാൻ കുട്ടികൾ പൂക്കൾ ശേഖരിച്ചു. തുമ്പപ്പൂവും ചെത്തിപ്പൂവും കൊണ്ട് അവർ മനോഹരമായ ഡിസൈനുകൾ ഉണ്ടാക്കി."
+    ],
+    analysisResult: "വിശകലന ഫലം",
+    missedWords: "വിട്ടുപോയ/തെറ്റായി ഉച്ചരിച്ച വാക്കുകൾ:",
     // Dyscalculia
     dyscalculiaHeading: "ഡിസ്കാൽക്കുലിയ വിലയിരുത്തൽ",
     dyscalculiaResults: "ഡിസ്കാൽക്കുലിയ വിലയിരുത്തൽ - ഫലങ്ങൾ",

@@ -5,8 +5,12 @@ import tempfile
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
 from .predict_gemini import GeminiDyslexiaPredictor
+# Import the reading router
+from .reading_router import router as reading_router
 
 router = APIRouter()
+# Include the reading router so endpoints like /api/dyslexia/analyze_reading are registered
+router.include_router(reading_router)
 
 tmpdir = tempfile.TemporaryDirectory()
 UPLOAD_DIR = os.path.join(tmpdir.name, "uploads/dyslexia")
