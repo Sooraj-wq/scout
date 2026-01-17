@@ -1,12 +1,17 @@
+import os
+
 import dotenv
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+
+dotenv.load_dotenv()
+
 from .routers.adhd import router as adhd_router
 from .routers.dyscalculia import router as dyscalculia_router
 from .routers.dysgraphia import router as dysgraphia_router
 from .routers.dyslexia import router as dyslexia_router
 from .routers.quiz import router as quiz_router
-
-dotenv.load_dotenv()
 
 app = FastAPI()
 
@@ -17,12 +22,15 @@ app.include_router(dyslexia_router, prefix="/api/dyslexia", tags=["dyslexia"])
 app.include_router(dyscalculia_router, prefix="/api/dyscalculia", tags=["dyscalculia"])
 app.include_router(quiz_router, prefix="/api/quiz", tags=["quiz"])
 
-
-@app.get("/")
-async def root():
-    return {"message": "AI-Samasya Learning Screening Tools API"}
+if os.path.exists("dist/assets"):
+    app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 
 
 @app.get("/api/health")
 async def health():
     return {"status": "healthy"}
+
+
+@app.get("/{path:path}")
+async def spa_fallback(path: str):
+    return FileResponse("dist/index.html")
