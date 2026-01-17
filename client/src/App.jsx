@@ -6,6 +6,7 @@ import Dyslexia from './modules/dyslexia/dyslexia.jsx'
 import DyscalculiaModule from './modules/dyscalculia/dyscalculia'
 import Adhd from './modules/adhd/adhd.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
+import ParentQuiz from './modules/parent-quiz/ParentQuiz.jsx'
 
 function App() {
   const [serverStatus, setServerStatus] = useState("...")
@@ -63,6 +64,7 @@ function App() {
           <Route path="/dyslexia" element={<Dyslexia />} />
           <Route path="/dyscalculia" element={<DyscalculiaModule />} />
           <Route path="/adhd" element={<Adhd />} />
+          <Route path="/parent-quiz" element={<ParentQuiz />} />
         </Routes>
       </div>
     </Router>
@@ -145,8 +147,7 @@ function App() {
 
           <Link
             to="/adhd"
-            className="glass-card rounded-2xl p-6 w-80"
-          >
+            className="glass-card rounded-2xl p-6 w-80">
             <div className="text-center">
               <div className="w-16 h-16 bg-mauve/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-mauve" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,6 +161,29 @@ function App() {
               </div>
             </div>
           </Link>
+          <Link
+          to="/parent-quiz"
+          className="glass-card rounded-2xl p-6 w-80"
+        >
+          <div className="text-center">
+            <div className="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-text mb-2">
+              Parent Screening Quiz
+            </h3>
+            <p className="text-subtext0 text-sm">
+              Guided questionnaire to identify early learning challenges
+            </p>
+            <div className="mt-4 text-yellow font-medium text-sm">
+              Start Quiz →
+            </div>
+          </div>
+        </Link>
         </div>
       </div>
     )
