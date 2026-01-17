@@ -82,6 +82,17 @@ function App() {
     const [displayText, setDisplayText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [wordIndex, setWordIndex] = useState(0);
+    const [drops, setDrops] = useState([]);
+
+    useEffect(() => {
+      setDrops(Array.from({ length: 50 }).map((_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        animationDuration: Math.random() * 2 + 2,
+        animationDelay: Math.random() * 2,
+        opacity: Math.random() * 0.03 + 0.01
+      })));
+    }, []);
 
     useEffect(() => {
       const words = ["SCOUT", "സ്കൗട്ട്"];
@@ -110,12 +121,27 @@ function App() {
     }, [displayText, isDeleting, wordIndex]);
 
     return (
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12 relative">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden h-full w-full">
+          {drops.map((drop) => (
+            <div
+              key={drop.id}
+              className="absolute -top-10 w-[1px] h-24 bg-gradient-to-b from-transparent via-mauve/20 to-mauve/40 animate-shower rounded-full"
+              style={{
+                left: `${drop.left}%`,
+                animationDuration: `${drop.animationDuration}s`,
+                animationDelay: `${drop.animationDelay}s`,
+                opacity: drop.opacity,
+              }}
+            />
+          ))}
+        </div>
+        <div className="relative z-10">
         <div className="text-center mb-16 animate-fade-in-up">
-          <div className="h-32 mb-6"> {/* Fixed height to prevent layout shift */}
-            <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter inline-block">
+          <div className="min-h-[9rem] mb-6 flex items-center justify-center"> {/* Use min-height and flex to center vertically */}
+            <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter inline-block py-2 leading-relaxed font-malayalam">
               {displayText}
-              <span className="w-1 bg-blue inline-block h-24 align-middle ml-1 animate-pulse"></span>
+              <span className="w-2 bg-blue inline-block h-20 align-middle ml-2 animate-pulse rounded-full"></span>
             </h1>
           </div>
           <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide mb-4">
@@ -142,8 +168,8 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">{t('dysgraphiaTitle')}</h3>
-              <p className="text-subtext0 text-sm">{t('dysgraphiaDesc')}</p>
+              <h3 className="text-xl font-semibold text-text mb-2 py-1 leading-relaxed font-malayalam">{t('dysgraphiaTitle')}</h3>
+              <p className="text-subtext0 text-sm leading-relaxed py-0.5">{t('dysgraphiaDesc')}</p>
               <div className="mt-4 text-blue font-medium text-sm hover:text-sky">
                 {t('getStarted')}
               </div>
@@ -161,10 +187,8 @@ function App() {
                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">{t('dyslexiaTitle')}</h3>
-              <p className="text-subtext0 text-sm">
-                {t('dyslexiaDesc')}
-              </p>
+              <h3 className="text-xl font-semibold text-text mb-2 py-1 leading-relaxed font-malayalam">{t('dyslexiaTitle')}</h3>
+              <p className="text-subtext0 text-sm leading-relaxed py-0.5">{t('dyslexiaDesc')}</p>
               <div className="mt-4 text-mauve font-medium text-sm hover:text-lavender">
                 {t('getStarted')}
               </div>
@@ -181,8 +205,8 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">{t('dyscalculiaTitle')}</h3>
-              <p className="text-subtext0 text-sm">{t('dyscalculiaDesc')}</p>
+              <h3 className="text-xl font-semibold text-text mb-2 py-1 leading-relaxed font-malayalam">{t('dyscalculiaTitle')}</h3>
+              <p className="text-subtext0 text-sm leading-relaxed py-0.5">{t('dyscalculiaDesc')}</p>
               <div className="mt-4 text-green font-medium text-sm hover:text-teal">
                 {t('getStarted')}
               </div>
@@ -199,8 +223,8 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">{t('adhdTitle')}</h3>
-              <p className="text-subtext0 text-sm">{t('adhdDesc')}</p>
+              <h3 className="text-xl font-semibold text-text mb-2 py-1 leading-relaxed font-malayalam">{t('adhdTitle')}</h3>
+              <p className="text-subtext0 text-sm leading-relaxed py-0.5">{t('adhdDesc')}</p>
               <div className="mt-4 text-mauve font-medium text-sm hover:text-lavender">
                 {t('getStarted')}
               </div>
@@ -217,8 +241,8 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">{t('dyspraxiaTitle')}</h3>
-              <p className="text-subtext0 text-sm">{t('dyspraxiaDesc')}</p>
+              <h3 className="text-xl font-semibold text-text mb-2 py-1 leading-relaxed font-malayalam">{t('dyspraxiaTitle')}</h3>
+              <p className="text-subtext0 text-sm leading-relaxed py-0.5">{t('dyspraxiaDesc')}</p>
               <div className="mt-4 text-pink font-medium text-sm hover:text-flamingo">
                 {t('getStarted')}
               </div>
@@ -237,17 +261,16 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-text mb-2">
+              <h3 className="text-xl font-semibold text-text mb-2 py-1 leading-relaxed font-malayalam">
                 {t('quizTitle')}
               </h3>
-              <p className="text-subtext0 text-sm">
-                {t('quizDesc')}
-              </p>
+              <p className="text-subtext0 text-sm leading-relaxed py-0.5">{t('quizDesc')}</p>
               <div className="mt-4 text-red font-medium text-sm">
                 {t('startQuiz')}
               </div>
             </div>
           </Link>
+        </div>
         </div>
       </div>
     )

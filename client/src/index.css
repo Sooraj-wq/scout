@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --font-malayalam: "Noto Sans Malayalam", sans-serif;
+
   /* Catppuccin Latte Color Palette (Light Theme) */
   --color-base: #eff1f5;
   --color-mantle: #e6e9ef;
@@ -295,4 +297,15 @@ body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes shower {
+  0% { transform: translate(0, -10vh) rotate(-30deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(60vh, 100vh) rotate(-30deg); opacity: 0; }
+}
+
+.animate-shower {
+  animation: shower linear infinite;
 }
