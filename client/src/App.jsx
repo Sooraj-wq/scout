@@ -81,7 +81,7 @@ function App() {
     const { t } = useLanguage()
 
     return (
-      <div className="max-w-4xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-16 animate-fade-in-up">
           <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter">
             {t('appTitle')}
@@ -99,10 +99,10 @@ function App() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up justify-items-center" style={{ animationDelay: '0.2s' }}>
           <Link
             to="/dysgraphia"
-            className="glass-card rounded-2xl p-6 w-80"
+            className="glass-card rounded-2xl p-6 w-full max-w-sm hover:scale-105 transition-transform duration-300"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-blue/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -120,7 +120,7 @@ function App() {
 
           <Link
             to="/dyslexia"
-            className="glass-card rounded-2xl p-6 w-80"
+            className="glass-card rounded-2xl p-6 w-full max-w-sm hover:scale-105 transition-transform duration-300"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-mauve/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -141,7 +141,7 @@ function App() {
 
           <Link
             to="/dyscalculia"
-            className="glass-card rounded-2xl p-6 w-80"
+            className="glass-card rounded-2xl p-6 w-full max-w-sm hover:scale-105 transition-transform duration-300"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -159,7 +159,8 @@ function App() {
 
           <Link
             to="/adhd"
-            className="glass-card rounded-2xl p-6 w-80">
+            className="glass-card rounded-2xl p-6 w-full max-w-sm hover:scale-105 transition-transform duration-300"
+          >
             <div className="text-center">
               <div className="w-16 h-16 bg-mauve/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-mauve" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +177,7 @@ function App() {
 
           <Link
             to="/dyspraxia"
-            className="glass-card rounded-2xl p-6 w-80"
+            className="glass-card rounded-2xl p-6 w-full max-w-sm hover:scale-105 transition-transform duration-300"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-pink/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -196,7 +197,7 @@ function App() {
 
           <Link
             to="/quiz"
-            className="glass-card rounded-2xl p-6 w-80"
+            className="glass-card rounded-2xl p-6 w-full max-w-sm hover:scale-105 transition-transform duration-300"
           >
             <div className="text-center">
               <div className="w-16 h-16 bg-red/20 rounded-full flex items-center justify-center mx-auto mb-4">

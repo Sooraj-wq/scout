@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     appTitle: "SCOUT",
-    appSubtitle: "(Student Cognitive Observation & Understanding Tool)",
+    appSubtitle: "Student Cognitive Observation & Understanding Tool",
     appDescription: "A comprehensive AI-powered suite designed for the early detection and assessment of learning disabilities including Dysgraphia, Dyslexia, Dyscalculia, ADHD, and Dyspraxia.",
     selectModule: "Select a module below to begin analysis",
     server: "Server",
@@ -88,7 +88,7 @@ export const translations = {
   },
   ml: {
     appTitle: "SCOUT",
-    appSubtitle: "(വിദ്യാർത്ഥി വിജ്ഞാന നിരീക്ഷണവും മനസ്സിലാക്കൽ ഉപകരണവും)",
+    appSubtitle: "വിദ്യാർത്ഥി വിജ്ഞാന നിരീക്ഷണവും മനസ്സിലാക്കൽ ഉപകരണവും",
     appDescription: "ഡിസ്ഗ്രാഫിയ, ഡിസ്ലെക്സിയ, ഡിസ്കാൽക്കുലിയ, എഡിഎച്ച്ഡി, ഡിസ്പ്രാക്സിയ എന്നിവയുൾപ്പെടെയുള്ള പഠനവൈകല്യങ്ങൾ നേരത്തെ കണ്ടെത്തുന്നതിനും വിലയിരുത്തുന്നതിനുമായി രൂപകൽപ്പന ചെയ്ത ഒരു സമഗ്ര എഐ അധിഷ്ഠിത സ്യൂട്ട്.",
     selectModule: "വിശകലനം ആരംഭിക്കുന്നതിന് താഴെയുള്ള ഒരു മൊഡ്യൂൾ തിരഞ്ഞെടുക്കുക",
     server: "സെർവർ",
