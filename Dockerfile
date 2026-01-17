@@ -33,8 +33,8 @@ COPY server/. ./
 # Copy built assets from the first stage to the final image
 COPY --from=build-stage /app/dist /app/dist
 
-# Expose port 80 for FastAPI
-EXPOSE 80
+# Expose port 10000 for FastAPI
+EXPOSE 10000
 
 # Run FastAPI using Uvicorn
-CMD ["uv", "run", "fastapi", "run", "app/main.py", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uv", "run", "fastapi", "run", "app/main.py", "--host", "0.0.0.0"]
