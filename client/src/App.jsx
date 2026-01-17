@@ -79,13 +79,45 @@ function App() {
 
   function Home() {
     const { t } = useLanguage()
+    const [displayText, setDisplayText] = useState('');
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [wordIndex, setWordIndex] = useState(0);
+
+    useEffect(() => {
+      const words = ["SCOUT", "സ്കൗട്ട്"];
+      const currentWord = words[wordIndex % words.length];
+      const typeSpeed = isDeleting ? 100 : 200;
+
+      const timer = setTimeout(() => {
+        if (!isDeleting && displayText === currentWord) {
+           setTimeout(() => setIsDeleting(true), 2000);
+           return;
+        }
+
+        if (isDeleting && displayText === '') {
+           setIsDeleting(false);
+           setWordIndex((prev) => prev + 1);
+           return;
+        }
+
+        setDisplayText(prev => {
+           if (isDeleting) return prev.slice(0, -1);
+           return currentWord.slice(0, prev.length + 1);
+        });
+      }, typeSpeed);
+
+      return () => clearTimeout(timer);
+    }, [displayText, isDeleting, wordIndex]);
 
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-16 animate-fade-in-up">
-          <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue mb-6 drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter">
-            {t('appTitle')}
-          </h1>
+          <div className="h-32 mb-6"> {/* Fixed height to prevent layout shift */}
+            <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-mauve via-pink to-blue drop-shadow-[0_4px_10px_rgba(203,166,247,0.3)] tracking-tighter inline-block">
+              {displayText}
+              <span className="w-1 bg-blue inline-block h-24 align-middle ml-1 animate-pulse"></span>
+            </h1>
+          </div>
           <p className="text-2xl font-bold text-subtext0 max-w-2xl mx-auto tracking-wide mb-4">
             {t('appSubtitle')}
           </p>
@@ -206,13 +238,13 @@ function App() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-text mb-2">
-                Disability Knowledge Quiz
+                {t('quizTitle')}
               </h3>
               <p className="text-subtext0 text-sm">
-                Test your knowledge about different types of disabilities
+                {t('quizDesc')}
               </p>
               <div className="mt-4 text-red font-medium text-sm">
-                Start Quiz →
+                {t('startQuiz')}
               </div>
             </div>
           </Link>

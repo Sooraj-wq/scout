@@ -84,7 +84,11 @@ export const translations = {
     elapsedTime: "Elapsed Time",
     finishScore: "Finish & Score",
     accuracyScore: "Accuracy Score",
-    retakeTest: "Retake Test"
+    retakeTest: "Retake Test",
+    // Quiz
+    quizTitle: "Disability Knowledge Quiz",
+    quizDesc: "Test your knowledge about different types of disabilities",
+    startQuiz: "Start Quiz →"
   },
   ml: {
     appTitle: "SCOUT",
@@ -171,6 +175,10 @@ export const translations = {
     elapsedTime: "എടുത്ത സമയം",
     finishScore: "പൂർത്തിയാക്കി സ്കോർ ചെയ്യുക",
     accuracyScore: "കൃത്യത സ്കോർ",
-    retakeTest: "വീണ്ടും ശ്രമിക്കുക"
+    retakeTest: "വീണ്ടും ശ്രമിക്കുക",
+    // Quiz
+    quizTitle: "ഭിന്നശേഷി വിജ്ഞാന ക്വിസ്",
+    quizDesc: "വിവിധ തരം ഭിന്നശേഷികളെക്കുറിച്ചുള്ള നിങ്ങളുടെ അറിവ് പരിശോധിക്കുക",
+    startQuiz: "ക്വിസ് ആരംഭിക്കുക →"
   }
 };
