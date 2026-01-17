@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
-import { logTaskStart } from '../utils/eventLogger';
+import { logTaskStart, logTaskAnswer } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const DotsGroup = ({ count, size = 35, highlight = false }) => {
   // Use useRef to store random state to avoid impure calls
@@ -87,6 +88,7 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
   const [attempts, setAttempts] = useState(0);
   const startTimeRef = useRef(null);
   const { addTaskAttempt, addStressIndicator } = useGameStore();
+  const { t } = useLanguage();
   
   // Use useRef to store random state to avoid impure calls
   const randomRef = useRef(Math.random());
@@ -179,10 +181,10 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
     <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px] mt-8">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
-          Find the same amount
+          {t('dcFindSame')}
         </h2>
         <p className="text-base text-subtext0">
-          Tap the group that matches
+          {t('dcTapMatch')}
         </p>
       </div>
 
@@ -213,13 +215,13 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
 
       {showFeedback && selected === targetCount && (
         <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 border-2 border-green text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
-          <span>✓</span> Perfect match!
+          <span>✓</span> {t('dcPerfect')}
         </div>
       )}
 
       {showFeedback && selected !== targetCount && (
         <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-yellow/20 border-2 border-yellow text-yellow text-xl font-medium animate-[fadeIn_0.3s_ease]">
-          <span>↺</span> Try again!
+          <span>↺</span> {t('dcTryAgainMsg')}
         </div>
       )}
     </div>

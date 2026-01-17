@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
 import { logTaskStart } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const DotsGroup = ({ count, size = 30 }) => {
   const positions = [];
@@ -43,6 +44,7 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
   const [stressDetected, setStressDetected] = useState(false);
   const startTimeRef = useRef(null);
   const { addTaskAttempt, addStressIndicator } = useGameStore();
+  const { t } = useLanguage();
 
   const generateTask = (diff) => {
     let minCount, maxCount;
@@ -141,10 +143,10 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
     }`}>
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
-          Which number matches?
+          {t('dcWhichMatch')}
         </h2>
         <p className="text-base text-subtext0">
-          Tap the number for these dots
+          {t('dcTapNum')}
         </p>
       </div>
 
@@ -175,19 +177,19 @@ export const SymbolTask = ({ difficulty = 1, onComplete }) => {
 
       {stressDetected && (
         <div className="mt-6 px-6 py-3 rounded-[20px] bg-yellow/20 text-yellow text-sm text-center">
-          No worries! Take your time
+          {t('dcNoWorries')}
         </div>
       )}
 
       {showFeedback && selected === targetCount && (
         <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
-          <span>✓</span> Perfect!
+          <span>✓</span> {t('dcPerfectShort')}
         </div>
       )}
 
       {showFeedback && selected !== targetCount && (
         <div className="mt-6 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-yellow/20 text-yellow text-xl font-medium animate-[fadeIn_0.3s_ease]">
-          <span>↺</span> Try again!
+          <span>↺</span> {t('dcTryAgainMsg')}
         </div>
       )}
     </div>

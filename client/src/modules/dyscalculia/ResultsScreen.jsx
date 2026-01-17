@@ -2,9 +2,11 @@
 import { useGameStore } from './state/gameState';
 import { useState, useEffect } from 'react';
 import { getAIAnalysis } from './utils/eventLogger';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const ResultsScreen = ({ onReset }) => {
   const { reset, sessionId, observationAttempts } = useGameStore();
+  const { t } = useLanguage();
   const [showJson, setShowJson] = useState(false);
   const [analysisData, setAnalysisData] = useState(null);
   const [isLoadingAnalysis, setIsLoadingAnalysis] = useState(false);
@@ -43,10 +45,10 @@ export const ResultsScreen = ({ onReset }) => {
   };
 
   const GET_SCORE_LABEL = (s) => {
-    if (s >= 80) return 'Developing Well';
-    if (s >= 60) return 'Growing Steady';
-    if (s >= 40) return 'Needs Support';
-    return 'Benefits from Help';
+    if (s >= 80) return t('dcDevWell');
+    if (s >= 60) return t('dcGrowing');
+    if (s >= 40) return t('dcNeedsSupport');
+    return t('dcBenefits');
   };
 
   // Show loading state while waiting for AI analysis
@@ -56,9 +58,9 @@ export const ResultsScreen = ({ onReset }) => {
         <div className="bg-mantle rounded-3xl p-12 max-w-2xl text-center shadow-material-lg border border-surface0">
           <div className="mb-8">
             <div className="w-20 h-20 mx-auto mb-6 border-4 border-green border-t-transparent rounded-full animate-spin"></div>
-            <h2 className="text-3xl font-bold text-green mb-4">Analyzing Your Results</h2>
+            <h2 className="text-3xl font-bold text-green mb-4">{t('dcAnalyzing')}</h2>
             <p className="text-text text-lg">
-              Processing your cognitive data with AI-powered insights...
+              {t('dcProcessing')}
             </p>
           </div>
           <div className="flex flex-col gap-3 text-left bg-surface0 rounded-2xl p-6">
@@ -66,13 +68,13 @@ export const ResultsScreen = ({ onReset }) => {
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
               </svg>
-              <span>Calculating statistical metrics</span>
+              <span>{t('dcCalculating')}</span>
             </div>
             <div className="flex items-center gap-3 text-peach">
               <svg className="w-6 h-6 animate-spin" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
               </svg>
-              <span>Generating AI analysis</span>
+              <span>{t('dcGenerating')}</span>
             </div>
           </div>
         </div>
@@ -85,9 +87,9 @@ export const ResultsScreen = ({ onReset }) => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] px-8 py-12">
         <div className="bg-mantle rounded-3xl p-8 max-w-2xl shadow-material-lg border border-surface0">
-          <h2 className="text-3xl font-bold text-red mb-4 text-center">Analysis Failed</h2>
+          <h2 className="text-3xl font-bold text-red mb-4 text-center">{t('dcFailed')}</h2>
           <p className="text-lg text-subtext0 text-center mb-6">
-            Unable to get AI analysis
+            {t('dcUnable')}
           </p>
 
           <div className="bg-surface0 rounded-2xl p-6 mb-6">
@@ -95,7 +97,7 @@ export const ResultsScreen = ({ onReset }) => {
               {analysisError}
             </p>
             <p className="text-sm text-subtext0 text-center">
-              Please check your API key configuration and try again.
+              {t('dcCheckKey')}
             </p>
           </div>
 
@@ -103,7 +105,7 @@ export const ResultsScreen = ({ onReset }) => {
             onClick={handleReset}
             className="w-full bg-green hover:bg-teal text-base font-bold py-4 px-8 rounded-full transition-all duration-200 shadow-material hover:shadow-material-lg transform hover:scale-105"
           >
-            Try Again
+            {t('dcTryAgain')}
           </button>
         </div>
       </div>
@@ -120,7 +122,7 @@ export const ResultsScreen = ({ onReset }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[500px] px-8 py-12">
       <div className="bg-mantle rounded-3xl p-8 max-w-4xl w-full shadow-material-lg border border-surface0">
-        <h2 className="text-4xl font-bold text-green mb-8 text-center">Assessment Complete!</h2>
+        <h2 className="text-4xl font-bold text-green mb-8 text-center">{t('dcComplete')}</h2>
         
         {/* Score Display */}
         <div className="bg-surface0 rounded-2xl p-8 mb-6 border border-surface1">
@@ -134,7 +136,7 @@ export const ResultsScreen = ({ onReset }) => {
                 {aiAnalysis.score}
               </span>
               <span className="text-xs text-base">
-                out of 100
+                {t('dcOutOf')}
               </span>
             </div>
           </div>
@@ -173,7 +175,7 @@ export const ResultsScreen = ({ onReset }) => {
             onClick={handleReset}
             className="bg-green hover:bg-teal text-base font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-material hover:shadow-material-lg transform hover:scale-105"
           >
-            Play Again
+            {t('dcPlayAgain')}
           </button>
         </div>
 
@@ -181,7 +183,7 @@ export const ResultsScreen = ({ onReset }) => {
         {showJson && (
           <div className="bg-surface0 rounded-2xl p-6 mb-6 border border-surface1">
             <h3 className="text-xl font-semibold text-text mb-4">
-              AI Analysis Details
+              {t('dcAIDetails')}
             </h3>
             <div className="flex flex-col gap-3">
               {Object.entries(analysisData).map(([key, data]) => (
@@ -194,7 +196,7 @@ export const ResultsScreen = ({ onReset }) => {
                       key === 'error' ? 'text-red' : 'text-green'
                     }`}
                   >
-                    {key === 'error' ? 'API ERROR' : key.replace(/_/g, ' ').toUpperCase()}
+                    {key === 'error' ? t('dcAPIError') : key.replace(/_/g, ' ').toUpperCase()}
                   </summary>
                   <pre 
                     className={`text-xs font-mono mt-3 overflow-auto ${

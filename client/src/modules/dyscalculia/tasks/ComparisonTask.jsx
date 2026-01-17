@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
 import { logTaskStart } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const DotsGroup = ({ count, size = 35 }) => {
   const positions = [];
@@ -42,6 +43,7 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
   const [attempts, setAttempts] = useState(0);
   const startTimeRef = useRef(null);
   const { addTaskAttempt, addStressIndicator } = useGameStore();
+  const { t } = useLanguage();
 
   const generateTask = (diff) => {
     let minCount, maxCount, gap;
@@ -133,10 +135,10 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
     <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-8 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
-          Which has more?
+          {t('dcWhichMore')}
         </h2>
         <p className="text-base text-subtext0">
-          Tap the group with more dots
+          {t('dcTapMore')}
         </p>
       </div>
 
@@ -158,7 +160,7 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
         </button>
 
         <div className="flex flex-col items-center gap-2 text-subtext1 text-sm">
-          <span>or</span>
+          <span>{t('dcOr')}</span>
         </div>
 
         <button
@@ -186,11 +188,11 @@ export const ComparisonTask = ({ difficulty = 1, onComplete }) => {
         }`}>
           {(selected === 'right' && isRightCorrect) || (selected === 'left' && !isRightCorrect) ? (
             <>
-              <span>✓</span> Great job!
+              <span>✓</span> {t('dcGreatJob')}
             </>
           ) : (
             <>
-              <span>↺</span> Try again!
+              <span>↺</span> {t('dcTryAgainMsg')}
             </>
           )}
         </div>

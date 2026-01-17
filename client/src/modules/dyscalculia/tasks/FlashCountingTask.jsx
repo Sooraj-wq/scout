@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
-import { logTaskStart, getFlashDuration } from '../utils/eventLogger';
+import { logTaskStart, logTaskAnswer, getFlashDuration } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const FlashingDot = ({ x, y, size, isFlashing, delay }) => {
   const [visible, setVisible] = useState(false);
@@ -35,6 +36,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
   const [flashDuration, setFlashDuration] = useState(3000);
   const startTimeRef = useRef(null);
   const { addTaskAttempt, addStressIndicator, sessionId } = useGameStore();
+  const { t } = useLanguage();
   
   // Use useRef to store random state to avoid impure calls
   const randomRef = useRef(Math.random());
@@ -199,12 +201,12 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
     <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
-          {isFlashing ? 'Count the flashes...' : 'How many flashes?'}
+          {isFlashing ? t('dcCountFlashes') : t('dcHowManyFlashes')}
         </h2>
         <p className="text-base text-subtext0">
           {isFlashing 
-            ? `Pay attention! (${(flashDuration / 1000).toFixed(1)} seconds)`
-            : 'Type the number you saw'
+            ? `${t('dcPayAttention')} (${(flashDuration / 1000).toFixed(1)} ${t('dcSeconds')})`
+            : t('dcTypeNumber')
           }
         </p>
       </div>
@@ -243,7 +245,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
               dominantBaseline="middle"
               className="text-sm text-subtext0"
             >
-              {!showFeedback && 'Waiting for you to start...'}
+              {!showFeedback && t('dcWaiting')}
             </text>
           )}
         </svg>
@@ -256,7 +258,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
               type="number"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Enter number"
+              placeholder={t('dcEnterNum')}
               disabled={showFeedback}
               className="px-5 py-3 rounded-2xl border-2 border-surface1 glass-card text-text text-base w-[150px] text-center"
             />
@@ -269,7 +271,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
                   : 'border-blue bg-transparent text-blue cursor-default'
               }`}
             >
-              Submit
+              {t('dcSubmit')}
             </button>
           </form>
 
@@ -278,7 +280,7 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
               onClick={startFlashing}
               className="px-6 py-3 rounded-2xl border-2 border-green bg-transparent text-green text-sm font-medium cursor-pointer transition-all duration-300 hover:bg-green/10"
             >
-              Start Flashing
+              {t('dcStartFlash')}
             </button>
           )}
         </div>
@@ -294,12 +296,12 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
           {parseInt(inputValue, 10) === targetCount 
             ? (
             <>
-              <span>✓</span> Great job!
+              <span>✓</span> {t('dcGreatJob')}
             </>
 
             ) : (
             <>
-              <span>↺</span> Try again!
+              <span>↺</span> {t('dcTryAgainMsg')}
             </>
             )
           }

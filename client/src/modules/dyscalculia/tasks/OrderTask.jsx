@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
 import { logTaskStart } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const DraggableNumber = ({ number, isPlaced, onDragStart }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -64,6 +65,7 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
   const [errorCount, setErrorCount] = useState(0);
   const startTimeRef = useRef(null);
   const { addTaskAttempt, addStressIndicator } = useGameStore();
+  const { t } = useLanguage();
 
   const generateTask = (diff) => {
     let count, start;
@@ -163,10 +165,10 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
     <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-normal text-text mb-2">
-          Put them in order
+          {t('dcOrder')}
         </h2>
         <p className="text-base text-subtext0">
-          Drag the numbers from smallest to largest
+          {t('dcDragOrder')}
         </p>
       </div>
 
@@ -194,7 +196,7 @@ export const OrderTask = ({ difficulty = 1, onComplete }) => {
 
       {showSuccess && (
         <div className="mt-8 flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
-          <span>✓</span> All in order!
+          <span>✓</span> {t('dcAllOrder')}
         </div>
       )}
 

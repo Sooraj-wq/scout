@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
 import { logEvent } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const Dots = ({ count, size = 40, color = '#a6e3a1' }) => {
   const positions = [];
@@ -82,6 +83,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
   const [interactions, setInteractions] = useState(0);
   const startTimeRef = useRef(null);
   const { recordExposure } = useGameStore();
+  const { t } = useLanguage();
 
   useEffect(() => {
     startTimeRef.current = Date.now();
@@ -143,10 +145,10 @@ export const WarmupFreePlay = ({ onComplete }) => {
     >
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-green mb-3">
-          Let's play with numbers!
+          {t('dcLetsPlay')}
         </h2>
         <p className="text-lg text-subtext0">
-          Tap to see more, or choose below
+          {t('dcTapSee')}
         </p>
       </div>
 
@@ -197,7 +199,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
               : 'glass-card text-text border-2 border-transparent hover:border-surface2'
           }`}
         >
-          Dots
+          {t('dcDots')}
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); handleRepresentationChange('stars'); }}
@@ -207,7 +209,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
               : 'glass-card text-text border-2 border-transparent hover:border-surface2'
           }`}
         >
-          Stars
+          {t('dcStars')}
         </button>
       </div>
 
@@ -215,7 +217,7 @@ export const WarmupFreePlay = ({ onComplete }) => {
         onClick={(e) => { e.stopPropagation(); handleContinue(); }}
         className="px-12 py-4 rounded-full border-none bg-green hover:bg-teal text-base text-lg font-bold cursor-pointer transition-all duration-200 shadow-material hover:shadow-material-lg transform hover:scale-105"
       >
-        Ready to play! →
+        {t('dcReady')}
       </button>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
 import { logEvent } from '../utils/eventLogger';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const DotsGroup = ({ count, size = 30 }) => {
   const positions = [];
@@ -39,6 +40,7 @@ export const WarmupComparison = ({ onComplete }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const startTimeRef = useRef(null);
   const { recordExposure } = useGameStore();
+  const { t } = useLanguage();
   
   const leftCount = 1;
   const rightCount = 3;
@@ -92,10 +94,10 @@ export const WarmupComparison = ({ onComplete }) => {
     <div className="flex flex-col items-center justify-center min-h-full p-6 glass rounded-[28px]">
       <div className="mb-8 text-center">
         <h2 className="text-[28px] font-normal text-text mb-2">
-          Which has more?
+          {t('dcWhichMore')}
         </h2>
         <p className="text-lg text-subtext0">
-          Tap the group with more dots
+          {t('dcTapMore')}
         </p>
       </div>
 
@@ -114,7 +116,7 @@ export const WarmupComparison = ({ onComplete }) => {
         </button>
 
         <div className="flex items-center text-subtext1 text-2xl">
-          or
+          {t('dcOr')}
         </div>
 
         <button
@@ -133,13 +135,13 @@ export const WarmupComparison = ({ onComplete }) => {
 
       {showSuccess && (
         <div className="flex items-center gap-3 px-8 py-4 rounded-[28px] bg-green/20 text-green text-xl font-medium animate-[fadeIn_0.3s_ease]">
-          <span>✓</span> Great job!
+          <span>✓</span> {t('dcGreatJob')}
         </div>
       )}
 
       {!showSuccess && selected !== null && (
         <div className="flex items-center gap-3 px-8 py-4 rounded-[28px] bg-yellow/20 text-yellow text-xl font-medium">
-          <span>Try again!</span>
+          <span>{t('dcTryAgainMsg')}</span>
         </div>
       )}
 
