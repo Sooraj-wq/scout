@@ -1,9 +1,9 @@
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-from typing import List
-from google import genai
-import os
 import json
+from typing import List
+
+from fastapi import APIRouter, HTTPException
+from google import genai
+from pydantic import BaseModel
 
 router = APIRouter()
 
@@ -115,7 +115,7 @@ Return ONLY a valid JSON array with this exact structure, no additional text:
 Make questions educational and promote understanding of disabilities. Include a mix of yes and no answers."""
 
         response = await client.aio.models.generate_content(
-            model="gemini-2.0-flash-exp", contents=prompt
+            model="gemini-2.5-flash", contents=prompt
         )
 
         # Extract JSON from response
