@@ -9,7 +9,7 @@ from typing import Any, Dict, Optional
 
 import httpx
 from google import genai
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AIAnalysisRequest(BaseModel):
@@ -32,7 +32,18 @@ class AIAnalysisResponse(BaseModel):
     pattern: str
     confidence: float
     score: int
-    sub_scores: Dict[str, float]
+    sub_scores: dict[str, float]
+    reasoning: str
+    interpretation: str
+
+
+class GeminiAIAnalysisResponse(BaseModel):
+    pattern: str
+    confidence: float
+    score: int
+    sub_scores: str = Field(
+        ..., description="A json encoded object of each game and its score"
+    )
     reasoning: str
     interpretation: str
 
@@ -168,7 +179,7 @@ async def call_groq_api(prompt: str) -> Dict[str, Any]:
             raise Exception(f"Invalid JSON in Groq response: {str(e)}")
 
 
-async def call_gemini_api(prompt: str) -> Dict[str, Any]:
+async def call_gemini_api(prompt: str) -> AIAnalysisResponse:
     """Call Gemini API with timeout"""
     try:
         client = genai.Client().aio
@@ -178,14 +189,22 @@ async def call_gemini_api(prompt: str) -> Dict[str, Any]:
             contents=[prompt],
             config=genai.types.GenerateContentConfig(
                 temperature=0.3,
+                response_mime_type="application/json",
+                response_schema=GeminiAIAnalysisResponse,
             ),
         )
 
         if not response or not response.text:
             raise Exception("Failed to generate with Gemini")
 
-        return json.loads(response.text)
-    except json.JSONDecodeError as e:
+        print(f"Gemini response: {response}")
+
+        result = GeminiAIAnalysisResponse.model_validate_json(response.text)
+        result = result.dict()
+        result["sub_scores"] = json.loads(result["sub_scores"])
+        result = AIAnalysisResponse(**result)
+        return result
+    except Exception as e:
         raise Exception(f"Invalid JSON in Gemini response: {str(e)}")
 
 
@@ -216,7 +235,7 @@ async def get_ai_analysis(session_data: Dict[str, Any]) -> AIAnalysisResponse:
             print("Attempting Gemini API call...")
             result = await call_gemini_api(prompt)
             print("Gemini API call successful")
-            return AIAnalysisResponse(**result)
+            return result
         except Exception as e:
             print(f"Gemini API failed: {str(e)}")
     else:

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
-import { logTaskStart, logTaskAnswer } from '../utils/eventLogger';
+import { logTaskStart } from '../utils/eventLogger';
 
 const DotsGroup = ({ count, size = 35, highlight = false }) => {
   // Use useRef to store random state to avoid impure calls
@@ -156,7 +156,6 @@ export const QuantityTask = ({ difficulty = 1, onComplete }) => {
     };
 
     addTaskAttempt(attemptData);
-    logTaskAnswer(attemptData);
 
     if (isCorrect) {
       setShowFeedback(true);

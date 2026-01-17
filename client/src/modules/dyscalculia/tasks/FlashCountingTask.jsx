@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '../state/gameState';
-import { logTaskStart, logTaskAnswer, getFlashDuration } from '../utils/eventLogger';
+import { logTaskStart, getFlashDuration } from '../utils/eventLogger';
 
 const FlashingDot = ({ x, y, size, isFlashing, delay }) => {
   const [visible, setVisible] = useState(false);
@@ -132,7 +132,6 @@ export const FlashCountingTask = ({ difficulty = 1, onComplete }) => {
     };
 
     addTaskAttempt(attemptData);
-    logTaskAnswer(attemptData);
 
     if (isCorrect) {
       setTimeout(() => {

@@ -104,7 +104,10 @@ export const useGameStore = create((set, get) => ({
 
   addTaskAttempt: (attempt) => {
     const state = get();
-    console.log('addTaskAttempt called, sessionId:', state.sessionId);
+    const currentSessionId = state.sessionId;
+    console.log('addTaskAttempt called, sessionId:', currentSessionId);
+    console.log('Full state:', { phase: state.phase, difficulty: state.difficulty });
+    
     const taskAttempt = {
       task_type: attempt.taskType,
       correct: attempt.correct,
@@ -118,7 +121,9 @@ export const useGameStore = create((set, get) => ({
     };
 
     // Send to backend with sessionId in URL
-    logTaskAttempt({ ...taskAttempt, sessionId: state.sessionId });
+    const attemptWithSession = { ...taskAttempt, sessionId: currentSessionId };
+    console.log('Calling logTaskAttempt with:', attemptWithSession);
+    logTaskAttempt(attemptWithSession);
 
     set({
       taskHistory: [...state.taskHistory, taskAttempt],

@@ -19,7 +19,17 @@ export const logEvent = (eventData) => {
 export const logTaskAttempt = async (attemptData) => {
   try {
     const { sessionId, ...attemptWithoutSession } = attemptData;
-    await fetch(`${API_BASE}/sessions/${sessionId}/attempts`, {
+    console.log('logTaskAttempt - sessionId:', sessionId, 'attemptData:', attemptData);
+    
+    if (!sessionId) {
+      console.error('Session ID is missing in attemptData:', attemptData);
+      return;
+    }
+    
+    const url = `${API_BASE}/sessions/${sessionId}/attempts`;
+    console.log('Posting to URL:', url);
+    
+    await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(attemptWithoutSession)
